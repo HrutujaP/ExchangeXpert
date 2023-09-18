@@ -1,3 +1,4 @@
+import 'package:exchange_xpert/Screens/Home%20Screen/homeScreen.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/loginScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,11 @@ class MyApp extends StatelessWidget {
         colorScheme: const ColorScheme.light(),
         useMaterial3: true,
       ),
+      routes: {
+        LoginScreen.id: (context) => const LoginScreen(),
+        HomeScreen.id: (context) => const HomeScreen(),
+      },
+      initialRoute: HomeScreen.id,
       home: const LoginScreen(),
     );
   }
