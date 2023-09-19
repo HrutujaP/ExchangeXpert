@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => const LoginScreen(),
         HomeScreen.id: (context) => const HomeScreen(),
       },
-      initialRoute: HomeScreen.id,
+      initialRoute: LoginScreen.id,
       home: const LoginScreen(),
     );
   }
