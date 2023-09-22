@@ -20,7 +20,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    Timer.periodic(Duration(seconds: 5), (timer) {
+    Timer.periodic(const Duration(seconds: 5), (timer) {
       setState(() {
         containerAnimation = !containerAnimation;
         // _isVisible = !_isVisible;
@@ -44,7 +44,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             children: [
               Visibility(
                 visible: _isVisible,
-                replacement: Center(),
+                replacement: const Center(),
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: Material(
@@ -68,12 +68,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 MediaQuery.of(context).size.width / 3),
                             bottomRight: Radius.circular(
                                 MediaQuery.of(context).size.width / 3)),
-                        color: containerAnimation == true
-                            ? kPrimaryColor
-                            : kSecondaryColor,
+                        // color: containerAnimation == true
+                        //     ? kPrimaryColor
+                        //     : kSecondaryColor,
+                        color: kLightThemeColor,
                         shape: BoxShape.rectangle,
                       ),
-                      duration: Duration(
+                      duration: const Duration(
                         seconds: 5,
                       ),
                     ),
@@ -84,7 +85,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 alignment: Alignment.centerRight,
                 child: Visibility(
                   visible: _isVisible,
-                  replacement: Center(),
+                  replacement: const Center(),
                   child: Material(
                     elevation: 10,
                     borderRadius: BorderRadius.only(
@@ -93,7 +94,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         topLeft: Radius.circular(
                             MediaQuery.of(context).size.width / 2)),
                     child: AnimatedContainer(
-                      duration: Duration(
+                      duration: const Duration(
                         seconds: 5,
                       ),
                       height: containerAnimation
@@ -108,9 +109,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 MediaQuery.of(context).size.width / 2),
                             topLeft: Radius.circular(
                                 MediaQuery.of(context).size.width / 2)),
-                        color: containerAnimation
-                            ? kPrimaryColor1
-                            : kSecondaryColor,
+                        // color: containerAnimation
+                        //     ? kPrimaryColor1
+                        //     : kSecondaryColor,
+                        color: kLightThemeColor,
                         shape: BoxShape.rectangle,
                       ),
                     ),
@@ -121,7 +123,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 alignment: Alignment.bottomLeft,
                 child: Visibility(
                   visible: _isVisible,
-                  replacement: Center(),
+                  replacement: const Center(),
                   child: Material(
                     elevation: 10,
                     borderRadius: BorderRadius.only(
@@ -131,7 +133,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           MediaQuery.of(context).size.width / 3),
                     ),
                     child: AnimatedContainer(
-                      duration: Duration(
+                      duration: const Duration(
                         seconds: 5,
                       ),
                       height: containerAnimation == false
@@ -146,199 +148,25 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 MediaQuery.of(context).size.width / 3),
                             bottomRight: Radius.circular(
                                 MediaQuery.of(context).size.width / 3)),
-                        color: containerAnimation
-                            ? kSecondaryColor
-                            : kSecondaryColor1,
+                        // color: containerAnimation
+                        //     ? kSecondaryColor
+                        //     : kSecondaryColor1,
+                        color: kLightThemeColor,
                         shape: BoxShape.rectangle,
                       ),
                     ),
                   ),
                 ),
               ),
-              Column(
-                mainAxisAlignment: _isVisible == true
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.start,
-                children: [
-                  appInfo(),
-                  _isVisible == false
-                      ? SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Text(
-                                "Welcome",
-                              ),
-                              Text(
-                                "Let's get started!",
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 16),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(40),
-                                    ),
-                                    labelText: 'Mobile Number',
-                                  ),
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {},
-                                child: Text("Send Otp"),
-                              ),
-                              TextButton(
-                                onPressed: () {},
-                                child: Text("Validate"),
-                              ),
-                              Text(
-                                "or",
-                              ),
-                              Text(
-                                "Continue with",
-                              ),
-                            ],
-                          ),
-                        )
-                      : Center(),
-                ],
+
+              appInfo(
+                isVisible: _isVisible,
               ),
+              // const Login(),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class appInfo extends StatelessWidget {
-  const appInfo({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: _isVisible == true
-          ? MainAxisAlignment.center
-          : MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Image(
-          image: AssetImage("assets/Images/logo.png"),
-          height: 125,
-          width: 125,
-        ),
-        Text(
-          "ExchangeXpert",
-          style: TextStyle(
-            fontSize: 28,
-            letterSpacing: 2,
-            fontWeight: FontWeight.bold,
-            color: kSubSecondaryColor,
-            decoration: TextDecoration.none,
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(),
-                padding: const EdgeInsets.all(24),
-                shadowColor: kSecondaryColor1,
-                backgroundColor: kSubPrimaryColor,
-              ),
-              child: const Text(
-                "€",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: kSubSecondaryColor,
-                ),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(),
-                padding: const EdgeInsets.all(24),
-                shadowColor: kSecondaryColor1,
-                backgroundColor: kSubPrimaryColor,
-              ),
-              child: const Text(
-                " £",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: kSubSecondaryColor,
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(),
-                padding: const EdgeInsets.all(24),
-                shadowColor: kSecondaryColor1,
-                backgroundColor: kSubPrimaryColor,
-              ),
-              child: const Text(
-                "¥",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: kSubSecondaryColor,
-                ),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(),
-                padding: const EdgeInsets.all(24),
-                shadowColor: kSecondaryColor1,
-                backgroundColor: kSubPrimaryColor,
-              ),
-              child: const Text(
-                "₹",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: kSubSecondaryColor,
-                ),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(),
-                padding: const EdgeInsets.all(24),
-                shadowColor: kSecondaryColor1,
-                backgroundColor: kSubPrimaryColor,
-              ),
-              child: const Text(
-                " د.إ",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: kSubSecondaryColor,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }

@@ -6,6 +6,8 @@ const Color kPrimaryColor1 = Color(0xFF0A98A8);
 const Color kSecondaryColor = Color(0xFF09B7CA);
 const Color kSecondaryColor1 = Color(0xFF0190BD);
 const Color kSubSecondaryColor = Color(0xFF00436d);
+const Color kLightThemeColor = Colors.white;
+const Color kDarkThemeColor = Colors.black;
 
 const Map<String, String> countryCodes = {
   "AED": "United Arab Emirates Dirham",

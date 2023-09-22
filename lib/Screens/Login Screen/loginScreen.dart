@@ -45,3 +45,65 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
+
+// class Login extends StatelessWidget {
+//   const Login({
+//     super.key,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       mainAxisAlignment: _isVisible == true
+//           ? MainAxisAlignment.center
+//           : MainAxisAlignment.start,
+//       children: [
+//         const appInfo(),
+//         _isVisible == false
+//             ? SingleChildScrollView(
+//                 child: Column(
+//                   children: [
+//                     const Text(
+//                       "Welcome",
+//                     ),
+//                     const Text(
+//                       "Let's get started!",
+//                     ),
+//                     Padding(
+//                       padding: const EdgeInsets.symmetric(
+//                           horizontal: 8, vertical: 16),
+//                       child: TextFormField(
+//                         keyboardType: TextInputType.number,
+//                         decoration: InputDecoration(
+//                           border: OutlineInputBorder(
+//                             borderRadius: BorderRadius.circular(40),
+//                           ),
+//                           labelText: 'Mobile Number',
+//                         ),
+//                       ),
+//                     ),
+//                     TextButton(
+//                       onPressed: () {},
+//                       child: const Text("Send Otp"),
+//                     ),
+//                     TextButton(
+//                       onPressed: () {},
+//                       child: const Text("Validate"),
+//                     ),
+//                     const Text(
+//                       "or",
+//                     ),
+//                     const Text(
+//                       "Continue with",
+//                     ),
+//                   ],
+//                 ),
+//               )
+//             : const Center(),
+//       ],
+//     );
+//   }
+// }
+
+
