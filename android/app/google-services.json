@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "810279860405",
+    "project_id": "exchangexpert-90518",
+    "storage_bucket": "exchangexpert-90518.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810279860405:android:3eb412e663365c9f6526fc",
+        "android_client_info": {
+          "package_name": "com.example.exchange_xpert"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8EaMzJIn0kCcYpZiP1OYdoMRWtazFJTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,12 +1,21 @@
-com.example.exchange_xpert.app-jetified-window-1.0.0-beta04-0 C:\Users\User\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\res
-com.example.exchange_xpert.app-jetified-annotation-experimental-1.1.0-1 C:\Users\User\.gradle\caches\transforms-3\6c0c163cc77ae6c91f9f7dfcd179c29c\transformed\jetified-annotation-experimental-1.1.0\res
-com.example.exchange_xpert.app-core-1.6.0-2 C:\Users\User\.gradle\caches\transforms-3\7e9df2ac2213a6bd3cef0f2f27870d79\transformed\core-1.6.0\res
-com.example.exchange_xpert.app-jetified-window-java-1.0.0-beta04-3 C:\Users\User\.gradle\caches\transforms-3\ae81e06d24c799147c26814497a2a305\transformed\jetified-window-java-1.0.0-beta04\res
-com.example.exchange_xpert.app-debug-4 D:\Flutter Projects\ExchangeXpert\android\app\src\debug\res
-com.example.exchange_xpert.app-main-5 D:\Flutter Projects\ExchangeXpert\android\app\src\main\res
-com.example.exchange_xpert.app-pngs-6 D:\Flutter Projects\ExchangeXpert\build\app\generated\res\pngs\debug
-com.example.exchange_xpert.app-resValues-7 D:\Flutter Projects\ExchangeXpert\build\app\generated\res\resValues\debug
-com.example.exchange_xpert.app-rs-8 D:\Flutter Projects\ExchangeXpert\build\app\generated\res\rs\debug
-com.example.exchange_xpert.app-mergeDebugResources-9 D:\Flutter Projects\ExchangeXpert\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
-com.example.exchange_xpert.app-mergeDebugResources-10 D:\Flutter Projects\ExchangeXpert\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
-com.example.exchange_xpert.app-merged_res-11 D:\Flutter Projects\ExchangeXpert\build\app\intermediates\merged_res\debug
+com.example.exchange_xpert.app-jetified-window-java-1.0.0-beta04-0 C:\Users\User\.gradle\caches\transforms-3\29517b5ba912f9689907c39dbb352d3a\transformed\jetified-window-java-1.0.0-beta04\res
+com.example.exchange_xpert.app-jetified-window-1.0.0-beta04-1 C:\Users\User\.gradle\caches\transforms-3\43bc8ed9b6db7f25db0bc2b571e801e5\transformed\jetified-window-1.0.0-beta04\res
+com.example.exchange_xpert.app-jetified-play-services-basement-18.1.0-2 C:\Users\User\.gradle\caches\transforms-3\4ef8e7d9a60cff636871604cf50e4184\transformed\jetified-play-services-basement-18.1.0\res
+com.example.exchange_xpert.app-core-1.6.0-3 C:\Users\User\.gradle\caches\transforms-3\6d3237bc319e7b967918f32c402a8d45\transformed\core-1.6.0\res
+com.example.exchange_xpert.app-jetified-play-services-base-18.0.1-4 C:\Users\User\.gradle\caches\transforms-3\7978d9ef3b332cd80992fa56b50f7f56\transformed\jetified-play-services-base-18.0.1\res
+com.example.exchange_xpert.app-jetified-firebase-common-20.3.3-5 C:\Users\User\.gradle\caches\transforms-3\cdee480617d8040e445d3cb851e491ba\transformed\jetified-firebase-common-20.3.3\res
+com.example.exchange_xpert.app-browser-1.4.0-6 C:\Users\User\.gradle\caches\transforms-3\edd438d16af8eae546fab1532b698888\transformed\browser-1.4.0\res
+com.example.exchange_xpert.app-jetified-annotation-experimental-1.1.0-7 C:\Users\User\.gradle\caches\transforms-3\f0ced427c4d770421a04aafb9ab9aa25\transformed\jetified-annotation-experimental-1.1.0\res
+com.example.exchange_xpert.app-debug-8 D:\Flutter Projects\ExchangeXpert\android\app\src\debug\res
+com.example.exchange_xpert.app-main-9 D:\Flutter Projects\ExchangeXpert\android\app\src\main\res
+com.example.exchange_xpert.app-google-services-10 D:\Flutter Projects\ExchangeXpert\build\app\generated\res\google-services\debug
+com.example.exchange_xpert.app-pngs-11 D:\Flutter Projects\ExchangeXpert\build\app\generated\res\pngs\debug
+com.example.exchange_xpert.app-resValues-12 D:\Flutter Projects\ExchangeXpert\build\app\generated\res\resValues\debug
+com.example.exchange_xpert.app-rs-13 D:\Flutter Projects\ExchangeXpert\build\app\generated\res\rs\debug
+com.example.exchange_xpert.app-mergeDebugResources-14 D:\Flutter Projects\ExchangeXpert\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.exchange_xpert.app-mergeDebugResources-15 D:\Flutter Projects\ExchangeXpert\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.exchange_xpert.app-merged_res-16 D:\Flutter Projects\ExchangeXpert\build\app\intermediates\merged_res\debug
+com.example.exchange_xpert.app-packaged_res-17 D:\Flutter Projects\ExchangeXpert\build\cloud_firestore\intermediates\packaged_res\debug
+com.example.exchange_xpert.app-packaged_res-18 D:\Flutter Projects\ExchangeXpert\build\firebase_auth\intermediates\packaged_res\debug
+com.example.exchange_xpert.app-packaged_res-19 D:\Flutter Projects\ExchangeXpert\build\firebase_core\intermediates\packaged_res\debug
+com.example.exchange_xpert.app-packaged_res-20 D:\Flutter Projects\ExchangeXpert\build\firebase_storage\intermediates\packaged_res\debug
