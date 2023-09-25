@@ -1,3 +1,5 @@
+import 'package:exchange_xpert/Screens/Home%20Screen/components/lineChart.dart';
+
 import '../../Constants/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Row(  
                     children: [CurrencyMenu(), Spacer(), CurrencyMenu()],
-                  )
+                  ),
+                  LineChartSample2(),
                 ],
               )),
         ),
