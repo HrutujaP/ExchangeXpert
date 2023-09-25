@@ -4,14 +4,13 @@ import 'package:exchange_xpert/Screens/WelcomeScreen/welcomeScreen.dart';
 import 'package:exchange_xpert/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  // final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   // _firestore.collection('Login Credentials').doc('Combination 1').set({
   //   "Email": "abc@gmail.com",
   //   "Password": "12345678",
@@ -38,8 +37,8 @@ class MyApp extends StatelessWidget {
         HomeScreen.id: (context) => const HomeScreen(),
         WelcomeScreen.id: (context) => const WelcomeScreen(),
       },
-      // initialRoute: WelcomeScreen.id,
-      initialRoute: HomeScreen.id,
+      initialRoute: WelcomeScreen.id,
+      // initialRoute: HomeScreen.id,
       home: const WelcomeScreen(),
     );
   }

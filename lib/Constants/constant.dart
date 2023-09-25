@@ -9,6 +9,79 @@ const Color kSubSecondaryColor = Color(0xFF00436d);
 const Color kLightThemeColor = Colors.white;
 const Color kDarkThemeColor = Colors.black;
 
+const InputDecoration kTextFieldDecoration = InputDecoration(
+  prefixText: ' ',
+  filled: true,
+  enabledBorder: const OutlineInputBorder(
+    borderSide: BorderSide(
+      color: kSecondaryColor,
+    ),
+    borderRadius: BorderRadius.all(
+      Radius.circular(40),
+    ),
+  ),
+  focusedBorder: const OutlineInputBorder(
+    borderSide: BorderSide(
+      color: kPrimaryColor1,
+    ),
+    borderRadius: BorderRadius.all(
+      Radius.circular(40),
+    ),
+  ),
+  border: const OutlineInputBorder(
+    borderSide: BorderSide(
+      color: kSecondaryColor,
+    ),
+    borderRadius: BorderRadius.all(
+      Radius.circular(40),
+    ),
+  ),
+   
+);
+
+// InputDecoration kTextFieldDecoration(
+//     String hintText, String labelText, Icon prefixIcon, Icon suffixIcon) {
+//   return InputDecoration(
+//     filled: true,
+//     enabledBorder: const OutlineInputBorder(
+//       borderSide: BorderSide(
+//         color: kSecondaryColor,
+//       ),
+//       borderRadius: BorderRadius.all(
+//         Radius.circular(40),
+//       ),
+//     ),
+//     focusedBorder: const OutlineInputBorder(
+//       borderSide: BorderSide(
+//         color: kPrimaryColor1,
+//       ),
+//       borderRadius: BorderRadius.all(
+//         Radius.circular(40),
+//       ),
+//     ),
+//     border: const OutlineInputBorder(
+//       borderSide: BorderSide(
+//         color: kSecondaryColor,
+//       ),
+//       borderRadius: BorderRadius.all(
+//         Radius.circular(40),
+//       ),
+//     ),
+//     hintText: hintText,
+//     fillColor: kSubPrimaryColor.withOpacity(0.2),
+//     labelText: labelText,
+//     labelStyle: const TextStyle(
+//       color: kSubSecondaryColor,
+//     ),
+
+//     prefixIcon: prefixIcon,
+//     suffixIcon: suffixIcon,
+//     prefixText: ' ',
+//     // suffixText: 'USD',
+//     // suffixStyle: const TextStyle(color: Colors.green)
+//   );
+// }
+
 const Map<String, String> countryCodes = {
   "AED": "United Arab Emirates Dirham",
   "AFN": "Afghan Afghani",
