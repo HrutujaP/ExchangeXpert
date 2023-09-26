@@ -9,8 +9,22 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool containerAnimation = true;
+  bool containerAnimation = false;
   bool _isHidden = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    setState(() {
+      Future.delayed(const Duration(seconds: 2), () {
+        setState(() {
+          containerAnimation = true;
+        });
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -19,123 +33,314 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: [
               // appInfo(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              Align(
+                alignment: Alignment.center,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Stack(
+                      children: [
+                        Center(
+                          child: Material(
+                              elevation: 10,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(130),
+                              ),
+                              child: AnimatedContainer(
+                                duration: const Duration(
+                                  seconds: 5,
+                                ),
+                                height: 130,
+                                width: 130,
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(130),
+                                  ),
+                                  color: kLightThemeColor,
+                                  shape: BoxShape.rectangle,
+                                ),
+                              )),
+                        ),
+                        const Center(
+                          child: Image(
+                            image: AssetImage("assets/Images/logo.png"),
+                            height: 125,
+                            width: 125,
+                          ),
+                        ),
+                      ],
+                    ),
                     const Text(
-                      "Welcome",
+                      "ExchangeXpert",
                       style: TextStyle(
-                        color: kSubSecondaryColor,
-                        fontSize: 24,
+                        fontSize: 28,
+                        letterSpacing: 2,
                         fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const Text(
-                      "Let's get started!",
-                      style: TextStyle(
                         color: kSubSecondaryColor,
-                        fontSize: 18,
-                        // fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.none,
                       ),
                     ),
-                    SizedBox(
-                      height: 60,
-                      width: MediaQuery.of(context).size.width / 1.1,
-                      child: TextField(
-                        cursorColor: kPrimaryColor1,
-                        keyboardType: TextInputType.number,
-                        style: const TextStyle(
-                          color: kSecondaryColor1,
-                          fontSize: 18,
+                  ],
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(24),
+                          shadowColor: kDarkThemeColor,
+                          backgroundColor: kLightThemeColor,
+                          surfaceTintColor: kSecondaryColor1,
+                          elevation: 10,
                         ),
-                        decoration: kTextFieldDecoration.copyWith(
-                          fillColor: kSubPrimaryColor.withOpacity(0.2),
-                          hintText: "Enter your phone number",
-                          labelText: "Mobile Number",
-                          labelStyle: const TextStyle(
+                        child: const Text(
+                          "€",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
                             color: kSubSecondaryColor,
-                          ),
-                          prefixIcon: const Icon(
-                            Icons.phone,
-                            color: kPrimaryColor1,
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 60,
-                      width: MediaQuery.of(context).size.width / 1.1,
-                      child: TextField(
-                        cursorColor: kPrimaryColor1,
-                        keyboardType: TextInputType.text,
-                        style: const TextStyle(
-                          color: kSecondaryColor1,
-                          fontSize: 18,
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(24),
+                          shadowColor: kDarkThemeColor,
+                          backgroundColor: kLightThemeColor,
+                          surfaceTintColor: kSecondaryColor1,
+                          elevation: 10,
                         ),
-                        decoration: kTextFieldDecoration.copyWith(
-                          fillColor: kSubPrimaryColor.withOpacity(0.2),
-                          hintText: "Enter your password",
-                          labelText: "Password",
-                          labelStyle: const TextStyle(
+                        child: const Text(
+                          " £",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
                             color: kSubSecondaryColor,
                           ),
-                          prefixIcon: const Icon(
-                            Icons.lock,
-                            color: kPrimaryColor1,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(24),
+                          shadowColor: kDarkThemeColor,
+                          backgroundColor: kLightThemeColor,
+                          surfaceTintColor: kSecondaryColor1,
+                          elevation: 10,
+                        ),
+                        child: const Text(
+                          "¥",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: kSubSecondaryColor,
                           ),
-                          suffixIcon: InkWell(
-                            radius: BorderSide.strokeAlignCenter,
-                            onTap: () {
-                              setState(() {
-                                _isHidden = !_isHidden;
-                              });
-                            },
-                            child: Icon(
-                              _isHidden
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: kPrimaryColor1,
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(24),
+                          shadowColor: kDarkThemeColor,
+                          backgroundColor: kLightThemeColor,
+                          surfaceTintColor: kSecondaryColor1,
+                          elevation: 10,
+                        ),
+                        child: const Text(
+                          "₹",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: kSubSecondaryColor,
+                          ),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(24),
+                          shadowColor: kDarkThemeColor,
+                          foregroundColor: kLightThemeColor,
+                          backgroundColor: kLightThemeColor,
+                          surfaceTintColor: kSecondaryColor1,
+                          elevation: 10,
+                        ),
+                        child: Text(
+                          " د.إ",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: kSubSecondaryColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+              AnimatedOpacity(
+                opacity: containerAnimation == false ? 0 : 1,
+                duration: const Duration(
+                  seconds: 5,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          left: 8,
+                        ),
+                        child: Text(
+                          "Welcome",
+                          style: TextStyle(
+                            color: kSubSecondaryColor,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          left: 8,
+                        ),
+                        child: Text(
+                          "Let's get started!",
+                          style: TextStyle(
+                            color: kSubSecondaryColor,
+                            fontSize: 18,
+                            // fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          height: 60,
+                          width: MediaQuery.of(context).size.width / 1.1,
+                          child: TextField(
+                            cursorColor: kPrimaryColor1,
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(
+                              color: kSecondaryColor1,
+                              fontSize: 18,
+                            ),
+                            decoration: kTextFieldDecoration.copyWith(
+                              fillColor: kSubPrimaryColor.withOpacity(0.2),
+                              hintText: "Enter your phone number",
+                              labelText: "Mobile Number",
+                              labelStyle: const TextStyle(
+                                color: kSubSecondaryColor,
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.phone,
+                                color: kPrimaryColor1,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text("Forgot Password?",
-                          style: TextStyle(
-                            color: kPrimaryColor1,
-                          )),
-                    ),
-                    SizedBox(
-                      width: 200,
-                      height: 50,
-                      child: TextButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            kSubSecondaryColor,
-                          ),
-                        ),
-                        child: const Text(
-                          "Sign In",
-                          style: TextStyle(
-                            color: kSubPrimaryColor,
-                            fontSize: 18,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          height: 60,
+                          width: MediaQuery.of(context).size.width / 1.1,
+                          child: TextField(
+                            cursorColor: kPrimaryColor1,
+                            keyboardType: TextInputType.text,
+                            style: const TextStyle(
+                              color: kSecondaryColor1,
+                              fontSize: 18,
+                            ),
+                            decoration: kTextFieldDecoration.copyWith(
+                              fillColor: kSubPrimaryColor.withOpacity(0.2),
+                              hintText: "Enter your password",
+                              labelText: "Password",
+                              labelStyle: const TextStyle(
+                                color: kSubSecondaryColor,
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.lock,
+                                color: kPrimaryColor1,
+                              ),
+                              suffixIcon: InkWell(
+                                radius: BorderSide.strokeAlignCenter,
+                                onTap: () {
+                                  setState(() {
+                                    _isHidden = !_isHidden;
+                                  });
+                                },
+                                child: Icon(
+                                  _isHidden
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: kPrimaryColor1,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text("Sign Up",
-                          style: TextStyle(
-                            color: kPrimaryColor1,
-                          )),
-                    ),
-                  ],
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text("Forgot Password?",
+                            style: TextStyle(
+                              color: kPrimaryColor1,
+                            )),
+                      ),
+                      Center(
+                        child: SizedBox(
+                          width: 200,
+                          height: 50,
+                          child: TextButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                kSubSecondaryColor,
+                              ),
+                            ),
+                            child: const Text(
+                              "Sign In",
+                              style: TextStyle(
+                                color: kSubPrimaryColor,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: TextButton(
+                          onPressed: () {},
+                          child: const Text("Sign Up",
+                              style: TextStyle(
+                                color: kPrimaryColor1,
+                                fontSize: 16,
+                              )),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

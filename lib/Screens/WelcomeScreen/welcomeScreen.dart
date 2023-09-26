@@ -201,6 +201,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       ],
                     ),
                   ),
+
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 5,
                   ),
@@ -225,6 +226,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   padding: const EdgeInsets.all(24),
                                   shadowColor: kDarkThemeColor,
                                   backgroundColor: kLightThemeColor,
+                                  surfaceTintColor: kSecondaryColor1,
                                   elevation: 10,
                                 ),
                                 child: const Text(
@@ -243,6 +245,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   padding: const EdgeInsets.all(24),
                                   shadowColor: kDarkThemeColor,
                                   backgroundColor: kLightThemeColor,
+                                  surfaceTintColor: kSecondaryColor1,
                                   elevation: 10,
                                 ),
                                 child: const Text(
@@ -269,6 +272,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   padding: const EdgeInsets.all(24),
                                   shadowColor: kDarkThemeColor,
                                   backgroundColor: kLightThemeColor,
+                                  surfaceTintColor: kSecondaryColor1,
                                   elevation: 10,
                                 ),
                                 child: const Text(
@@ -287,6 +291,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   padding: const EdgeInsets.all(24),
                                   shadowColor: kDarkThemeColor,
                                   backgroundColor: kLightThemeColor,
+                                  surfaceTintColor: kSecondaryColor1,
                                   elevation: 10,
                                 ),
                                 child: const Text(
@@ -306,6 +311,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   shadowColor: kDarkThemeColor,
                                   foregroundColor: kLightThemeColor,
                                   backgroundColor: kLightThemeColor,
+                                  surfaceTintColor: kSecondaryColor1,
                                   elevation: 10,
                                 ),
                                 child: Text(
