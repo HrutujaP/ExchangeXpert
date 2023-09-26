@@ -1,4 +1,7 @@
-import 'package:exchange_xpert/Screens/Home%20Screen/components/lineChart.dart';
+import 'package:exchange_xpert/Screens/Home%20Screen/components/chart_point.dart';
+import 'package:exchange_xpert/Screens/Home%20Screen/components/functions.dart';
+
+import 'package:exchange_xpert/Screens/Home%20Screen/components/line_chart.dart';
 
 import '../../Constants/constant.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +16,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Functions functions = Functions();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,11 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: const Padding(
-              padding: EdgeInsets.all(8.0),
+          child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  Row(
+                  const Row(
                     children: [
                       Icon(Icons.menu),
                       Spacer(),
@@ -42,13 +47,31 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text("Settings")
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  Row(  
+                  const Row(
                     children: [CurrencyMenu(), Spacer(), CurrencyMenu()],
                   ),
-                  LineChartSample2(),
+                  // MyLineChart()
+                  SizedBox(
+                    height: 400,
+                    width: MediaQuery.of(context).size.width,
+                    child: FutureBuilder(
+                      future: functions.getConversionRate("GBP", "INR"),
+                      builder: (context, snapshot) {  
+                        if(!snapshot.hasData){
+                          return const Center(child: CircularProgressIndicator(),);
+                        }
+                        return LineChart(
+                          xAxisLabel: 'GBP',
+                          yAxisLabel: 'INR',
+                          points: snapshot.data!,
+                        );
+                      },
+                    ),
+                  )
+                  // GraphAnimation(),
                 ],
               )),
         ),
