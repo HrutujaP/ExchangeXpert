@@ -1,4 +1,5 @@
 import 'package:exchange_xpert/Constants/constant.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -12,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool containerAnimation = false;
   bool _isHidden = true;
+  FirebaseAuth auth = FirebaseAuth.instance;
   CarouselController buttonCarouselController = CarouselController();
 
   @override
@@ -496,11 +498,23 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: 200,
                               height: 50,
                               child: TextButton(
-                                onPressed: () {
-                                  buttonCarouselController.nextPage(
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.linear);
+                                onPressed: () async {
+                                  // buttonCarouselController.nextPage(
+                                  //     duration:
+                                  //         const Duration(milliseconds: 300),
+                                  //     curve: Curves.linear);
+                                  print("object");
+                                  await FirebaseAuth.instance.verifyPhoneNumber(
+                                    phoneNumber: '+447384031465',
+                                    verificationCompleted: (PhoneAuthCredential
+                                        credential) async {},
+                                    verificationFailed:
+                                        (FirebaseAuthException e) {},
+                                    codeSent: (String verificationId,
+                                        int? resendToken) async {},
+                                    codeAutoRetrievalTimeout:
+                                        (String verificationId) {},
+                                  );
                                 },
                                 style: ButtonStyle(
                                   backgroundColor:
@@ -509,7 +523,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 child: const Text(
-                                  "Sign Up",
+                                  "Request OTP",
                                   style: TextStyle(
                                     color: kSubPrimaryColor,
                                     fontSize: 18,
