@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exchange_xpert/Constants/constant.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -6,17 +8,21 @@ class loginFormFields extends StatelessWidget {
   final String hintText;
   final String labelText;
   final Icon prefixIcon;
+  final String name;
+
   InkWell? suffixIcon;
-   loginFormFields({
+  loginFormFields({
     super.key,
     required GlobalKey<FormState> formKey,
     required this.hintText,
+    required this.name,
     required this.labelText,
     required this.prefixIcon,
     this.suffixIcon,
   }) : _formKey = formKey;
 
   final GlobalKey<FormState> _formKey;
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +38,10 @@ class loginFormFields extends StatelessWidget {
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Required *';
+            } else {
+              _firestore.collection("Users").doc(name).set({
+                name: value,
+              });
             }
             return null;
           },
@@ -53,3 +63,28 @@ class loginFormFields extends StatelessWidget {
     );
   }
 }
+
+// loginFormFields(
+//                               formKey: _signUpformKey,
+//                               hintText: "Enter your Password",
+//                               labelText: "Password",
+//                               prefixIcon: const Icon(
+//                                 Icons.lock,
+//                                 color: kPrimaryColor1,
+//                               ),
+//                               suffixIcon: InkWell(
+//                                 radius: BorderSide.strokeAlignCenter,
+//                                 onTap: () {
+//                                   setState(() {
+//                                     _isHidden = !_isHidden;
+//                                   });
+//                                 },
+//                                 child: Icon(
+//                                   _isHidden
+//                                       ? Icons.visibility
+//                                       : Icons.visibility_off,
+//                                   color: kPrimaryColor1,
+//                                 ),
+//                               ),
+//                               name: 'Paasword',
+//                             ),

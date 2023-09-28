@@ -61,49 +61,46 @@ class _LoginScreenState extends State<LoginScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const welcomeText(),
-                            loginFormFields(
-                              formKey: _signUpformKey,
-                              hintText: "Enter your Mobile Number",
-                              labelText: "Mobile Number",
-                              prefixIcon: const Icon(
-                                Icons.phone,
-                                color: kPrimaryColor1,
-                              ),
-                            ),
-                            loginFormFields(
-                              formKey: _signInformKey,
-                              hintText: "Enter your Password",
-                              labelText: "Password",
-                              prefixIcon: const Icon(
-                                Icons.lock,
-                                color: kPrimaryColor1,
-                              ),
-                              suffixIcon: InkWell(
-                                radius: BorderSide.strokeAlignCenter,
-                                onTap: () {
-                                  setState(() {
-                                    _isHidden = !_isHidden;
-                                  });
-                                },
-                                child: Icon(
-                                  _isHidden
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: loginFormFields(
+                                formKey: _signUpformKey,
+                                hintText: "Enter your Mobile Number",
+                                labelText: "Mobile Number",
+                                prefixIcon: const Icon(
+                                  Icons.phone,
                                   color: kPrimaryColor1,
                                 ),
+                                name: '',
                               ),
                             ),
-                            TextButton(
-                              onPressed: () {},
-                              child: const Text("Forgot Password?",
-                                  style: TextStyle(
-                                    color: kPrimaryColor1,
-                                  )),
-                            ),
+                            // loginFormFields(
+                            //   formKey: _signInformKey,
+                            //   hintText: "Enter your Password",
+                            //   labelText: "Password",
+                            //   prefixIcon: const Icon(
+                            //     Icons.lock,
+                            //     color: kPrimaryColor1,
+                            //   ),
+                            //   suffixIcon: InkWell(
+                            //     radius: BorderSide.strokeAlignCenter,
+                            //     onTap: () {
+                            //       setState(() {
+                            //         _isHidden = !_isHidden;
+                            //       });
+                            //     },
+                            //     child: Icon(
+                            //       _isHidden
+                            //           ? Icons.visibility
+                            //           : Icons.visibility_off,
+                            //       color: kPrimaryColor1,
+                            //     ),
+                            //   ), name: '',
+                            // ),
                             Center(
                               child: SizedBox(
-                                width: 200,
-                                height: 50,
+                                // width: 0,
+                                // height: 50,
                                 child: TextButton(
                                   onPressed: () {
                                     if (_signInformKey.currentState!
@@ -124,15 +121,61 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                   child: const Text(
-                                    "Sign In",
+                                    "Send OTP to Sign In",
                                     style: TextStyle(
                                       color: kSubPrimaryColor,
-                                      fontSize: 18,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
+                            // TextButton(
+                            //   onPressed: () {},
+                            //   child: const Text("Send OTP",
+                            //       style: TextStyle(
+                            //         color: kPrimaryColor1,
+                            //       )),
+                            // ),
+
+                            const Center(
+                              child: Text(
+                                "or",
+                                style: TextStyle(
+                                    color: kPrimaryColor1,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+
+                            Center(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width / 1.8,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: kSubPrimaryColor,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "Continue with",
+                                      style: TextStyle(
+                                        color: kSubSecondaryColor,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    Image.network(
+                                      'http://pngimg.com/uploads/google/google_PNG19635.png',
+                                      fit: BoxFit.cover,
+                                      scale: 35,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
                             Center(
                               child: TextButton(
                                 onPressed: () {
@@ -141,11 +184,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                           const Duration(milliseconds: 300),
                                       curve: Curves.linear);
                                 },
-                                child: const Text("Sign Up",
-                                    style: TextStyle(
-                                      color: kPrimaryColor1,
-                                      fontSize: 16,
-                                    )),
+                                child:
+                                    const Text("Don't have an account Sign Up",
+                                        style: TextStyle(
+                                          color: kPrimaryColor1,
+                                          fontSize: 16,
+                                        )),
                               ),
                             ),
                           ],
@@ -174,6 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Icons.abc,
                                 color: kPrimaryColor1,
                               ),
+                              name: 'Name',
                             ),
                             loginFormFields(
                               formKey: _signUpformKey,
@@ -183,29 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Icons.phone,
                                 color: kPrimaryColor1,
                               ),
-                            ),
-                            loginFormFields(
-                              formKey: _signUpformKey,
-                              hintText: "Enter your Password",
-                              labelText: "Password",
-                              prefixIcon: const Icon(
-                                Icons.lock,
-                                color: kPrimaryColor1,
-                              ),
-                              suffixIcon: InkWell(
-                                radius: BorderSide.strokeAlignCenter,
-                                onTap: () {
-                                  setState(() {
-                                    _isHidden = !_isHidden;
-                                  });
-                                },
-                                child: Icon(
-                                  _isHidden
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  color: kPrimaryColor1,
-                                ),
-                              ),
+                              name: 'Mobile Number',
                             ),
                             Center(
                               child: SizedBox(
@@ -252,12 +275,48 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                   child: const Text(
-                                    "Request OTP",
+                                    "Send OTP",
                                     style: TextStyle(
                                       color: kSubPrimaryColor,
                                       fontSize: 18,
                                     ),
                                   ),
+                                ),
+                              ),
+                            ),
+                            const Center(
+                              child: Text(
+                                "or",
+                                style: TextStyle(
+                                    color: kPrimaryColor1,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Center(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width / 1.8,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: kSubPrimaryColor,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "Continue with",
+                                      style: TextStyle(
+                                        color: kSubSecondaryColor,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    Image.network(
+                                      'http://pngimg.com/uploads/google/google_PNG19635.png',
+                                      fit: BoxFit.cover,
+                                      scale: 35,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -270,7 +329,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       curve: Curves.linear);
                                 },
                                 child: const Text(
-                                  "Sign In",
+                                  "Already have an account? Sign In.",
                                   style: TextStyle(
                                     color: kPrimaryColor1,
                                     fontSize: 16,
