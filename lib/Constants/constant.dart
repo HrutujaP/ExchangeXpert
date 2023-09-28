@@ -10,9 +10,18 @@ const Color kLightThemeColor = Colors.white;
 const Color kDarkThemeColor = Colors.black;
 
 const InputDecoration kTextFieldDecoration = InputDecoration(
+  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
   prefixText: ' ',
   filled: true,
-  enabledBorder: const OutlineInputBorder(
+  hintStyle:  TextStyle(
+    color: kSubSecondaryColor,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  ),
+  labelStyle: TextStyle(
+    color: kSubSecondaryColor,
+  ),
+  enabledBorder: OutlineInputBorder(
     borderSide: BorderSide(
       color: kSecondaryColor,
     ),
@@ -20,7 +29,7 @@ const InputDecoration kTextFieldDecoration = InputDecoration(
       Radius.circular(40),
     ),
   ),
-  focusedBorder: const OutlineInputBorder(
+  focusedBorder: OutlineInputBorder(
     borderSide: BorderSide(
       color: kPrimaryColor1,
     ),
@@ -28,7 +37,7 @@ const InputDecoration kTextFieldDecoration = InputDecoration(
       Radius.circular(40),
     ),
   ),
-  border: const OutlineInputBorder(
+  border: OutlineInputBorder(
     borderSide: BorderSide(
       color: kSecondaryColor,
     ),
@@ -36,7 +45,6 @@ const InputDecoration kTextFieldDecoration = InputDecoration(
       Radius.circular(40),
     ),
   ),
-   
 );
 
 // InputDecoration kTextFieldDecoration(
