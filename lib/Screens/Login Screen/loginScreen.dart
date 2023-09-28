@@ -1,5 +1,4 @@
 import 'package:exchange_xpert/Constants/constant.dart';
-import 'package:exchange_xpert/Screens/Login%20Screen/Components/OTPVerification.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/Components/currencyIconsDisplay.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/Components/loginAppInfo.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/Components/loginFormFields.dart';
@@ -7,7 +6,6 @@ import 'package:exchange_xpert/Screens/Login%20Screen/Components/welcomeText.dar
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:pinput/pinput.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

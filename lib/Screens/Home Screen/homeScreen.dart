@@ -1,4 +1,3 @@
-import 'package:exchange_xpert/Screens/Home%20Screen/components/chart_point.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/functions.dart';
 
 import 'package:exchange_xpert/Screens/Home%20Screen/components/line_chart.dart';

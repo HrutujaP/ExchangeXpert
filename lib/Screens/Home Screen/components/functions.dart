@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/chart_point.dart';
-import 'package:http/http.dart' as http;
 
 class Functions {
   final String apiUrl = "http://api.exchangeratesapi.io/v1/";
@@ -18,7 +16,7 @@ class Functions {
     }
     // List<String> targetCurrencies = [];
     List<ChartPoint> chartPoints = [];
-    List<double> conversionRates = [101.44,101.4,101.57,101.71,101.44];
+    List<double> conversionRates = [101.44, 101.4, 101.57, 101.71, 101.44];
     // List<double> conversionRates = [1,2,3,4,5];
     dates.add("latest");
     try {
@@ -36,7 +34,8 @@ class Functions {
         // target = double.parse(target.toStringAsFixed(2));
         // print(target);
         chartPoints.add(ChartPoint(
-            x: DateTime.now().subtract(Duration(days: i)), y: conversionRates[i]));
+            x: DateTime.now().subtract(Duration(days: i)),
+            y: conversionRates[i]));
       }
       return chartPoints;
     } catch (e) {
