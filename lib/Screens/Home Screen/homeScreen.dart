@@ -1,7 +1,6 @@
+import 'package:exchange_xpert/Screens/Home%20Screen/components/chart.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/functions.dart';
-
-import 'package:exchange_xpert/Screens/Home%20Screen/components/line_chart.dart';
-
+import 'package:fl_chart/fl_chart.dart';
 import '../../Constants/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -53,19 +52,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [CurrencyMenu(), Spacer(), CurrencyMenu()],
                   ),
                   // MyLineChart()
+                  const SizedBox(
+                    height: 10,
+                  ),
                   SizedBox(
                     height: 400,
                     width: MediaQuery.of(context).size.width,
                     child: FutureBuilder(
+                      // future: Future.delayed(Duration(seconds: 2)).then((value) => <FlSpot>[]),
                       future: functions.getConversionRate("GBP", "INR"),
-                      builder: (context, snapshot) {  
-                        if(!snapshot.hasData){
-                          return const Center(child: CircularProgressIndicator(),);
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
                         }
-                        return LineChart(
-                          xAxisLabel: 'GBP',
-                          yAxisLabel: 'INR',
-                          points: snapshot.data!,
+                        return Chart(
+                          spots: snapshot.data!,
+                          reload: () {
+                            setState(() {});
+                          },
                         );
                       },
                     ),
@@ -90,7 +96,7 @@ class CurrencyMenu extends StatelessWidget {
       elevation: 10,
       borderRadius: BorderRadius.circular(10),
       child: Container(
-        width: MediaQuery.of(context).size.width / 2 - 10,
+        width: MediaQuery.of(context).size.width / 2 - 22,
         height: 50,
         decoration: BoxDecoration(
             border: Border.all(

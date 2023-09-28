@@ -1,42 +1,45 @@
-import 'package:exchange_xpert/Screens/Home%20Screen/components/chart_point.dart';
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:http/http.dart' as http;
+import 'package:fl_chart/fl_chart.dart';
 
 class Functions {
-  final String apiUrl = "http://api.exchangeratesapi.io/v1/";
-  final String accessKey = "access_key=e2f8659649a9fc05e84f228a8b1b11ed";
+  // final String apiUrl = "http://api.exchangeratesapi.io/v1/";
+  final String apiUrl = "http://data.fixer.io/api/";
+  // final String accessKey = "access_key=e2f8659649a9fc05e84f228a8b1b11ed";
+  final String accessKey = "access_key=94ccfa21a53fc37c5323cabc3e7aafe3";
 
-  Future<List<ChartPoint>> getConversionRate(
+  Future<List<FlSpot>> getConversionRate(
       String baseCurrency, String targetCurrency) async {
     // get last 4 days date and store in list
     List<String> dates = [];
-    for (int i = 0; i < 4; i++) {
+    List<FlSpot> chartPoints = [];
+    for (int i = 7; i > 0; i--) {
       dates.add(DateTime.now()
           .subtract(Duration(days: i))
           .toString()
           .substring(0, 10));
+      chartPoints.add(FlSpot(double.parse(i.toString()), Random().nextDouble()));
     }
-    // List<String> targetCurrencies = [];
-    List<ChartPoint> chartPoints = [];
-    List<double> conversionRates = [101.44, 101.4, 101.57, 101.71, 101.44];
-    // List<double> conversionRates = [1,2,3,4,5];
     dates.add("latest");
     try {
       // get conversion rate for each date
-      for (int i = 0; i < dates.length; i++) {
-        // String url =
-        //     "$apiUrl${dates[i]}?$accessKey&symbols=$baseCurrency,$targetCurrency";
-        // http.Response response = await http.get(Uri.parse(url));
-        // Map<String, dynamic> data = jsonDecode(response.body);
-        // double base = data["rates"][baseCurrency];
-        // double target = data["rates"][targetCurrency];
+      // for (int i = 0; i < dates.length; i++) {
+      //   String url =
+      //       "$apiUrl${dates[i]}?$accessKey&symbols=$baseCurrency,$targetCurrency";
+      //   http.Response response = await http.get(Uri.parse(url));
+      //   Map<String, dynamic> data = jsonDecode(response.body);
+      //   double base = data["rates"][baseCurrency];
+      //   double target = data["rates"][targetCurrency];
 
-        // target = target / base;
-        // // reduce to 2 decimal places
-        // target = double.parse(target.toStringAsFixed(2));
-        // print(target);
-        chartPoints.add(ChartPoint(
-            x: DateTime.now().subtract(Duration(days: i)),
-            y: conversionRates[i]));
-      }
+      //   target = target / base;
+      //   // reduce to 2 decimal places
+      //   target = double.parse(target.toStringAsFixed(2));
+      //   // print(target);
+      //   chartPoints.add(FlSpot(double.parse(i.toString()), target));
+      // }
+
       return chartPoints;
     } catch (e) {
       // print(e);
