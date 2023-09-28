@@ -1,4 +1,8 @@
+// ignore_for_file: use_build_context_synchronously, unrelated_type_equality_checks
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exchange_xpert/Constants/constant.dart';
+import 'package:exchange_xpert/Screens/Home%20Screen/homeScreen.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/Components/currencyIconsDisplay.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/Components/loginAppInfo.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/Components/loginFormFields.dart';
@@ -6,6 +10,7 @@ import 'package:exchange_xpert/Screens/Login%20Screen/Components/welcomeText.dar
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,6 +26,40 @@ class _LoginScreenState extends State<LoginScreen> {
   final _signUpformKey = GlobalKey<FormState>();
   final _signInformKey = GlobalKey<FormState>();
   CarouselController buttonCarouselController = CarouselController();
+
+  // Future<bool> isEmailRegistered(String email) async {
+  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  //   final GoogleSignInAuthentication? googleAuth =
+  //       await googleUser?.authentication;
+
+  //   // Create a new credential
+  //   final credential = GoogleAuthProvider.credential(
+  //     accessToken: googleAuth?.accessToken,
+  //     idToken: googleAuth?.idToken,
+  //   );
+  //   if (documents.length > 0)
+  //     return true;
+  //   else
+  //     return false;
+  // }
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
 
   @override
   void initState() {
@@ -148,30 +187,48 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
 
-                            Center(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width / 1.8,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: kSubPrimaryColor,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      "Continue with",
-                                      style: TextStyle(
-                                        color: kSubSecondaryColor,
-                                        fontSize: 20,
+                            GestureDetector(
+                              onTap: () async {
+                                var credential = await signInWithGoogle();
+                                String userEmail = credential.user!.email!;
+                                FirebaseAuth.instance.authStateChanges().listen(
+                                  (User? user) {
+                                    if (user == null) {
+                                      Navigator.pushNamed(
+                                          context, LoginScreen.id);
+                                    } else {
+                                      Navigator.pushNamed(
+                                          context, HomeScreen.id);
+                                    }
+                                  },
+                                );
+                              },
+                              child: Center(
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.8,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: kSubPrimaryColor,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        "Continue with",
+                                        style: TextStyle(
+                                          color: kSubSecondaryColor,
+                                          fontSize: 20,
+                                        ),
                                       ),
-                                    ),
-                                    Image.network(
-                                      'http://pngimg.com/uploads/google/google_PNG19635.png',
-                                      fit: BoxFit.cover,
-                                      scale: 35,
-                                    ),
-                                  ],
+                                      Image.network(
+                                        'http://pngimg.com/uploads/google/google_PNG19635.png',
+                                        fit: BoxFit.cover,
+                                        scale: 35,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -293,30 +350,37 @@ class _LoginScreenState extends State<LoginScreen> {
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-                            Center(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width / 1.8,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: kSubPrimaryColor,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      "Continue with",
-                                      style: TextStyle(
-                                        color: kSubSecondaryColor,
-                                        fontSize: 20,
+                            GestureDetector(
+                              onTap: () async {
+                                await signInWithGoogle();
+                                Navigator.pushNamed(context, HomeScreen.id);
+                              },
+                              child: Center(
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.8,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: kSubPrimaryColor,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        "Continue with",
+                                        style: TextStyle(
+                                          color: kSubSecondaryColor,
+                                          fontSize: 20,
+                                        ),
                                       ),
-                                    ),
-                                    Image.network(
-                                      'http://pngimg.com/uploads/google/google_PNG19635.png',
-                                      fit: BoxFit.cover,
-                                      scale: 35,
-                                    ),
-                                  ],
+                                      Image.network(
+                                        'http://pngimg.com/uploads/google/google_PNG19635.png',
+                                        fit: BoxFit.cover,
+                                        scale: 35,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
