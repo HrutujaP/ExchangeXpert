@@ -1,14 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exchange_xpert/Constants/constant.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:exchange_xpert/Screens/Login%20Screen/loginScreen.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class loginFormFields extends StatelessWidget {
+class loginFormFields extends StatefulWidget {
   final String hintText;
   final String labelText;
   final Icon prefixIcon;
   final String name;
+  final TextEditingController controller;
 
   InkWell? suffixIcon;
   loginFormFields({
@@ -19,9 +20,16 @@ class loginFormFields extends StatelessWidget {
     required this.labelText,
     required this.prefixIcon,
     this.suffixIcon,
+    required this.controller,
   }) : _formKey = formKey;
 
   final GlobalKey<FormState> _formKey;
+
+  @override
+  State<loginFormFields> createState() => _loginFormFieldsState();
+}
+
+class _loginFormFieldsState extends State<loginFormFields> {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
@@ -32,16 +40,23 @@ class loginFormFields extends StatelessWidget {
         // height: 60,
         width: MediaQuery.of(context).size.width / 1.1,
         child: TextFormField(
+          controller: widget.controller,
           onChanged: (value) {
-            _formKey.currentState!.validate();
+            widget._formKey.currentState!.validate();
+
+            setState(() {
+              if (widget.name == "username") {
+                username = widget.controller.text;
+              } else {
+                mobileNumber = widget.controller.text;
+              }
+            });
           },
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Required *';
             } else {
-              _firestore.collection("Users").doc(name).set({
-                name: value,
-              });
+              
             }
             return null;
           },
@@ -53,10 +68,10 @@ class loginFormFields extends StatelessWidget {
           ),
           decoration: kTextFieldDecoration.copyWith(
             fillColor: kSubPrimaryColor.withOpacity(0.2),
-            hintText: hintText,
-            labelText: labelText,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
+            hintText: widget.hintText,
+            labelText: widget.labelText,
+            prefixIcon: widget.prefixIcon,
+            suffixIcon: widget.suffixIcon,
           ),
         ),
       ),

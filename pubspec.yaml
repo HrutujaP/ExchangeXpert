@@ -46,6 +46,7 @@ dependencies:
   pinput: ^2.2.16
   get_storage: ^2.1.1
   google_sign_in: ^6.1.5
+  sms_autofill: ^2.3.0
 
 dev_dependencies:
   flutter_test:
