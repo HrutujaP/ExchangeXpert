@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/homeScreen.dart';
+import 'package:exchange_xpert/Screens/Login%20Screen/Components/OTPVerification.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/Components/currencyIconsDisplay.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/Components/loginAppInfo.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/Components/loginFormFields.dart';
@@ -10,7 +11,16 @@ import 'package:exchange_xpert/Screens/Login%20Screen/Components/welcomeText.dar
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:pinput/pinput.dart';
+import 'package:sms_autofill/sms_autofill.dart';
+
+String username = "";
+String mobileNumber = "";
+
+final username_controller = TextEditingController();
+final mobileNumber_controller = TextEditingController();
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,27 +31,10 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool containerAnimation = false;
-  bool _isHidden = true;
   FirebaseAuth auth = FirebaseAuth.instance;
   final _signUpformKey = GlobalKey<FormState>();
   final _signInformKey = GlobalKey<FormState>();
   CarouselController buttonCarouselController = CarouselController();
-
-  // Future<bool> isEmailRegistered(String email) async {
-  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-  //   final GoogleSignInAuthentication? googleAuth =
-  //       await googleUser?.authentication;
-
-  //   // Create a new credential
-  //   final credential = GoogleAuthProvider.credential(
-  //     accessToken: googleAuth?.accessToken,
-  //     idToken: googleAuth?.idToken,
-  //   );
-  //   if (documents.length > 0)
-  //     return true;
-  //   else
-  //     return false;
-  // }
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
@@ -87,325 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
               const currencyIconsDisplay(),
               CarouselSlider(
                 items: [
-                  Form(
-                    key: _signInformKey,
-                    child: AnimatedOpacity(
-                      opacity: containerAnimation == false ? 0 : 1,
-                      duration: const Duration(
-                        seconds: 2,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const welcomeText(),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: loginFormFields(
-                                formKey: _signUpformKey,
-                                hintText: "Enter your Mobile Number",
-                                labelText: "Mobile Number",
-                                prefixIcon: const Icon(
-                                  Icons.phone,
-                                  color: kPrimaryColor1,
-                                ),
-                                name: '',
-                              ),
-                            ),
-                            // loginFormFields(
-                            //   formKey: _signInformKey,
-                            //   hintText: "Enter your Password",
-                            //   labelText: "Password",
-                            //   prefixIcon: const Icon(
-                            //     Icons.lock,
-                            //     color: kPrimaryColor1,
-                            //   ),
-                            //   suffixIcon: InkWell(
-                            //     radius: BorderSide.strokeAlignCenter,
-                            //     onTap: () {
-                            //       setState(() {
-                            //         _isHidden = !_isHidden;
-                            //       });
-                            //     },
-                            //     child: Icon(
-                            //       _isHidden
-                            //           ? Icons.visibility
-                            //           : Icons.visibility_off,
-                            //       color: kPrimaryColor1,
-                            //     ),
-                            //   ), name: '',
-                            // ),
-                            Center(
-                              child: SizedBox(
-                                // width: 0,
-                                // height: 50,
-                                child: TextButton(
-                                  onPressed: () {
-                                    if (_signInformKey.currentState!
-                                        .validate()) {
-                                      // If the form is valid, display a snackbar. In the real world,
-                                      // you'd often call a server or save the information in a database.
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                            content: Text('Processing Data')),
-                                      );
-                                    }
-                                  },
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                      kSubSecondaryColor,
-                                    ),
-                                  ),
-                                  child: const Text(
-                                    "Send OTP to Sign In",
-                                    style: TextStyle(
-                                      color: kSubPrimaryColor,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            // TextButton(
-                            //   onPressed: () {},
-                            //   child: const Text("Send OTP",
-                            //       style: TextStyle(
-                            //         color: kPrimaryColor1,
-                            //       )),
-                            // ),
-
-                            const Center(
-                              child: Text(
-                                "or",
-                                style: TextStyle(
-                                    color: kPrimaryColor1,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-
-                            GestureDetector(
-                              onTap: () async {
-                                var credential = await signInWithGoogle();
-                                String userEmail = credential.user!.email!;
-                                FirebaseAuth.instance.authStateChanges().listen(
-                                  (User? user) {
-                                    if (user == null) {
-                                      Navigator.pushNamed(
-                                          context, LoginScreen.id);
-                                    } else {
-                                      Navigator.pushNamed(
-                                          context, HomeScreen.id);
-                                    }
-                                  },
-                                );
-                              },
-                              child: Center(
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.8,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: kSubPrimaryColor,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        "Continue with",
-                                        style: TextStyle(
-                                          color: kSubSecondaryColor,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      Image.network(
-                                        'http://pngimg.com/uploads/google/google_PNG19635.png',
-                                        fit: BoxFit.cover,
-                                        scale: 35,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            Center(
-                              child: TextButton(
-                                onPressed: () {
-                                  buttonCarouselController.nextPage(
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.linear);
-                                },
-                                child:
-                                    const Text("Don't have an account Sign Up",
-                                        style: TextStyle(
-                                          color: kPrimaryColor1,
-                                          fontSize: 16,
-                                        )),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Form(
-                    key: _signUpformKey,
-                    child: AnimatedOpacity(
-                      opacity: containerAnimation == false ? 0 : 1,
-                      duration: const Duration(
-                        seconds: 5,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            const welcomeText(),
-                            loginFormFields(
-                              formKey: _signUpformKey,
-                              hintText: "Enter your Name",
-                              labelText: "Username",
-                              prefixIcon: const Icon(
-                                Icons.abc,
-                                color: kPrimaryColor1,
-                              ),
-                              name: 'Name',
-                            ),
-                            loginFormFields(
-                              formKey: _signUpformKey,
-                              hintText: "Enter your Mobile Number",
-                              labelText: "Mobile Number",
-                              prefixIcon: const Icon(
-                                Icons.phone,
-                                color: kPrimaryColor1,
-                              ),
-                              name: 'Mobile Number',
-                            ),
-                            Center(
-                              child: SizedBox(
-                                width: 200,
-                                height: 50,
-                                child: TextButton(
-                                  onPressed: () async {
-                                    // buttonCarouselController.nextPage(
-                                    //     duration:
-                                    //         const Duration(milliseconds: 300),
-                                    //     curve: Curves.linear);
-
-                                    // await FirebaseAuth.instance
-                                    //     .verifyPhoneNumber(
-                                    //   phoneNumber: '+916361125470',
-                                    //   verificationCompleted:
-                                    //       (PhoneAuthCredential
-                                    //           credential) async {},
-                                    //   verificationFailed:
-                                    //       (FirebaseAuthException e) {},
-                                    //   codeSent: (String verificationId,
-                                    //       int? resendToken) async {
-                                    //     // OTPVerification(
-                                    //     //     context, verificationId);
-                                    //   },
-                                    //   codeAutoRetrievalTimeout:
-                                    //       (String verificationId) {},
-                                    // );
-                                    if (_signUpformKey.currentState!
-                                        .validate()) {
-                                      // If the form is valid, display a snackbar. In the real world,
-                                      // you'd often call a server or save the information in a database.
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                            content: Text('Processing Data')),
-                                      );
-                                    }
-                                  },
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                      kSubSecondaryColor,
-                                    ),
-                                  ),
-                                  child: const Text(
-                                    "Send OTP",
-                                    style: TextStyle(
-                                      color: kSubPrimaryColor,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Center(
-                              child: Text(
-                                "or",
-                                style: TextStyle(
-                                    color: kPrimaryColor1,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () async {
-                                await signInWithGoogle();
-                                Navigator.pushNamed(context, HomeScreen.id);
-                              },
-                              child: Center(
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.8,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: kSubPrimaryColor,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        "Continue with",
-                                        style: TextStyle(
-                                          color: kSubSecondaryColor,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      Image.network(
-                                        'http://pngimg.com/uploads/google/google_PNG19635.png',
-                                        fit: BoxFit.cover,
-                                        scale: 35,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Center(
-                              child: TextButton(
-                                onPressed: () {
-                                  buttonCarouselController.previousPage(
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.linear);
-                                },
-                                child: const Text(
-                                  "Already have an account? Sign In.",
-                                  style: TextStyle(
-                                    color: kPrimaryColor1,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  signIn(context),
+                  signUp(context),
                 ],
                 carouselController: buttonCarouselController,
                 options: CarouselOptions(
@@ -418,6 +94,319 @@ class _LoginScreenState extends State<LoginScreen> {
                   enableInfiniteScroll: false,
                   autoPlayAnimationDuration: const Duration(milliseconds: 800),
                   viewportFraction: 1,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Form signUp(BuildContext context) {
+    return Form(
+      key: _signUpformKey,
+      child: AnimatedOpacity(
+        opacity: containerAnimation == false ? 0 : 1,
+        duration: const Duration(
+          seconds: 5,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const welcomeText(),
+              loginFormFields(
+                formKey: _signUpformKey,
+                hintText: "Enter your Name",
+                labelText: "Username",
+                prefixIcon: const Icon(
+                  Icons.abc,
+                  color: kPrimaryColor1,
+                ),
+                name: 'username',
+                controller: username_controller,
+              ),
+              loginFormFields(
+                formKey: _signUpformKey,
+                hintText: "Enter your Mobile Number",
+                labelText: "Mobile Number",
+                prefixIcon: const Icon(
+                  Icons.phone,
+                  color: kPrimaryColor1,
+                ),
+                name: 'mobileNumber',
+                controller: mobileNumber_controller,
+              ),
+              Center(
+                child: SizedBox(
+                  width: 200,
+                  height: 50,
+                  child: TextButton(
+                    onPressed: () async {
+                      setState(() {
+                        username = username_controller.text;
+                        mobileNumber = mobileNumber_controller.text;
+                      });
+                      if (_signUpformKey.currentState!.validate()) {
+                        await FirebaseAuth.instance.verifyPhoneNumber(
+                          phoneNumber: "+91$mobileNumber",
+                          verificationCompleted:
+                              (PhoneAuthCredential credential) async {},
+                          verificationFailed: (FirebaseAuthException e) {},
+                          codeSent:
+                              (String verificationId, int? resendToken) async {
+                            var sms = SmsAutoFill().listenForCode;
+                            OTPVerification(context, verificationId, "signUp",
+                                mobileNumber, sms);
+                          },
+                          codeAutoRetrievalTimeout: (String verificationId) {},
+                        );
+                      }
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        kSubSecondaryColor,
+                      ),
+                    ),
+                    child: const Text(
+                      "Send OTP",
+                      style: TextStyle(
+                        color: kSubPrimaryColor,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const Center(
+                child: Text(
+                  "or",
+                  style: TextStyle(
+                      color: kPrimaryColor1,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              GestureDetector(
+                onTap: () async {
+                  var credential = await signInWithGoogle();
+                  String userEmail = credential.user!.email!;
+                  FirebaseAuth.instance.authStateChanges().listen(
+                    (User? user) {
+                      if (user == null) {
+                        Navigator.pushNamed(context, LoginScreen.id);
+                      } else {
+                        FirebaseFirestore.instance
+                            .collection("Users")
+                            .doc(userEmail)
+                            .set({"Email": userEmail});
+                        Navigator.pushNamed(context, HomeScreen.id);
+                      }
+                    },
+                  );
+                },
+                child: Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 1.8,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: kSubPrimaryColor,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Continue with",
+                          style: TextStyle(
+                            color: kSubSecondaryColor,
+                            fontSize: 20,
+                          ),
+                        ),
+                        Image.network(
+                          'http://pngimg.com/uploads/google/google_PNG19635.png',
+                          fit: BoxFit.cover,
+                          scale: 35,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    buttonCarouselController.previousPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.linear);
+                  },
+                  child: const Text(
+                    "Already have an account? Sign In.",
+                    style: TextStyle(
+                      color: kPrimaryColor1,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Form signIn(BuildContext context) {
+    return Form(
+      key: _signInformKey,
+      child: AnimatedOpacity(
+        opacity: containerAnimation == false ? 0 : 1,
+        duration: const Duration(
+          seconds: 2,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const welcomeText(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: loginFormFields(
+                  formKey: _signUpformKey,
+                  hintText: "Enter your Mobile Number",
+                  labelText: "Mobile Number",
+                  prefixIcon: const Icon(
+                    Icons.phone,
+                    color: kPrimaryColor1,
+                  ),
+                  name: 'mobileNumber',
+                  controller: mobileNumber_controller,
+                ),
+              ),
+
+              Center(
+                child: SizedBox(
+                  // width: 0,
+                  // height: 50,
+                  child: TextButton(
+                    onPressed: () async {
+                      setState(() {
+                        // username = username_controller.text;
+                        mobileNumber = mobileNumber_controller.text;
+                      });
+                      if (_signInformKey.currentState!.validate()) {
+                        await FirebaseAuth.instance.verifyPhoneNumber(
+                          phoneNumber: "+91$mobileNumber",
+                          verificationCompleted:
+                              (PhoneAuthCredential credential) async {
+                            pinController.setText(credential.smsCode!);
+                          },
+                          verificationFailed: (FirebaseAuthException e) {},
+                          codeSent:
+                              (String verificationId, int? resendToken) async {
+                            var sms = SmsAutoFill().listenForCode;
+                            OTPVerification(context, verificationId, "signIn",
+                                mobileNumber, sms);
+                          },
+                          codeAutoRetrievalTimeout: (String verificationId) {},
+                        );
+                      }
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        kSubSecondaryColor,
+                      ),
+                    ),
+                    child: const Text(
+                      "Send OTP to Sign In",
+                      style: TextStyle(
+                        color: kSubPrimaryColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // TextButton(
+              //   onPressed: () {},
+              //   child: const Text("Send OTP",
+              //       style: TextStyle(
+              //         color: kPrimaryColor1,
+              //       )),
+              // ),
+
+              const Center(
+                child: Text(
+                  "or",
+                  style: TextStyle(
+                      color: kPrimaryColor1,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+
+              GestureDetector(
+                onTap: () async {
+                  var credential = await signInWithGoogle();
+                  String userEmail = credential.user!.email!;
+                  FirebaseAuth.instance.authStateChanges().listen(
+                    (User? user) {
+                      if (user == null) {
+                        Navigator.pushNamed(context, LoginScreen.id);
+                      } else {
+                        FirebaseFirestore.instance
+                            .collection("Users")
+                            .doc(userEmail)
+                            .set({"Email": userEmail});
+                        Navigator.pushNamed(context, HomeScreen.id);
+                      }
+                    },
+                  );
+                },
+                child: Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 1.8,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: kSubPrimaryColor,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Continue with",
+                          style: TextStyle(
+                            color: kSubSecondaryColor,
+                            fontSize: 20,
+                          ),
+                        ),
+                        Image.network(
+                          'http://pngimg.com/uploads/google/google_PNG19635.png',
+                          fit: BoxFit.cover,
+                          scale: 35,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    buttonCarouselController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.linear);
+                  },
+                  child: const Text("Don't have an account Sign Up",
+                      style: TextStyle(
+                        color: kPrimaryColor1,
+                        fontSize: 16,
+                      )),
                 ),
               ),
             ],

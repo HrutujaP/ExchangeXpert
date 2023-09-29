@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/homeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,7 +21,8 @@ final defaultPinTheme = PinTheme(
     border: Border.all(color: kDarkThemeColor),
   ),
 );
-Future<dynamic> OTPVerification(BuildContext context, String verificationId) {
+Future<dynamic> OTPVerification(BuildContext context, String verificationId,
+    String requestType, String mobileNumber, var pin) {
   return showDialog(
       context: context,
       builder: (context) {
@@ -26,11 +30,13 @@ Future<dynamic> OTPVerification(BuildContext context, String verificationId) {
           backgroundColor: kSubPrimaryColor,
           contentPadding: EdgeInsets.all(0),
           title: const Center(
-            child: Text("Enter OTP",
-                style: TextStyle(
-                    color: kSecondaryColor1,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600)),
+            child: Text(
+              "Enter OTP",
+              style: TextStyle(
+                  color: kSecondaryColor1,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
           content: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -49,13 +55,14 @@ Future<dynamic> OTPVerification(BuildContext context, String verificationId) {
                       listenForMultipleSmsOnAndroid: true,
                       defaultPinTheme: defaultPinTheme,
                       length: 6,
-                      hapticFeedbackType: HapticFeedbackType.lightImpact,
+                      // hapticFeedbackType: HapticFeedbackType.lightImpact,
                       onCompleted: (pin) {
-                        debugPrint('onCompleted: $pin');
+                        // debugPrint('onCompleted: $pin');
                       },
                       onChanged: (value) {
-                        debugPrint('onChanged: $value');
+                        // debugPrint('onChanged: $value');
                       },
+
                       cursor: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -95,7 +102,14 @@ Future<dynamic> OTPVerification(BuildContext context, String verificationId) {
                       );
                       await FirebaseAuth.instance
                           .signInWithCredential(credential);
-                      Navigator.pushNamed(context, HomeScreen.id);
+                      if (requestType == "sign-in") {
+                        Navigator.pushNamed(context, HomeScreen.id);
+                      } else {
+                        FirebaseFirestore.instance
+                            .collection("Users")
+                            .doc(mobileNumber)
+                            .set({"Mobile Number": mobileNumber});
+                      }
                     },
                     child: const Text(
                       "VERIFY",
