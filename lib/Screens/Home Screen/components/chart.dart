@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, camel_case_types
+
 import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +23,10 @@ class _chartState extends State<Chart> {
 
   @override
   void initState() {
-    // TODO: implement initState
     for (int i = 0; i < widget.spots.length - 1; i++) {
       diffSumY += (widget.spots[i].y - widget.spots[i + 1].y).abs();
     }
     avgDiffY = diffSumY / (widget.spots.length - 1);
-    // print(avgDiffY);
     super.initState();
   }
 

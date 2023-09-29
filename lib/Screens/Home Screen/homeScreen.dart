@@ -1,6 +1,5 @@
 import 'package:exchange_xpert/Screens/Home%20Screen/components/chart.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/functions.dart';
-import 'package:fl_chart/fl_chart.dart';
 import '../../Constants/constant.dart';
 import 'package:flutter/material.dart';
 
