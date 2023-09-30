@@ -16,7 +16,7 @@ class Chart extends StatefulWidget {
 class _chartState extends State<Chart> {
   List<Color> gradientColors = [kPrimaryColor, kSecondaryColor];
 
-  bool showAvg = false;
+  bool showAvg = true;
 
   double avgDiffY = 0.0;
   double diffSumY = 0.0;
@@ -45,35 +45,6 @@ class _chartState extends State<Chart> {
             ),
             child: LineChart(
               showAvg ? avgData() : mainData(),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 50,
-          child: TextButton(
-            onPressed: () {
-              setState(() {
-                showAvg = !showAvg;
-              });
-            },
-            child: Material(
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(7),
-              ),
-              color: showAvg
-                  ? kSecondaryColor.withOpacity(0.4)
-                  : kPrimaryColor.withOpacity(0.4),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
-                child: Text(
-                  'Avg',
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w800,
-                      color: kSubSecondaryColor),
-                ),
-              ),
             ),
           ),
         ),
