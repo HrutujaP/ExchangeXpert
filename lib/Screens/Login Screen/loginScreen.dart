@@ -155,9 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           verificationCompleted:
                               (PhoneAuthCredential credential) async {
                             pinController.setText(credential.smsCode!);
-
-
-                              },
+                          },
                           verificationFailed: (FirebaseAuthException e) {
                             print(e.message);
                           },
@@ -165,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               (String verificationId, int? resendToken) async {
                             var sms = SmsAutoFill().listenForCode;
                             OTPVerification(context, verificationId, "signUp",
-                                mobileNumber, sms);
+                                mobileNumber, sms, username);
                           },
                           codeAutoRetrievalTimeout: (String verificationId) {
                             print(verificationId);
@@ -306,21 +304,59 @@ class _LoginScreenState extends State<LoginScreen> {
                         mobileNumber = mobileNumber_controller.text;
                       });
                       if (_signInformKey.currentState!.validate()) {
-                        await FirebaseAuth.instance.verifyPhoneNumber(
-                          phoneNumber: "+91$mobileNumber",
-                          verificationCompleted:
-                              (PhoneAuthCredential credential) async {
-                            pinController.setText(credential.smsCode!);
-                          },
-                          verificationFailed: (FirebaseAuthException e) {},
-                          codeSent:
-                              (String verificationId, int? resendToken) async {
-                            var sms = SmsAutoFill().listenForCode;
-                            OTPVerification(context, verificationId, "signIn",
-                                mobileNumber, sms);
-                          },
-                          codeAutoRetrievalTimeout: (String verificationId) {},
-                        );
+                        FirebaseFirestore.instance
+                            .collection("Users")
+                            .doc(mobileNumber)
+                            .get()
+                            .then((value) async {
+                          if (value.exists) {
+                            await FirebaseAuth.instance.verifyPhoneNumber(
+                              phoneNumber: "+91$mobileNumber",
+                              verificationCompleted:
+                                  (PhoneAuthCredential credential) async {
+                                pinController.setText(credential.smsCode!);
+                              },
+                              verificationFailed: (FirebaseAuthException e) {},
+                              codeSent: (String verificationId,
+                                  int? resendToken) async {
+                                var sms = SmsAutoFill().listenForCode;
+                                OTPVerification(context, verificationId,
+                                    "signin", mobileNumber, sms, "");
+
+                              },
+                              codeAutoRetrievalTimeout:
+                                  (String verificationId) {},
+                            );
+                          } else {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  Future.delayed(const Duration(seconds: 3),
+                                      () {
+                                    Navigator.of(context).pop(true);
+                                  });
+                                  return AlertDialog(
+                                    title: const Text(
+                                      'User not found',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: kSubSecondaryColor,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    elevation: 10,
+                                    shadowColor: kSecondaryColor1,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    backgroundColor: kSubPrimaryColor,
+                                    contentPadding: const EdgeInsets.all(0),
+                                    titlePadding: const EdgeInsets.all(15),
+                                  );
+                                });
+                          }
+                        });
                       }
                     },
                     style: ButtonStyle(

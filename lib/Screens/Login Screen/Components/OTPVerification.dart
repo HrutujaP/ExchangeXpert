@@ -22,7 +22,7 @@ final defaultPinTheme = PinTheme(
   ),
 );
 Future<dynamic> OTPVerification(BuildContext context, String verificationId,
-    String requestType, String mobileNumber, var pin) {
+    String requestType, String mobileNumber, var pin,String name) {
   return showDialog(
       context: context,
       builder: (context) {
@@ -108,7 +108,7 @@ Future<dynamic> OTPVerification(BuildContext context, String verificationId,
                         FirebaseFirestore.instance
                             .collection("Users")
                             .doc(mobileNumber)
-                            .set({"Mobile Number": mobileNumber});
+                            .set({"Mobile Number": mobileNumber, "Name": name});
                         // Navigator.pop(context);
                         Navigator.pushReplacement(context, MaterialPageRoute(
                           builder: (context) {
