@@ -207,7 +207,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         FirebaseFirestore.instance
                             .collection("Users")
                             .doc(userEmail)
-                            .set({"Email": userEmail});
+                            .set({
+                          "Email": userEmail,
+                          "Name": credential.user!.displayName
+                        });
                         Navigator.pushNamed(context, HomeScreen.id);
                       }
                     },
