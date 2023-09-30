@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:math';
+import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
 
 class Functions {
@@ -17,25 +19,25 @@ class Functions {
           .subtract(Duration(days: i))
           .toString()
           .substring(0, 10));
-      chartPoints.add(FlSpot(double.parse(i.toString()), Random().nextDouble()));
+      // chartPoints.add(FlSpot(double.parse(i.toString()), Random().nextDouble()));
     }
     dates.add("latest");
     try {
       // get conversion rate for each date
-      // for (int i = 0; i < dates.length; i++) {
-      //   String url =
-      //       "$apiUrl${dates[i]}?$accessKey&symbols=$baseCurrency,$targetCurrency";
-      //   http.Response response = await http.get(Uri.parse(url));
-      //   Map<String, dynamic> data = jsonDecode(response.body);
-      //   double base = data["rates"][baseCurrency];
-      //   double target = data["rates"][targetCurrency];
+      for (int i = 0; i < dates.length; i++) {
+        String url =
+            "$apiUrl${dates[i]}?$accessKey&symbols=$baseCurrency,$targetCurrency";
+        http.Response response = await http.get(Uri.parse(url));
+        Map<String, dynamic> data = jsonDecode(response.body);
+        double base = data["rates"][baseCurrency];
+        double target = data["rates"][targetCurrency];
 
-      //   target = target / base;
-      //   // reduce to 2 decimal places
-      //   target = double.parse(target.toStringAsFixed(2));
-      //   // print(target);
-      //   chartPoints.add(FlSpot(double.parse(i.toString()), target));
-      // }
+        target = target / base;
+        // reduce to 2 decimal places
+        target = double.parse(target.toStringAsFixed(2));
+        print(target);
+        chartPoints.add(FlSpot(double.parse(i.toString()), target));
+      }
 
       return chartPoints;
     } catch (e) {

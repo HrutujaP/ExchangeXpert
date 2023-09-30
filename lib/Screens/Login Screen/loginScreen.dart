@@ -153,15 +153,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         await FirebaseAuth.instance.verifyPhoneNumber(
                           phoneNumber: "+91$mobileNumber",
                           verificationCompleted:
-                              (PhoneAuthCredential credential) async {},
-                          verificationFailed: (FirebaseAuthException e) {},
+                              (PhoneAuthCredential credential) async {
+                            pinController.setText(credential.smsCode!);
+
+
+                              },
+                          verificationFailed: (FirebaseAuthException e) {
+                            print(e.message);
+                          },
                           codeSent:
                               (String verificationId, int? resendToken) async {
                             var sms = SmsAutoFill().listenForCode;
                             OTPVerification(context, verificationId, "signUp",
                                 mobileNumber, sms);
                           },
-                          codeAutoRetrievalTimeout: (String verificationId) {},
+                          codeAutoRetrievalTimeout: (String verificationId) {
+                            print(verificationId);
+                          },
                         );
                       }
                     },

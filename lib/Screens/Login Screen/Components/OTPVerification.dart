@@ -109,6 +109,12 @@ Future<dynamic> OTPVerification(BuildContext context, String verificationId,
                             .collection("Users")
                             .doc(mobileNumber)
                             .set({"Mobile Number": mobileNumber});
+                        // Navigator.pop(context);
+                        Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const HomeScreen();
+                          },
+                        ));
                       }
                     },
                     child: const Text(
