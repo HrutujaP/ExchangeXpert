@@ -155,9 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           verificationCompleted:
                               (PhoneAuthCredential credential) async {
                             pinController.setText(credential.smsCode!);
-
-
-                              },
+                          },
                           verificationFailed: (FirebaseAuthException e) {
                             print(e.message);
                           },
@@ -165,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               (String verificationId, int? resendToken) async {
                             var sms = SmsAutoFill().listenForCode;
                             OTPVerification(context, verificationId, "signUp",
-                                mobileNumber, sms);
+                                mobileNumber, sms, username);
                           },
                           codeAutoRetrievalTimeout: (String verificationId) {
                             print(verificationId);
@@ -209,7 +207,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         FirebaseFirestore.instance
                             .collection("Users")
                             .doc(userEmail)
-                            .set({"Email": userEmail});
+                            .set({
+                          "Email": userEmail,
+                          "Name": credential.user!.displayName
+                        });
                         Navigator.pushNamed(context, HomeScreen.id);
                       }
                     },
@@ -294,7 +295,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: mobileNumber_controller,
                 ),
               ),
-
               Center(
                 child: SizedBox(
                   // width: 0,
@@ -306,21 +306,32 @@ class _LoginScreenState extends State<LoginScreen> {
                         mobileNumber = mobileNumber_controller.text;
                       });
                       if (_signInformKey.currentState!.validate()) {
-                        await FirebaseAuth.instance.verifyPhoneNumber(
-                          phoneNumber: "+91$mobileNumber",
-                          verificationCompleted:
-                              (PhoneAuthCredential credential) async {
-                            pinController.setText(credential.smsCode!);
-                          },
-                          verificationFailed: (FirebaseAuthException e) {},
-                          codeSent:
-                              (String verificationId, int? resendToken) async {
-                            var sms = SmsAutoFill().listenForCode;
-                            OTPVerification(context, verificationId, "signIn",
-                                mobileNumber, sms);
-                          },
-                          codeAutoRetrievalTimeout: (String verificationId) {},
-                        );
+                        FirebaseFirestore.instance
+                            .collection("Users")
+                            .doc(mobileNumber)
+                            .get()
+                            .then((value) async {
+                          if (value.exists) {
+                            await FirebaseAuth.instance.verifyPhoneNumber(
+                              phoneNumber: "+91$mobileNumber",
+                              verificationCompleted:
+                                  (PhoneAuthCredential credential) async {
+                                pinController.setText(credential.smsCode!);
+                              },
+                              verificationFailed: (FirebaseAuthException e) {},
+                              codeSent: (String verificationId,
+                                  int? resendToken) async {
+                                var sms = SmsAutoFill().listenForCode;
+                                OTPVerification(context, verificationId,
+                                    "signin", mobileNumber, sms, "");
+                              },
+                              codeAutoRetrievalTimeout:
+                                  (String verificationId) {},
+                            );
+                          } else {
+                            userNotFoundPopUp(context);
+                          }
+                        });
                       }
                     },
                     style: ButtonStyle(
@@ -338,14 +349,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              // TextButton(
-              //   onPressed: () {},
-              //   child: const Text("Send OTP",
-              //       style: TextStyle(
-              //         color: kPrimaryColor1,
-              //       )),
-              // ),
-
               const Center(
                 child: Text(
                   "or",
@@ -355,24 +358,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-
               GestureDetector(
                 onTap: () async {
                   var credential = await signInWithGoogle();
                   String userEmail = credential.user!.email!;
-                  FirebaseAuth.instance.authStateChanges().listen(
-                    (User? user) {
-                      if (user == null) {
-                        Navigator.pushNamed(context, LoginScreen.id);
-                      } else {
-                        FirebaseFirestore.instance
-                            .collection("Users")
-                            .doc(userEmail)
-                            .set({"Email": userEmail});
-                        Navigator.pushNamed(context, HomeScreen.id);
-                      }
-                    },
-                  );
+                  FirebaseFirestore.instance
+                      .collection("Users")
+                      .doc(userEmail)
+                      .get()
+                      .then((value) {
+                    if (value.exists) {
+                      // Navigator.pushNamed(context, HomeScreen.id);
+                      FirebaseAuth.instance.authStateChanges().listen(
+                        (User? user) {
+                          if (user == null) {
+                            userNotFoundPopUp(context);
+                          } else {
+                            Navigator.pushNamed(context, HomeScreen.id);
+                          }
+                        },
+                      );
+                    } else {
+                      userNotFoundPopUp(context);
+                    }
+                  });
                 },
                 child: Center(
                   child: Container(
@@ -402,7 +411,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-
               Center(
                 child: TextButton(
                   onPressed: () {
@@ -422,5 +430,34 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Future<dynamic> userNotFoundPopUp(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          Future.delayed(const Duration(seconds: 3), () {
+            Navigator.of(context).pop(true);
+          });
+          return AlertDialog(
+            title: const Text(
+              'User not found',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: kSubSecondaryColor,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            elevation: 10,
+            shadowColor: kSecondaryColor1,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            backgroundColor: kSubPrimaryColor,
+            contentPadding: const EdgeInsets.all(0),
+            titlePadding: const EdgeInsets.all(15),
+          );
+        });
   }
 }
