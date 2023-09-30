@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/loginScreen.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,6 @@ class loginFormFields extends StatefulWidget {
 }
 
 class _loginFormFieldsState extends State<loginFormFields> {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
