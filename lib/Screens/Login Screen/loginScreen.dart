@@ -1,13 +1,14 @@
-// ignore_for_file: use_build_context_synchronously, unrelated_type_equality_checks
+// ignore_for_file: use_build_context_synchronously, unrelated_type_equality_checks, non_constant_identifier_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:exchange_xpert/Constants/constant.dart';
+// import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/homeScreen.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/Components/OTPVerification.dart';
-import 'package:exchange_xpert/Screens/Login%20Screen/Components/currencyIconsDisplay.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/Components/loginAppInfo.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/Components/loginFormFields.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/Components/welcomeText.dart';
+import 'package:exchange_xpert/Screens/Welcome%20Screen/Components/currenyIcons.dart';
+import 'package:exchange_xpert/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -69,34 +70,72 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              // appInfo(),
-              const loginAppInfo(),
-              const currencyIconsDisplay(),
-              CarouselSlider(
-                items: [
-                  signIn(context),
-                  signUp(context),
-                ],
-                carouselController: buttonCarouselController,
-                options: CarouselOptions(
-                  height: MediaQuery.of(context).size.height / 1.5,
-                  scrollPhysics: const BouncingScrollPhysics(),
-                  enlargeCenterPage: true,
-                  autoPlay: false,
-                  aspectRatio: 16 / 9,
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enableInfiniteScroll: false,
-                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                  viewportFraction: 1,
+    return Theme(
+      data: appTheme,
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: appTheme.colorScheme.background,
+          body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                // appInfo(),
+                const loginAppInfo(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        currencyIcons(
+                          currency: "€",
+                        ),
+                        currencyIcons(
+                          currency: "£",
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        currencyIcons(
+                          currency: "¥",
+                        ),
+                        currencyIcons(
+                          currency: "₹",
+                        ),
+                        currencyIcons(
+                          currency: "د.إ",
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ),
-            ],
+
+                CarouselSlider(
+                  items: [
+                    signIn(context),
+                    signUp(context),
+                  ],
+                  carouselController: buttonCarouselController,
+                  options: CarouselOptions(
+                    height: MediaQuery.of(context).size.height / 1.5,
+                    scrollPhysics: const BouncingScrollPhysics(),
+                    enlargeCenterPage: true,
+                    autoPlay: false,
+                    aspectRatio: 16 / 9,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enableInfiniteScroll: false,
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 800),
+                    viewportFraction: 1,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -121,9 +160,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 formKey: _signUpformKey,
                 hintText: "Enter your Name",
                 labelText: "Username",
-                prefixIcon: const Icon(
+                prefixIcon: Icon(
                   Icons.abc,
-                  color: lPrimaryColor1,
+                  size: 30,
+                  color: appTheme.colorScheme.onBackground,
                 ),
                 name: 'username',
                 controller: username_controller,
@@ -132,16 +172,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 formKey: _signUpformKey,
                 hintText: "Enter your Mobile Number",
                 labelText: "Mobile Number",
-                prefixIcon: const Icon(
+                prefixIcon: Icon(
                   Icons.phone,
-                  color: lPrimaryColor1,
+                  size: 27,
+                  color: appTheme.colorScheme.onBackground,
                 ),
                 name: 'mobileNumber',
                 controller: mobileNumber_controller,
               ),
               Center(
                 child: SizedBox(
-                  width: 200,
+                  // width: 200,
                   height: 50,
                   child: TextButton(
                     onPressed: () async {
@@ -157,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             pinController.setText(credential.smsCode!);
                           },
                           verificationFailed: (FirebaseAuthException e) {
-                            print(e.message);
+                            // print(e.message);
                           },
                           codeSent:
                               (String verificationId, int? resendToken) async {
@@ -166,33 +207,44 @@ class _LoginScreenState extends State<LoginScreen> {
                                 mobileNumber, sms, username);
                           },
                           codeAutoRetrievalTimeout: (String verificationId) {
-                            print(verificationId);
+                            // print(verificationId);
                           },
                         );
                       }
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        lSubSecondaryColor,
+                        appTheme.colorScheme.surface,
+                      ),
+                      shape: MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
                       ),
                     ),
-                    child: const Text(
-                      "Send OTP",
-                      style: TextStyle(
-                        color: lSubPrimaryColor,
-                        fontSize: 18,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Request OTP",
+                        style: TextStyle(
+                          color: appTheme.colorScheme.onSurface,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-              const Center(
-                child: Text(
-                  "or",
-                  style: TextStyle(
-                      color: lPrimaryColor1,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text(
+                    "or",
+                    style: TextStyle(
+                        color: appTheme.colorScheme.onBackground,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               GestureDetector(
@@ -222,15 +274,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: lSubPrimaryColor,
+                      color: appTheme.colorScheme.onBackground.withOpacity(0.2),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           "Continue with",
                           style: TextStyle(
-                            color: lSubSecondaryColor,
+                            color: appTheme.colorScheme.onBackground,
                             fontSize: 20,
                           ),
                         ),
@@ -251,10 +303,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.linear);
                   },
-                  child: const Text(
+                  child: Text(
                     "Already have an account? Sign In.",
                     style: TextStyle(
-                      color: lPrimaryColor1,
+                      color: appTheme.colorScheme.onBackground,
                       fontSize: 16,
                     ),
                   ),
@@ -287,9 +339,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   formKey: _signUpformKey,
                   hintText: "Enter your Mobile Number",
                   labelText: "Mobile Number",
-                  prefixIcon: const Icon(
+                  prefixIcon: Icon(
                     Icons.phone,
-                    color: lPrimaryColor1,
+                    color: appTheme.colorScheme.onBackground,
                   ),
                   name: 'mobileNumber',
                   controller: mobileNumber_controller,
@@ -329,26 +381,37 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        lSubSecondaryColor,
+                        appTheme.colorScheme.surface,
+                      ),
+                      shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
                       ),
                     ),
-                    child: const Text(
-                      "Send OTP to Sign In",
-                      style: TextStyle(
-                        color: lSubPrimaryColor,
-                        fontSize: 16,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Request OTP",
+                        style: TextStyle(
+                          color: appTheme.colorScheme.onSurface,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-              const Center(
-                child: Text(
-                  "or",
-                  style: TextStyle(
-                      color: lPrimaryColor1,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text(
+                    "or",
+                    style: TextStyle(
+                        color: appTheme.colorScheme.onBackground,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               GestureDetector(
@@ -384,15 +447,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: lSubPrimaryColor,
+                      color: appTheme.colorScheme.secondary.withOpacity(0.2),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           "Continue with",
                           style: TextStyle(
-                            color: lSubSecondaryColor,
+                            color: appTheme.colorScheme.surface,
                             fontSize: 20,
                           ),
                         ),
@@ -406,18 +469,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              Center(
-                child: TextButton(
-                  onPressed: () {
-                    buttonCarouselController.nextPage(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.linear);
-                  },
-                  child: const Text("Don't have an account Sign Up",
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: TextButton(
+                    onPressed: () {
+                      buttonCarouselController.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.linear);
+                    },
+                    child: Text(
+                      "Don't have an account? Sign Up",
                       style: TextStyle(
-                        color: lPrimaryColor1,
-                        fontSize: 16,
-                      )),
+                        color: appTheme.colorScheme.primary,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -435,21 +503,21 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.of(context).pop(true);
           });
           return AlertDialog(
-            title: const Text(
+            title: Text(
               'User not found',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: lSubSecondaryColor,
+                color: appTheme.colorScheme.surface,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
             elevation: 10,
-            shadowColor: lSecondaryColor1,
+            shadowColor: appTheme.colorScheme.onSecondary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            backgroundColor: lSubPrimaryColor,
+            backgroundColor: appTheme.colorScheme.background,
             contentPadding: const EdgeInsets.all(0),
             titlePadding: const EdgeInsets.all(15),
           );

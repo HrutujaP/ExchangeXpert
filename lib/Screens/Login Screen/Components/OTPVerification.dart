@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/homeScreen.dart';
+import 'package:exchange_xpert/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
@@ -29,13 +30,13 @@ Future<dynamic> OTPVerification(BuildContext context, String verificationId,
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: lSubPrimaryColor,
+          backgroundColor: appTheme.colorScheme.onSurface,
           contentPadding: EdgeInsets.all(0),
-          title: const Center(
+          title: Center(
             child: Text(
               "Enter OTP",
               style: TextStyle(
-                  color: lSecondaryColor1,
+                  color: appTheme.colorScheme.onSecondary,
                   fontSize: 20,
                   fontWeight: FontWeight.w600),
             ),
@@ -79,18 +80,22 @@ Future<dynamic> OTPVerification(BuildContext context, String verificationId,
                       focusedPinTheme: defaultPinTheme.copyWith(
                         decoration: defaultPinTheme.decoration!.copyWith(
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: lSecondaryColor),
+                          border: Border.all(
+                            color: appTheme.colorScheme.secondary,
+                          ),
                         ),
                       ),
                       submittedPinTheme: defaultPinTheme.copyWith(
                         decoration: defaultPinTheme.decoration!.copyWith(
-                          color: lPrimaryColor,
+                          color: appTheme.colorScheme.primary,
                           borderRadius: BorderRadius.circular(19),
-                          border: Border.all(color: lPrimaryColor),
+                          border: Border.all(
+                            color: appTheme.colorScheme.primary,
+                          ),
                         ),
                       ),
                       errorPinTheme: defaultPinTheme.copyBorderWith(
-                        border: Border.all(color: Colors.red),
+                        border: Border.all(color: appTheme.colorScheme.error),
                       ),
                     ),
                   ),
@@ -118,10 +123,10 @@ Future<dynamic> OTPVerification(BuildContext context, String verificationId,
                         },
                       ));
                     },
-                    child: const Text(
+                    child: Text(
                       "VERIFY",
                       style: TextStyle(
-                        color: lPrimaryColor1,
+                        color: appTheme.colorScheme.onBackground,
                       ),
                     ),
                   ),

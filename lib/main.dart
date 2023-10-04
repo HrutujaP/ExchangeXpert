@@ -14,8 +14,8 @@ void main() async {
   runApp(const MyApp());
 }
 
-// ThemeData appTheme = LightTheme;
-ThemeData appTheme = DarkTheme;
+ThemeData appTheme = LightTheme;
+// ThemeData appTheme = DarkTheme;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           WelcomeScreen.id: (context) => const WelcomeScreen(),
           ProfileScreen.id: (context) => const ProfileScreen(),
         },
-        initialRoute: WelcomeScreen.id,
+        initialRoute:LoginScreen.id,
         // initialRoute: HomeScreen.id,
         // initialRoute: ProfileScreen.id,
         home: const WelcomeScreen(),
