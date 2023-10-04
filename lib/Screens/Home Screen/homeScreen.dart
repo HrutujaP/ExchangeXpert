@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 20,
                             fontWeight: FontWeight.w900),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       const Expanded(child: Icon(Icons.menu)),
                     ],
                   ),
@@ -168,6 +168,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 20,
                   ),
+                  Visibility(
+                    visible: isAnimating,
+                    replacement: const SizedBox(),
+                    child: FutureBuilder(
+                      future: functions.getExchangeRate(base, target) ,
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        return Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Column(children: [
+                          Text('1 $base = ${snapshot.data} $target'),
+                        ])
+                        ,
+                      );
+                      }
+                    ),
+                  ),
+                  const Spacer(),
                   Visibility(
                     visible: base.isNotEmpty && target.isNotEmpty,
                     replacement: base.isEmpty
@@ -318,49 +340,5 @@ class _CurrencyMenuState extends State<CurrencyMenu> {
             });
           }),
     );
-  }
-}
-
-class CustomPainterContainer extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Layer 1
-
-    Paint paintFill0 = Paint()
-      ..color = kDarkThemeColor
-      ..style = PaintingStyle.fill
-      ..strokeWidth = size.width * 0.00
-      ..strokeCap = StrokeCap.butt
-      ..strokeJoin = StrokeJoin.miter;
-
-    Path path_0 = Path();
-    path_0.moveTo(size.width * 0.1666667, size.height * 0.0714286);
-    path_0.lineTo(size.width * 0.5000000, size.height * 0.0714286);
-    path_0.lineTo(size.width * 0.5000000, size.height * 0.2142857);
-    path_0.lineTo(size.width * 0.3958333, size.height * 0.2142857);
-    path_0.quadraticBezierTo(size.width * 0.3943750, size.height * 0.1803571,
-        size.width * 0.3750000, size.height * 0.1785714);
-    path_0.quadraticBezierTo(size.width * 0.3547917, size.height * 0.1803571,
-        size.width * 0.3541667, size.height * 0.2142857);
-    path_0.lineTo(size.width * 0.1666667, size.height * 0.2142857);
-    path_0.lineTo(size.width * 0.1666667, size.height * 0.0714286);
-
-    canvas.drawPath(path_0, paintFill0);
-
-    // Layer 1
-
-    Paint paintStroke0 = Paint()
-      ..color = const Color.fromARGB(255, 33, 150, 243)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = size.width * 0.00
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.miter;
-
-    canvas.drawPath(path_0, paintStroke0);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
   }
 }

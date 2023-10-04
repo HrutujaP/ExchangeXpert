@@ -301,31 +301,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   // height: 50,
                   child: TextButton(
                     onPressed: () async {
-                      setState(() {
-                        // username = username_controller.text;
-                        mobileNumber = mobileNumber_controller.text;
-                      });
-                      if (_signInformKey.currentState!.validate()) {
-                        await FirebaseAuth.instance.verifyPhoneNumber(
-                          phoneNumber: "+91$mobileNumber",
-                          verificationCompleted:
-                              (PhoneAuthCredential credential) async {
-                            pinController.setText(credential.smsCode!);
-                          },
-                          verificationFailed: (FirebaseAuthException e) {
-                            print(e.message);
-                          },
-                          codeSent:
-                              (String verificationId, int? resendToken) async {
-                            var sms = SmsAutoFill().listenForCode;
-                            OTPVerification(context, verificationId, "signin",
-                                mobileNumber, sms, "");
-                          },
-                          codeAutoRetrievalTimeout: (String verificationId) {
-                            print(verificationId);
-                          },
-                        );
-                        
+                      mobileNumber = mobileNumber_controller.text;
+                      DocumentSnapshot documentSnapshot =
+                          await FirebaseFirestore.instance
+                              .collection('Users')
+                              .doc(mobileNumber)
+                              .get();
+                      if (documentSnapshot.exists) {
+                        if (_signInformKey.currentState!.validate()) {
+                          await FirebaseAuth.instance.verifyPhoneNumber(
+                            phoneNumber: "+91$mobileNumber",
+                            verificationCompleted:
+                                (PhoneAuthCredential credential) async {
+                              pinController.setText(credential.smsCode!);
+                            },
+                            verificationFailed: (FirebaseAuthException e) {
+                              print(e.message);
+                            },
+                            codeSent: (String verificationId,
+                                int? resendToken) async {
+                              var sms = SmsAutoFill().listenForCode;
+                              OTPVerification(context, verificationId, "signin",
+                                  mobileNumber, sms, "");
+                            },
+                            codeAutoRetrievalTimeout: (String verificationId) {
+                              print(verificationId);
+                            },
+                          );
+                        }
+                      }else{
+                        userNotFoundPopUp(context);
                       }
                     },
                     style: ButtonStyle(
@@ -369,10 +374,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Name": credential.user!.displayName
                         });
                         Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) {
-                          return HomeScreen(user: user,);
-                        },
-                      ));
+                          builder: (context) {
+                            return HomeScreen(
+                              user: user,
+                            );
+                          },
+                        ));
                       }
                     },
                   );
