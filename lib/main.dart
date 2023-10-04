@@ -31,9 +31,9 @@ class MyApp extends StatelessWidget {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         ProfileScreen.id: (context) => const ProfileScreen(),
       },
-      initialRoute: WelcomeScreen.id,
+      // initialRoute: WelcomeScreen.id,
       // initialRoute: HomeScreen.id,
-      // initialRoute: ProfileScreen.id,
+      initialRoute: ProfileScreen.id,
       home: const WelcomeScreen(),
     );
   }
