@@ -22,7 +22,10 @@ final defaultPinTheme = PinTheme(
   ),
 );
 Future<dynamic> OTPVerification(BuildContext context, String verificationId,
-    String requestType, String mobileNumber, var pin,String name) {
+    String requestType, String mobileNumber, var pin, String name) {
+    
+    UserCredential user;
+
   return showDialog(
       context: context,
       builder: (context) {
@@ -98,24 +101,21 @@ Future<dynamic> OTPVerification(BuildContext context, String verificationId,
                           PhoneAuthProvider.credential(
                         verificationId: verificationId,
                         smsCode: pinController.text,
-                        // smsCode: "123456",
                       );
-                      await FirebaseAuth.instance
+                     user =  await FirebaseAuth.instance
                           .signInWithCredential(credential);
-                      if (requestType == "sign-in") {
-                        Navigator.pushNamed(context, HomeScreen.id);
-                      } else {
+                      if (requestType != "sign-in") {
                         FirebaseFirestore.instance
                             .collection("Users")
-                            .doc(mobileNumber)
+                            .doc(user.user!.displayName)
                             .set({"Mobile Number": mobileNumber, "Name": name});
-                        // Navigator.pop(context);
-                        Navigator.pushReplacement(context, MaterialPageRoute(
-                          builder: (context) {
-                            return const HomeScreen();
-                          },
-                        ));
                       }
+
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (context) {
+                          return HomeScreen(user: user.user!,);
+                        },
+                      ));
                     },
                     child: const Text(
                       "VERIFY",

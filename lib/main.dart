@@ -1,4 +1,3 @@
-import 'package:exchange_xpert/Screens/Home%20Screen/homeScreen.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/loginScreen.dart';
 import 'package:exchange_xpert/Screens/Welcome%20Screen/welcomeScreen.dart';
 import 'package:exchange_xpert/firebase_options.dart';
@@ -29,7 +28,6 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         LoginScreen.id: (context) => const LoginScreen(),
-        HomeScreen.id: (context) => const HomeScreen(),
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         ProfileScreen.id: (context) => const ProfileScreen(),
       },

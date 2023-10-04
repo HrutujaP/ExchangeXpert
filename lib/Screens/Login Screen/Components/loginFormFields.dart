@@ -1,5 +1,4 @@
 import 'package:exchange_xpert/Constants/constant.dart';
-import 'package:exchange_xpert/Screens/Login%20Screen/loginScreen.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

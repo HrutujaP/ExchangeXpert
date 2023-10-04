@@ -1,13 +1,14 @@
 import 'package:exchange_xpert/Screens/Home%20Screen/components/chart.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import '../../Constants/constant.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
   static const id = "homeScreen";
-
-  const HomeScreen({super.key});
+  User user;
+  HomeScreen({required this.user, super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -48,11 +49,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
               child: Column(
                 children: [
-                  const Row(
+                  Row(
                     children: [
-                      Icon(Icons.image),
-                      Spacer(),
-                      Text(
+                      Expanded(
+                        child: Text(
+                            "👋 ${widget.user.displayName.toString().split(" ")[0]}",
+                            style: const TextStyle(
+                                color: kPrimaryColor1,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                      const Spacer(),
+                      const Text(
                         "Convert",
                         style: TextStyle(
                             letterSpacing: 3,
@@ -60,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontWeight: FontWeight.w900),
                       ),
                       Spacer(),
-                      Icon(Icons.menu),
+                      const Expanded(child: Icon(Icons.menu)),
                     ],
                   ),
                   const SizedBox(

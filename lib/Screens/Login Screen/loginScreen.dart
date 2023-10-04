@@ -29,6 +29,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  late UserCredential userCredential;
+
   bool containerAnimation = false;
   FirebaseAuth auth = FirebaseAuth.instance;
   final _signUpformKey = GlobalKey<FormState>();
@@ -55,7 +57,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     setState(() {
       Future.delayed(const Duration(seconds: 2), () {
         setState(() {
@@ -305,32 +306,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         mobileNumber = mobileNumber_controller.text;
                       });
                       if (_signInformKey.currentState!.validate()) {
-                        FirebaseFirestore.instance
-                            .collection("Users")
-                            .doc(mobileNumber)
-                            .get()
-                            .then((value) async {
-                          if (value.exists) {
-                            await FirebaseAuth.instance.verifyPhoneNumber(
-                              phoneNumber: "+91$mobileNumber",
-                              verificationCompleted:
-                                  (PhoneAuthCredential credential) async {
-                                pinController.setText(credential.smsCode!);
-                              },
-                              verificationFailed: (FirebaseAuthException e) {},
-                              codeSent: (String verificationId,
-                                  int? resendToken) async {
-                                var sms = SmsAutoFill().listenForCode;
-                                OTPVerification(context, verificationId,
-                                    "signin", mobileNumber, sms, "");
-                              },
-                              codeAutoRetrievalTimeout:
-                                  (String verificationId) {},
-                            );
-                          } else {
-                            userNotFoundPopUp(context);
-                          }
-                        });
+                        await FirebaseAuth.instance.verifyPhoneNumber(
+                          phoneNumber: "+91$mobileNumber",
+                          verificationCompleted:
+                              (PhoneAuthCredential credential) async {
+                            pinController.setText(credential.smsCode!);
+                          },
+                          verificationFailed: (FirebaseAuthException e) {
+                            print(e.message);
+                          },
+                          codeSent:
+                              (String verificationId, int? resendToken) async {
+                            var sms = SmsAutoFill().listenForCode;
+                            OTPVerification(context, verificationId, "signin",
+                                mobileNumber, sms, "");
+                          },
+                          codeAutoRetrievalTimeout: (String verificationId) {
+                            print(verificationId);
+                          },
+                        );
+                        
                       }
                     },
                     style: ButtonStyle(
@@ -359,28 +354,28 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               GestureDetector(
                 onTap: () async {
-                  var credential = await signInWithGoogle();
+                  UserCredential credential = await signInWithGoogle();
                   String userEmail = credential.user!.email!;
-                  FirebaseFirestore.instance
-                      .collection("Users")
-                      .doc(userEmail)
-                      .get()
-                      .then((value) {
-                    if (value.exists) {
-                      // Navigator.pushNamed(context, HomeScreen.id);
-                      FirebaseAuth.instance.authStateChanges().listen(
-                        (User? user) {
-                          if (user == null) {
-                            userNotFoundPopUp(context);
-                          } else {
-                            Navigator.pushNamed(context, HomeScreen.id);
-                          }
+                  FirebaseAuth.instance.authStateChanges().listen(
+                    (User? user) {
+                      if (user == null) {
+                        Navigator.pushNamed(context, LoginScreen.id);
+                      } else {
+                        FirebaseFirestore.instance
+                            .collection("Users")
+                            .doc(userEmail)
+                            .set({
+                          "Email": userEmail,
+                          "Name": credential.user!.displayName
+                        });
+                        Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (context) {
+                          return HomeScreen(user: user,);
                         },
-                      );
-                    } else {
-                      userNotFoundPopUp(context);
-                    }
-                  });
+                      ));
+                      }
+                    },
+                  );
                 },
                 child: Center(
                   child: Container(
