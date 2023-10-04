@@ -47,48 +47,23 @@ const InputDecoration kTextFieldDecoration = InputDecoration(
   ),
 );
 
-// InputDecoration kTextFieldDecoration(
-//     String hintText, String labelText, Icon prefixIcon, Icon suffixIcon) {
-//   return InputDecoration(
-//     filled: true,
-//     enabledBorder: const OutlineInputBorder(
-//       borderSide: BorderSide(
-//         color: kSecondaryColor,
-//       ),
-//       borderRadius: BorderRadius.all(
-//         Radius.circular(40),
-//       ),
-//     ),
-//     focusedBorder: const OutlineInputBorder(
-//       borderSide: BorderSide(
-//         color: kPrimaryColor1,
-//       ),
-//       borderRadius: BorderRadius.all(
-//         Radius.circular(40),
-//       ),
-//     ),
-//     border: const OutlineInputBorder(
-//       borderSide: BorderSide(
-//         color: kSecondaryColor,
-//       ),
-//       borderRadius: BorderRadius.all(
-//         Radius.circular(40),
-//       ),
-//     ),
-//     hintText: hintText,
-//     fillColor: kSubPrimaryColor.withOpacity(0.2),
-//     labelText: labelText,
-//     labelStyle: const TextStyle(
-//       color: kSubSecondaryColor,
-//     ),
-
-//     prefixIcon: prefixIcon,
-//     suffixIcon: suffixIcon,
-//     prefixText: ' ',
-//     // suffixText: 'USD',
-//     // suffixStyle: const TextStyle(color: Colors.green)
-//   );
-// }
+ThemeData lightTheme = ThemeData(
+  colorScheme: const ColorScheme(
+    primary: Color(0xFF0A0E21),
+    onBackground: Colors.white,
+    onError: Colors.yellow,
+    onSecondary: Colors.white,
+    onSurface: Colors.white,
+    background: Colors.yellow,
+    secondary: Colors.purple,
+    surface: Color(0xFF0A0E21),
+    // secondaryVariant: Colors.white,
+    error: Colors.red,
+    // primaryVariant: Color(0xFF0A0E21),
+    onPrimary: Color(0xFF0A0E21),
+    brightness: Brightness.dark,
+  ),
+);
 
 const Map<String, String> countryCodes = {
   "AED": "United Arab Emirates Dirham",

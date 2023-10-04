@@ -16,7 +16,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final Map<String, dynamic> doc = {};
 
   void getsearchHistory() async {
-    // setState(() async {
     await FirebaseFirestore.instance
         .collection('Users')
         .doc('6363850983')
@@ -35,6 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
+    setState(() {});
     getsearchHistory();
     super.initState();
   }
@@ -45,59 +45,74 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: SafeArea(
           child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Material(
-              elevation: 10,
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: kSubPrimaryColor.withOpacity(0.3),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.account_circle_rounded,
-                        size: 40,
-                        color: kSubSecondaryColor,
-                      ),
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              // topLeft: Radius.circular(20),
+              // topRight: Radius.circular(20),
+              bottomLeft: Radius.circular(70),
+              bottomRight: Radius.circular(70),
+            ),
+            child: Container(
+              height: MediaQuery.of(context).size.height / 4.5,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: kSubSecondaryColor.withOpacity(0.3),
+                // borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Padding(
+                  //   padding: EdgeInsets.all(8.0),
+                  //   child: Icon(
+                  //     Icons.account_circle_rounded,
+                  //     size: 40,
+                  //     color: kPrimaryColor1,
+                  //   ),
+                  // ),
+                  const Text(
+                    "User Name\nMobile Number/Email id",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: kPrimaryColor1,
+                      fontWeight: FontWeight.w600,
                     ),
-                    const Text(
-                      "User Name\nMobile Number/Email id",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: kSubSecondaryColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    // IconButton(
-                    //   onPressed: () {},
-                    //   icon: Icon(
-                    //     Icons.bedtime,
-                    //     color: kSubSecondaryColor,
-                    //   ),
-                    // ),
-                    IconButton(
+                  ),
+                  // IconButton(
+                  //   onPressed: () {},
+                  //   icon: Icon(
+                  //     Icons.bedtime,
+                  //     color: kSubSecondaryColor,
+                  //   ),
+                  // ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.sunny,
-                        color: kSubSecondaryColor,
-                        size: 25,
+                        color: kPrimaryColor,
+                        size: 30,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
+          Text(
+            "Search History",
+            style: TextStyle(
+              color: kSubSecondaryColor,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           SizedBox(
-            height: MediaQuery.of(context).size.height / 1.3,
+            height: MediaQuery.of(context).size.height / 1.45,
             child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemCount: searchHistory.length,
                 itemBuilder: (context, index) {
                   return Padding(
@@ -110,11 +125,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                           side: const BorderSide(
-                            color: kPrimaryColor,
+                            color: kSecondaryColor,
                             width: 1,
                           ),
                         ),
-                        tileColor: kSubSecondaryColor.withOpacity(0.8),
+                        tileColor: kPrimaryColor.withOpacity(0.2),
                         title: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -126,7 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   const Text(
                                     "Australian Dollar",
                                     style: TextStyle(
-                                      color: kSubPrimaryColor,
+                                      color: kSecondaryColor,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -135,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     "£ ${searchHistory.keys.toList()[index]}",
                                     style: const TextStyle(
                                       letterSpacing: 3,
-                                      color: kSubPrimaryColor,
+                                      color: kSecondaryColor,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -145,7 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       Text(
                                         "£",
                                         style: TextStyle(
-                                          color: kSubPrimaryColor,
+                                          color: kSecondaryColor,
                                           fontSize: 20,
                                           fontWeight: FontWeight.w300,
                                         ),
@@ -153,7 +168,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       Text(
                                         "100.79",
                                         style: TextStyle(
-                                          color: kSubPrimaryColor,
+                                          color: kSecondaryColor,
                                           fontSize: 30,
                                           fontWeight: FontWeight.w300,
                                         ),
@@ -165,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               // Spacer(),
                               const Icon(
                                 CupertinoIcons.arrow_2_circlepath,
-                                color: kSubPrimaryColor,
+                                color: kSecondaryColor,
                                 size: 30,
                               ),
                               // Spacer(),
@@ -175,7 +190,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   const Text(
                                     "EURO",
                                     style: TextStyle(
-                                      color: kSubPrimaryColor,
+                                      color: kSecondaryColor,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -184,7 +199,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     "₹ ${searchHistory.values.toList()[index]}",
                                     style: const TextStyle(
                                       letterSpacing: 3,
-                                      color: kSubPrimaryColor,
+                                      color: kSecondaryColor,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -194,7 +209,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       Text(
                                         "₹",
                                         style: TextStyle(
-                                          color: kSubPrimaryColor,
+                                          color: kSecondaryColor,
                                           fontSize: 20,
                                           fontWeight: FontWeight.w300,
                                         ),
@@ -202,7 +217,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       Text(
                                         "1.00",
                                         style: TextStyle(
-                                          color: kSubPrimaryColor,
+                                          color: kSecondaryColor,
                                           fontSize: 30,
                                           fontWeight: FontWeight.w300,
                                         ),
