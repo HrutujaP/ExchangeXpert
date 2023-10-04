@@ -40,14 +40,9 @@ class _loginFormFieldsState extends State<loginFormFields> {
         child: TextFormField(
           controller: widget.controller,
           onChanged: (value) {
-            widget._formKey.currentState!.validate();
-
             setState(() {
-              if (widget.name == "username") {
-                username = widget.controller.text;
-              } else {
-                mobileNumber = widget.controller.text;
-              }
+              widget.controller.text = value;
+              
             });
           },
           validator: (value) {
