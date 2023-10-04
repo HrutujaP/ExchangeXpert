@@ -18,25 +18,24 @@ final defaultPinTheme = PinTheme(
   ),
   decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(19),
-    border: Border.all(color: kDarkThemeColor),
+    border: Border.all(color: DarkThemeColor),
   ),
 );
 Future<dynamic> OTPVerification(BuildContext context, String verificationId,
     String requestType, String mobileNumber, var pin, String name) {
-    
-    UserCredential user;
+  UserCredential user;
 
   return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: kSubPrimaryColor,
+          backgroundColor: lSubPrimaryColor,
           contentPadding: EdgeInsets.all(0),
           title: const Center(
             child: Text(
               "Enter OTP",
               style: TextStyle(
-                  color: kSecondaryColor1,
+                  color: lSecondaryColor1,
                   fontSize: 20,
                   fontWeight: FontWeight.w600),
             ),
@@ -73,21 +72,21 @@ Future<dynamic> OTPVerification(BuildContext context, String verificationId,
                             margin: const EdgeInsets.only(bottom: 9),
                             width: 22,
                             height: 1,
-                            color: kDarkThemeColor,
+                            color: DarkThemeColor,
                           ),
                         ],
                       ),
                       focusedPinTheme: defaultPinTheme.copyWith(
                         decoration: defaultPinTheme.decoration!.copyWith(
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: kSecondaryColor),
+                          border: Border.all(color: lSecondaryColor),
                         ),
                       ),
                       submittedPinTheme: defaultPinTheme.copyWith(
                         decoration: defaultPinTheme.decoration!.copyWith(
-                          color: kPrimaryColor,
+                          color: lPrimaryColor,
                           borderRadius: BorderRadius.circular(19),
-                          border: Border.all(color: kPrimaryColor),
+                          border: Border.all(color: lPrimaryColor),
                         ),
                       ),
                       errorPinTheme: defaultPinTheme.copyBorderWith(
@@ -102,7 +101,7 @@ Future<dynamic> OTPVerification(BuildContext context, String verificationId,
                         verificationId: verificationId,
                         smsCode: pinController.text,
                       );
-                     user =  await FirebaseAuth.instance
+                      user = await FirebaseAuth.instance
                           .signInWithCredential(credential);
                       if (requestType != "sign-in") {
                         FirebaseFirestore.instance
@@ -113,14 +112,16 @@ Future<dynamic> OTPVerification(BuildContext context, String verificationId,
 
                       Navigator.pushReplacement(context, MaterialPageRoute(
                         builder: (context) {
-                          return HomeScreen(user: user.user!,);
+                          return HomeScreen(
+                            user: user.user!,
+                          );
                         },
                       ));
                     },
                     child: const Text(
                       "VERIFY",
                       style: TextStyle(
-                        color: kPrimaryColor1,
+                        color: lPrimaryColor1,
                       ),
                     ),
                   ),

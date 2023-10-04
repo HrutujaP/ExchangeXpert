@@ -28,7 +28,6 @@ class loginFormFields extends StatefulWidget {
 }
 
 class _loginFormFieldsState extends State<loginFormFields> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -41,25 +40,22 @@ class _loginFormFieldsState extends State<loginFormFields> {
           onChanged: (value) {
             setState(() {
               widget.controller.text = value;
-              
             });
           },
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Required *';
-            } else {
-              
-            }
+            } else {}
             return null;
           },
-          cursorColor: kPrimaryColor1,
+          cursorColor: lPrimaryColor1,
           keyboardType: TextInputType.text,
           style: const TextStyle(
-            color: kSecondaryColor1,
+            color: lSecondaryColor1,
             fontSize: 18,
           ),
           decoration: kTextFieldDecoration.copyWith(
-            fillColor: kSubPrimaryColor.withOpacity(0.2),
+            fillColor: lSubPrimaryColor.withOpacity(0.2),
             hintText: widget.hintText,
             labelText: widget.labelText,
             prefixIcon: widget.prefixIcon,

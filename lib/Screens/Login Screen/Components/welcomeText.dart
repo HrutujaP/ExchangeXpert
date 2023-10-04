@@ -18,7 +18,7 @@ class welcomeText extends StatelessWidget {
           Text(
             "Welcome",
             style: TextStyle(
-              color: kSubSecondaryColor,
+              color: lSubSecondaryColor,
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -26,7 +26,7 @@ class welcomeText extends StatelessWidget {
           Text(
             "Let's get started!",
             style: TextStyle(
-              color: kSubSecondaryColor,
+              color: lSubSecondaryColor,
               fontSize: 18,
               // fontWeight: FontWeight.bold,
             ),

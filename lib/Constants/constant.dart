@@ -1,29 +1,75 @@
+// ignore_for_file: non_constant_identifier_names, constant_identifier_names
+
 import 'package:flutter/material.dart';
 
-const Color kSubPrimaryColor = Color.fromARGB(255, 196, 245, 220);
-const Color kPrimaryColor = Color(0xFF1FB39B);
-const Color kPrimaryColor1 = Color(0xFF0A98A8);
-const Color kSecondaryColor = Color(0xFF09B7CA);
-const Color kSecondaryColor1 = Color(0xFF0190BD);
-const Color kSubSecondaryColor = Color(0xFF00436d);
-const Color kLightThemeColor = Colors.white;
-const Color kDarkThemeColor = Colors.black;
+const Color LightThemeColor = Colors.white;
+const Color DarkThemeColor = Colors.black;
+
+const Color lSubPrimaryColor = Color.fromARGB(255, 196, 245, 220);
+const Color lPrimaryColor = Color(0xFF1FB39B);
+const Color lPrimaryColor1 = Color(0xFF0A98A8);
+const Color lSecondaryColor = Color(0xFF09B7CA);
+const Color lSecondaryColor1 = Color(0xFF0190BD);
+const Color lSubSecondaryColor = Color.fromARGB(255, 16, 92, 139);
+
+ThemeData LightTheme = ThemeData(
+  colorScheme: const ColorScheme(
+    primary: lPrimaryColor,
+    onBackground: lPrimaryColor1,
+    onError: LightThemeColor,
+    onSecondary: lSecondaryColor1,
+    onSurface: lSubPrimaryColor,
+    background: lSubPrimaryColor,
+    secondary: lSecondaryColor,
+    surface: lSubSecondaryColor,
+    // secondaryVariant: Colors.white,
+    error: Colors.red,
+    // primaryVariant: Color(0xFF0A0E21),
+    onPrimary: lPrimaryColor1,
+    brightness: Brightness.dark,
+  ),
+);
+
+const Color dSubPrimaryColor = Color.fromARGB(255, 156, 181, 222);
+const Color dPrimaryColor = Color(0xFF92acd2);
+const Color dPrimaryColor1 = Color(0xFF34517e);
+const Color dSecondaryColor = Color(0xFF3e6297);
+const Color dSecondaryColor1 = Color.fromARGB(255, 27, 85, 144);
+const Color dSubSecondaryColor = Color(0xFF1c2c44);
+
+ThemeData DarkTheme = ThemeData(
+  colorScheme: const ColorScheme(
+    primary: dPrimaryColor,
+    onBackground: dPrimaryColor1,
+    onError: LightThemeColor,
+    onSecondary: dSecondaryColor1,
+    onSurface: dSubSecondaryColor,
+    background: dSubSecondaryColor,
+    secondary: dSecondaryColor,
+    surface: dSubPrimaryColor,
+    // secondaryVariant: Colors.white,
+    error: Colors.red,
+    // primaryVariant: Color(0xFF0A0E21),
+    onPrimary: lPrimaryColor1,
+    brightness: Brightness.dark,
+  ),
+);
 
 const InputDecoration kTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
   prefixText: ' ',
   filled: true,
   hintStyle: TextStyle(
-    color: kSubSecondaryColor,
+    color: lSubSecondaryColor,
     fontSize: 16,
     fontWeight: FontWeight.w400,
   ),
   labelStyle: TextStyle(
-    color: kSubSecondaryColor,
+    color: lSubSecondaryColor,
   ),
   enabledBorder: OutlineInputBorder(
     borderSide: BorderSide(
-      color: kSecondaryColor,
+      color: lSecondaryColor,
     ),
     borderRadius: BorderRadius.all(
       Radius.circular(40),
@@ -31,7 +77,7 @@ const InputDecoration kTextFieldDecoration = InputDecoration(
   ),
   focusedBorder: OutlineInputBorder(
     borderSide: BorderSide(
-      color: kPrimaryColor1,
+      color: lPrimaryColor1,
     ),
     borderRadius: BorderRadius.all(
       Radius.circular(40),
@@ -39,29 +85,11 @@ const InputDecoration kTextFieldDecoration = InputDecoration(
   ),
   border: OutlineInputBorder(
     borderSide: BorderSide(
-      color: kSecondaryColor,
+      color: lSecondaryColor,
     ),
     borderRadius: BorderRadius.all(
       Radius.circular(40),
     ),
-  ),
-);
-
-ThemeData lightTheme = ThemeData(
-  colorScheme: const ColorScheme(
-    primary: Color(0xFF0A0E21),
-    onBackground: Colors.white,
-    onError: Colors.yellow,
-    onSecondary: Colors.white,
-    onSurface: Colors.white,
-    background: Colors.yellow,
-    secondary: Colors.purple,
-    surface: Color(0xFF0A0E21),
-    // secondaryVariant: Colors.white,
-    error: Colors.red,
-    // primaryVariant: Color(0xFF0A0E21),
-    onPrimary: Color(0xFF0A0E21),
-    brightness: Brightness.dark,
   ),
 );
 

@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 labelText: "Username",
                 prefixIcon: const Icon(
                   Icons.abc,
-                  color: kPrimaryColor1,
+                  color: lPrimaryColor1,
                 ),
                 name: 'username',
                 controller: username_controller,
@@ -134,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 labelText: "Mobile Number",
                 prefixIcon: const Icon(
                   Icons.phone,
-                  color: kPrimaryColor1,
+                  color: lPrimaryColor1,
                 ),
                 name: 'mobileNumber',
                 controller: mobileNumber_controller,
@@ -173,13 +173,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        kSubSecondaryColor,
+                        lSubSecondaryColor,
                       ),
                     ),
                     child: const Text(
                       "Send OTP",
                       style: TextStyle(
-                        color: kSubPrimaryColor,
+                        color: lSubPrimaryColor,
                         fontSize: 18,
                       ),
                     ),
@@ -190,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Text(
                   "or",
                   style: TextStyle(
-                      color: kPrimaryColor1,
+                      color: lPrimaryColor1,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
@@ -222,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: kSubPrimaryColor,
+                      color: lSubPrimaryColor,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -230,7 +230,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text(
                           "Continue with",
                           style: TextStyle(
-                            color: kSubSecondaryColor,
+                            color: lSubSecondaryColor,
                             fontSize: 20,
                           ),
                         ),
@@ -254,7 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: const Text(
                     "Already have an account? Sign In.",
                     style: TextStyle(
-                      color: kPrimaryColor1,
+                      color: lPrimaryColor1,
                       fontSize: 16,
                     ),
                   ),
@@ -289,7 +289,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   labelText: "Mobile Number",
                   prefixIcon: const Icon(
                     Icons.phone,
-                    color: kPrimaryColor1,
+                    color: lPrimaryColor1,
                   ),
                   name: 'mobileNumber',
                   controller: mobileNumber_controller,
@@ -325,18 +325,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             print(verificationId);
                           },
                         );
-                        
                       }
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        kSubSecondaryColor,
+                        lSubSecondaryColor,
                       ),
                     ),
                     child: const Text(
                       "Send OTP to Sign In",
                       style: TextStyle(
-                        color: kSubPrimaryColor,
+                        color: lSubPrimaryColor,
                         fontSize: 16,
                       ),
                     ),
@@ -347,7 +346,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Text(
                   "or",
                   style: TextStyle(
-                      color: kPrimaryColor1,
+                      color: lPrimaryColor1,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
@@ -369,10 +368,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Name": credential.user!.displayName
                         });
                         Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) {
-                          return HomeScreen(user: user,);
-                        },
-                      ));
+                          builder: (context) {
+                            return HomeScreen(
+                              user: user,
+                            );
+                          },
+                        ));
                       }
                     },
                   );
@@ -383,7 +384,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: kSubPrimaryColor,
+                      color: lSubPrimaryColor,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -391,7 +392,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text(
                           "Continue with",
                           style: TextStyle(
-                            color: kSubSecondaryColor,
+                            color: lSubSecondaryColor,
                             fontSize: 20,
                           ),
                         ),
@@ -414,7 +415,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: const Text("Don't have an account Sign Up",
                       style: TextStyle(
-                        color: kPrimaryColor1,
+                        color: lPrimaryColor1,
                         fontSize: 16,
                       )),
                 ),
@@ -438,17 +439,17 @@ class _LoginScreenState extends State<LoginScreen> {
               'User not found',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: kSubSecondaryColor,
+                color: lSubSecondaryColor,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
             elevation: 10,
-            shadowColor: kSecondaryColor1,
+            shadowColor: lSecondaryColor1,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            backgroundColor: kSubPrimaryColor,
+            backgroundColor: lSubPrimaryColor,
             contentPadding: const EdgeInsets.all(0),
             titlePadding: const EdgeInsets.all(15),
           );

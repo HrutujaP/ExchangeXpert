@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kLightThemeColor,
+      backgroundColor: LightThemeColor,
       body: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                             "👋 ${widget.user.displayName.toString().split(" ")[0]}",
                             style: const TextStyle(
-                                color: kPrimaryColor1,
+                                color: lPrimaryColor1,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold)),
                       ),
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: kSubSecondaryColor.withOpacity(0.2),
+                            color: lSubSecondaryColor.withOpacity(0.2),
                             spreadRadius: 1,
                             blurRadius: 1,
                             offset: const Offset(
@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                         borderRadius: BorderRadius.circular(15.0),
-                        color: kSecondaryColor
+                        color: lSecondaryColor
                             .withOpacity(0.1) // Set the background color
                         ),
                     width: MediaQuery.of(context).size.width,
@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const Text(
                             "From",
                             style: TextStyle(
-                              color: kSubSecondaryColor,
+                              color: lSubSecondaryColor,
                               fontSize: 16,
                               fontWeight: FontWeight.w900,
                             ),
@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const Text(
                             "To",
                             style: TextStyle(
-                              color: kSubSecondaryColor,
+                              color: lSubSecondaryColor,
                               fontSize: 16,
                               fontWeight: FontWeight.w900,
                             ),
@@ -174,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ? const Text(
                             "Select Base Currency",
                             style: TextStyle(
-                              color: kSubSecondaryColor,
+                              color: lSubSecondaryColor,
                               fontSize: 16,
                               fontWeight: FontWeight.w800,
                             ),
@@ -182,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         : const Text(
                             "Select Target Currency",
                             style: TextStyle(
-                              color: kSubSecondaryColor,
+                              color: lSubSecondaryColor,
                               fontSize: 16,
                               fontWeight: FontWeight.w800,
                             ),
@@ -198,12 +198,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: ButtonStyle(
                           elevation: MaterialStateProperty.all<double>(10),
                           shadowColor: MaterialStateColor.resolveWith(
-                              (states) => kSubSecondaryColor),
+                              (states) => lSubSecondaryColor),
                           padding: MaterialStateProperty.all<EdgeInsets>(
                               const EdgeInsets.symmetric(
                                   horizontal: 50, vertical: 10)),
                           backgroundColor:
-                              MaterialStateProperty.all(kSubPrimaryColor),
+                              MaterialStateProperty.all(lSubPrimaryColor),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text(
                         "Convert $base to $target",
                         style: const TextStyle(
-                            color: kSubSecondaryColor,
+                            color: lSubSecondaryColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 18),
                       ),
@@ -263,11 +263,11 @@ class _CurrencyMenuState extends State<CurrencyMenu> {
       padding: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        color: kLightThemeColor.withOpacity(0.9), // Set the background color
+        color: LightThemeColor.withOpacity(0.9), // Set the background color
       ),
       child: DropdownButton(
           elevation: 10,
-          dropdownColor: kLightThemeColor,
+          dropdownColor: LightThemeColor,
           underline: const SizedBox(),
           selectedItemBuilder: (context) {
             return items.map((item) {
@@ -292,7 +292,7 @@ class _CurrencyMenuState extends State<CurrencyMenu> {
                   Text(
                     item.value.toString(),
                     style: const TextStyle(
-                      color: kSubSecondaryColor,
+                      color: lSubSecondaryColor,
                       fontSize: 16,
                       fontWeight: FontWeight.w900,
                     ),
@@ -305,7 +305,7 @@ class _CurrencyMenuState extends State<CurrencyMenu> {
           hint: const Text(
             "Select Currency",
             style: TextStyle(
-              color: kSubSecondaryColor,
+              color: lSubSecondaryColor,
               fontSize: 16,
               fontWeight: FontWeight.w800,
             ),
@@ -327,7 +327,7 @@ class CustomPainterContainer extends CustomPainter {
     // Layer 1
 
     Paint paintFill0 = Paint()
-      ..color = kDarkThemeColor
+      ..color = DarkThemeColor
       ..style = PaintingStyle.fill
       ..strokeWidth = size.width * 0.00
       ..strokeCap = StrokeCap.butt

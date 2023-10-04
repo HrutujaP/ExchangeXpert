@@ -32,7 +32,7 @@ class loginAppInfo extends StatelessWidget {
                           borderRadius: BorderRadius.all(
                             Radius.circular(130),
                           ),
-                          color: kLightThemeColor,
+                          color: LightThemeColor,
                           shape: BoxShape.rectangle,
                         ),
                       )),
@@ -52,7 +52,7 @@ class loginAppInfo extends StatelessWidget {
                 fontSize: 28,
                 letterSpacing: 2,
                 fontWeight: FontWeight.bold,
-                color: kSubSecondaryColor,
+                color: lSubSecondaryColor,
                 decoration: TextDecoration.none,
               ),
             ),

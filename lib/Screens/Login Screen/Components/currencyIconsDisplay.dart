@@ -19,9 +19,9 @@ class currencyIconsDisplay extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 padding: const EdgeInsets.all(24),
-                shadowColor: kDarkThemeColor,
-                backgroundColor: kLightThemeColor,
-                surfaceTintColor: kSecondaryColor1,
+                shadowColor: DarkThemeColor,
+                backgroundColor: LightThemeColor,
+                surfaceTintColor: lSecondaryColor1,
                 elevation: 10,
               ),
               child: const Text(
@@ -29,7 +29,7 @@ class currencyIconsDisplay extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: kSubSecondaryColor,
+                  color: lSubSecondaryColor,
                 ),
               ),
             ),
@@ -38,9 +38,9 @@ class currencyIconsDisplay extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 padding: const EdgeInsets.all(24),
-                shadowColor: kDarkThemeColor,
-                backgroundColor: kLightThemeColor,
-                surfaceTintColor: kSecondaryColor1,
+                shadowColor: DarkThemeColor,
+                backgroundColor: LightThemeColor,
+                surfaceTintColor: lSecondaryColor1,
                 elevation: 10,
               ),
               child: const Text(
@@ -48,7 +48,7 @@ class currencyIconsDisplay extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: kSubSecondaryColor,
+                  color: lSubSecondaryColor,
                 ),
               ),
             ),
@@ -65,9 +65,9 @@ class currencyIconsDisplay extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 padding: const EdgeInsets.all(24),
-                shadowColor: kDarkThemeColor,
-                backgroundColor: kLightThemeColor,
-                surfaceTintColor: kSecondaryColor1,
+                shadowColor: DarkThemeColor,
+                backgroundColor: LightThemeColor,
+                surfaceTintColor: lSecondaryColor1,
                 elevation: 10,
               ),
               child: const Text(
@@ -75,7 +75,7 @@ class currencyIconsDisplay extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: kSubSecondaryColor,
+                  color: lSubSecondaryColor,
                 ),
               ),
             ),
@@ -84,9 +84,9 @@ class currencyIconsDisplay extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 padding: const EdgeInsets.all(24),
-                shadowColor: kDarkThemeColor,
-                backgroundColor: kLightThemeColor,
-                surfaceTintColor: kSecondaryColor1,
+                shadowColor: DarkThemeColor,
+                backgroundColor: LightThemeColor,
+                surfaceTintColor: lSecondaryColor1,
                 elevation: 10,
               ),
               child: const Text(
@@ -94,7 +94,7 @@ class currencyIconsDisplay extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: kSubSecondaryColor,
+                  color: lSubSecondaryColor,
                 ),
               ),
             ),
@@ -103,10 +103,10 @@ class currencyIconsDisplay extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 padding: const EdgeInsets.all(24),
-                shadowColor: kDarkThemeColor,
-                foregroundColor: kLightThemeColor,
-                backgroundColor: kLightThemeColor,
-                surfaceTintColor: kSecondaryColor1,
+                shadowColor: DarkThemeColor,
+                foregroundColor: LightThemeColor,
+                backgroundColor: LightThemeColor,
+                surfaceTintColor: lSecondaryColor1,
                 elevation: 10,
               ),
               child: Text(
@@ -114,7 +114,7 @@ class currencyIconsDisplay extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: kSubSecondaryColor,
+                  color: lSubSecondaryColor,
                 ),
               ),
             ),
