@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String id = 'profileScreen';
@@ -16,25 +19,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final Map<String, dynamic> doc = {};
 
   void getsearchHistory() async {
-    await FirebaseFirestore.instance
-        .collection('Users')
-        .doc('6363850983')
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        // print(documentSnapshot.data());
-        doc.addAll(documentSnapshot.data() as Map<String, dynamic>);
-        searchHistory = doc['history'];
-        // print(doc['history']);
-        // print(searchHistory.length);
-      }
-    });
+    try {
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc('6363850983')
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          print(documentSnapshot.data());
+          doc.addAll(documentSnapshot.data() as Map<String, dynamic>);
+          searchHistory = doc['history'];
+
+          // print(doc['history']);
+          // print(searchHistory.length);
+        }
+      });
+    } catch (e) {
+      print(e);
+    }
     // });
   }
 
   @override
   void initState() {
-    setState(() {});
+    setState(() {
+      searchHistory = {
+        "AED": "IND",
+        "GBP": "INR",
+        "USD": "AED",
+        "INR": "AED",
+        "IND": "USD"
+      };
+    });
     getsearchHistory();
     super.initState();
   }
@@ -56,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               height: MediaQuery.of(context).size.height / 4.5,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: kSubSecondaryColor.withOpacity(0.3),
+                color: kSubSecondaryColor.withOpacity(0.2),
                 // borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
               child: Column(
@@ -101,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
-          Text(
+          const Text(
             "Search History",
             style: TextStyle(
               color: kSubSecondaryColor,
@@ -115,118 +131,144 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 physics: const BouncingScrollPhysics(),
                 itemCount: searchHistory.length,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Material(
-                      elevation: 10,
-                      shadowColor: kDarkThemeColor,
-                      borderRadius: BorderRadius.circular(20),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: const BorderSide(
-                            color: kSecondaryColor,
-                            width: 1,
-                          ),
-                        ),
-                        tileColor: kPrimaryColor.withOpacity(0.2),
-                        title: Padding(
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    child: SlideAnimation(
+                      verticalOffset: 50.0,
+                      duration: const Duration(seconds: 2),
+                      child: FadeInAnimation(
+                        duration: const Duration(seconds: 1),
+                        child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Australian Dollar",
-                                    style: TextStyle(
-                                      color: kSecondaryColor,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    "£ ${searchHistory.keys.toList()[index]}",
-                                    style: const TextStyle(
-                                      letterSpacing: 3,
-                                      color: kSecondaryColor,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const Row(
-                                    children: [
-                                      Text(
-                                        "£",
-                                        style: TextStyle(
-                                          color: kSecondaryColor,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w300,
-                                        ),
-                                      ),
-                                      Text(
-                                        "100.79",
-                                        style: TextStyle(
-                                          color: kSecondaryColor,
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.w300,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                          child: Material(
+                            elevation: 10,
+                            shadowColor: kDarkThemeColor,
+                            borderRadius: BorderRadius.circular(20),
+                            child: ListTile(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                side: const BorderSide(
+                                  color: kSecondaryColor,
+                                  width: 1,
+                                ),
                               ),
-                              // Spacer(),
-                              const Icon(
-                                CupertinoIcons.arrow_2_circlepath,
-                                color: kSecondaryColor,
-                                size: 30,
-                              ),
-                              // Spacer(),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "EURO",
-                                    style: TextStyle(
-                                      color: kSecondaryColor,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    "₹ ${searchHistory.values.toList()[index]}",
-                                    style: const TextStyle(
-                                      letterSpacing: 3,
-                                      color: kSecondaryColor,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const Row(
-                                    children: [
-                                      Text(
-                                        "₹",
-                                        style: TextStyle(
-                                          color: kSecondaryColor,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w300,
-                                        ),
+                              tileColor: kPrimaryColor.withOpacity(0.2),
+                              title: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 3,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Dollar",
+                                            style: TextStyle(
+                                              color: kSecondaryColor,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            "£ ${searchHistory.keys.toList()[index]}",
+                                            style: const TextStyle(
+                                              letterSpacing: 3,
+                                              color: kSecondaryColor,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const Row(
+                                            children: [
+                                              Text(
+                                                "£",
+                                                style: TextStyle(
+                                                  color: kSecondaryColor,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                              ),
+                                              Text(
+                                                "100.79",
+                                                style: TextStyle(
+                                                  color: kSecondaryColor,
+                                                  fontSize: 30,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        "1.00",
-                                        style: TextStyle(
-                                          color: kSecondaryColor,
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.w300,
-                                        ),
+                                    ),
+                                    // Spacer(),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: const Icon(
+                                        CupertinoIcons.arrow_2_circlepath,
+                                        color: kSecondaryColor,
+                                        size: 30,
                                       ),
-                                    ],
-                                  ),
-                                ],
+                                    ),
+                                    // Spacer(),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 3,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "EURO",
+                                            style: TextStyle(
+                                              color: kSecondaryColor,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            "₹ ${searchHistory.values.toList()[index]}",
+                                            style: const TextStyle(
+                                              letterSpacing: 3,
+                                              color: kSecondaryColor,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const Row(
+                                            children: [
+                                              Text(
+                                                "₹",
+                                                style: TextStyle(
+                                                  color: kSecondaryColor,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                              ),
+                                              Text(
+                                                "1.00",
+                                                style: TextStyle(
+                                                  color: kSecondaryColor,
+                                                  fontSize: 30,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
