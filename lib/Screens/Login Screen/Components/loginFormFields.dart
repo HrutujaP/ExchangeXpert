@@ -1,4 +1,7 @@
+// ignore_for_file: file_names, camel_case_types
+
 import 'package:exchange_xpert/Constants/constant.dart';
+import 'package:exchange_xpert/main.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -28,7 +31,6 @@ class loginFormFields extends StatefulWidget {
 }
 
 class _loginFormFieldsState extends State<loginFormFields> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -41,25 +43,22 @@ class _loginFormFieldsState extends State<loginFormFields> {
           onChanged: (value) {
             setState(() {
               widget.controller.text = value;
-              
             });
           },
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Required *';
-            } else {
-              
-            }
+            } else {}
             return null;
           },
-          cursorColor: kPrimaryColor1,
+          cursorColor: appTheme.colorScheme.onBackground,
           keyboardType: TextInputType.text,
-          style: const TextStyle(
-            color: kSecondaryColor1,
+          style: TextStyle(
+            color: appTheme.colorScheme.onSecondary,
             fontSize: 18,
           ),
           decoration: kTextFieldDecoration.copyWith(
-            fillColor: kSubPrimaryColor.withOpacity(0.2),
+            fillColor: appTheme.colorScheme.onBackground.withOpacity(0.2),
             hintText: widget.hintText,
             labelText: widget.labelText,
             prefixIcon: widget.prefixIcon,

@@ -1,4 +1,6 @@
-import 'package:exchange_xpert/Constants/constant.dart';
+// ignore_for_file: camel_case_types, file_names
+
+import 'package:exchange_xpert/main.dart';
 import 'package:flutter/material.dart';
 
 class loginAppInfo extends StatelessWidget {
@@ -28,11 +30,11 @@ class loginAppInfo extends StatelessWidget {
                         ),
                         height: 130,
                         width: 130,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(
                             Radius.circular(130),
                           ),
-                          color: kLightThemeColor,
+                          color: appTheme.colorScheme.primary,
                           shape: BoxShape.rectangle,
                         ),
                       )),
@@ -46,13 +48,13 @@ class loginAppInfo extends StatelessWidget {
                 ),
               ],
             ),
-            const Text(
+            Text(
               "ExchangeXpert",
               style: TextStyle(
                 fontSize: 28,
                 letterSpacing: 2,
                 fontWeight: FontWeight.bold,
-                color: kSubSecondaryColor,
+                color: appTheme.colorScheme.surface,
                 decoration: TextDecoration.none,
               ),
             ),

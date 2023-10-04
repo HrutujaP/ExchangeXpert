@@ -1,4 +1,6 @@
-import 'package:exchange_xpert/Constants/constant.dart';
+// ignore_for_file: file_names, camel_case_types
+
+import 'package:exchange_xpert/main.dart';
 import 'package:flutter/material.dart';
 
 class welcomeText extends StatelessWidget {
@@ -8,8 +10,8 @@ class welcomeText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(
+    return Padding(
+      padding: const EdgeInsets.only(
         left: 8,
       ),
       child: Column(
@@ -18,7 +20,7 @@ class welcomeText extends StatelessWidget {
           Text(
             "Welcome",
             style: TextStyle(
-              color: kSubSecondaryColor,
+              color: appTheme.colorScheme.surface,
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -26,7 +28,7 @@ class welcomeText extends StatelessWidget {
           Text(
             "Let's get started!",
             style: TextStyle(
-              color: kSubSecondaryColor,
+              color: appTheme.colorScheme.surface,
               fontSize: 18,
               // fontWeight: FontWeight.bold,
             ),

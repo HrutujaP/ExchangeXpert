@@ -60,7 +60,7 @@ class _appInfoState extends State<appInfo> {
                             borderRadius: BorderRadius.all(
                               Radius.circular(150),
                             ),
-                            color: kLightThemeColor,
+                            color: LightThemeColor,
                             shape: BoxShape.rectangle,
                           ),
                         )),
@@ -80,7 +80,7 @@ class _appInfoState extends State<appInfo> {
                   fontSize: 28,
                   letterSpacing: 2,
                   fontWeight: FontWeight.bold,
-                  color: kSubSecondaryColor,
+                  color: lSubSecondaryColor,
                   decoration: TextDecoration.none,
                 ),
               ),
@@ -109,8 +109,8 @@ class _appInfoState extends State<appInfo> {
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(24),
-                        shadowColor: kDarkThemeColor,
-                        backgroundColor: kLightThemeColor,
+                        shadowColor: DarkThemeColor,
+                        backgroundColor: LightThemeColor,
                         elevation: 10,
                       ),
                       child: const Text(
@@ -118,7 +118,7 @@ class _appInfoState extends State<appInfo> {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: kSubSecondaryColor,
+                          color: lSubSecondaryColor,
                         ),
                       ),
                     ),
@@ -127,8 +127,8 @@ class _appInfoState extends State<appInfo> {
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(24),
-                        shadowColor: kDarkThemeColor,
-                        backgroundColor: kLightThemeColor,
+                        shadowColor: DarkThemeColor,
+                        backgroundColor: LightThemeColor,
                         elevation: 10,
                       ),
                       child: const Text(
@@ -136,7 +136,7 @@ class _appInfoState extends State<appInfo> {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: kSubSecondaryColor,
+                          color: lSubSecondaryColor,
                         ),
                       ),
                     ),
@@ -153,8 +153,8 @@ class _appInfoState extends State<appInfo> {
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(24),
-                        shadowColor: kDarkThemeColor,
-                        backgroundColor: kLightThemeColor,
+                        shadowColor: DarkThemeColor,
+                        backgroundColor: LightThemeColor,
                         elevation: 10,
                       ),
                       child: const Text(
@@ -162,7 +162,7 @@ class _appInfoState extends State<appInfo> {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: kSubSecondaryColor,
+                          color: lSubSecondaryColor,
                         ),
                       ),
                     ),
@@ -171,8 +171,8 @@ class _appInfoState extends State<appInfo> {
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(24),
-                        shadowColor: kDarkThemeColor,
-                        backgroundColor: kLightThemeColor,
+                        shadowColor: DarkThemeColor,
+                        backgroundColor: LightThemeColor,
                         elevation: 10,
                       ),
                       child: const Text(
@@ -180,7 +180,7 @@ class _appInfoState extends State<appInfo> {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: kSubSecondaryColor,
+                          color: lSubSecondaryColor,
                         ),
                       ),
                     ),
@@ -189,9 +189,9 @@ class _appInfoState extends State<appInfo> {
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(24),
-                        shadowColor: kDarkThemeColor,
-                        foregroundColor: kLightThemeColor,
-                        backgroundColor: kLightThemeColor,
+                        shadowColor: DarkThemeColor,
+                        foregroundColor: LightThemeColor,
+                        backgroundColor: LightThemeColor,
                         elevation: 10,
                       ),
                       child: Text(
@@ -199,7 +199,7 @@ class _appInfoState extends State<appInfo> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: kSubSecondaryColor,
+                          color: lSubSecondaryColor,
                         ),
                       ),
                     ),

@@ -14,7 +14,7 @@ class Chart extends StatefulWidget {
 }
 
 class _chartState extends State<Chart> {
-  List<Color> gradientColors = [kPrimaryColor, kSecondaryColor];
+  List<Color> gradientColors = [lPrimaryColor, lSecondaryColor];
 
   bool showAvg = true;
 
@@ -59,10 +59,10 @@ class _chartState extends State<Chart> {
               child: Material(
                 elevation: 5,
                 borderRadius: BorderRadius.circular(7),
-                color: kSubPrimaryColor,
+                color: lSubPrimaryColor,
                 child: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                  child: Icon(Icons.refresh, color: kSubSecondaryColor),
+                  child: Icon(Icons.refresh, color: lSubSecondaryColor),
                 ),
               ),
             ),
@@ -105,13 +105,13 @@ class _chartState extends State<Chart> {
         verticalInterval: 1,
         getDrawingHorizontalLine: (value) {
           return const FlLine(
-            color: kPrimaryColor1,
+            color: lPrimaryColor1,
             strokeWidth: 1,
           );
         },
         getDrawingVerticalLine: (value) {
           return const FlLine(
-            color: kSecondaryColor1,
+            color: lSecondaryColor1,
             strokeWidth: 1,
           );
         },
