@@ -251,22 +251,29 @@ class _LoginScreenState extends State<LoginScreen> {
                 onTap: () async {
                   var credential = await signInWithGoogle();
                   String userEmail = credential.user!.email!;
-                  FirebaseAuth.instance.authStateChanges().listen(
-                    (User? user) {
-                      if (user == null) {
-                        Navigator.pushNamed(context, LoginScreen.id);
-                      } else {
-                        FirebaseFirestore.instance
-                            .collection("Users")
-                            .doc(userEmail)
-                            .set({
-                          "Email": userEmail,
-                          "Name": credential.user!.displayName
-                        });
-                        Navigator.pushNamed(context, HomeScreen.id);
-                      }
-                    },
-                  );
+                  DocumentSnapshot documentSnapshot = await FirebaseFirestore
+                      .instance
+                      .collection('Users')
+                      .doc(userEmail)
+                      .get();
+
+                  if (!documentSnapshot.exists) {
+                    FirebaseFirestore.instance
+                        .collection("Users")
+                        .doc(userEmail)
+                        .set({
+                      "Email": userEmail,
+                      "Name": credential.user!.displayName
+                    });
+                  } else {
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) {
+                        return HomeScreen(
+                          user: credential.user!,
+                        );
+                      },
+                    ));
+                  }
                 },
                 child: Center(
                   child: Container(
@@ -381,7 +388,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           );
                         }
-                      }else{
+                      } else {
                         userNotFoundPopUp(context);
                       }
                     },
@@ -424,28 +431,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 onTap: () async {
                   UserCredential credential = await signInWithGoogle();
                   String userEmail = credential.user!.email!;
-                  FirebaseAuth.instance.authStateChanges().listen(
-                    (User? user) {
-                      if (user == null) {
-                        Navigator.pushNamed(context, LoginScreen.id);
-                      } else {
-                        FirebaseFirestore.instance
-                            .collection("Users")
-                            .doc(userEmail)
-                            .set({
-                          "Email": userEmail,
-                          "Name": credential.user!.displayName
-                        });
-                        Navigator.pushReplacement(context, MaterialPageRoute(
-                          builder: (context) {
-                            return HomeScreen(
-                              user: user,
-                            );
-                          },
-                        ));
-                      }
-                    },
-                  );
+                  DocumentSnapshot documentSnapshot = await FirebaseFirestore
+                      .instance
+                      .collection('Users')
+                      .doc(userEmail)
+                      .get();
+
+                  if (!documentSnapshot.exists) {
+                    userNotFoundPopUp(context);
+                  }else{
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) {
+                        return HomeScreen(
+                          user: credential.user!,
+                        );
+                      },
+                    ));
+                  }
+
                 },
                 child: Center(
                   child: Container(
