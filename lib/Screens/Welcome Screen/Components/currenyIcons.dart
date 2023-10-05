@@ -17,7 +17,7 @@ class currencyIcons extends StatelessWidget {
       onPressed: () {},
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(16),
         shadowColor: DarkThemeColor,
         backgroundColor: appTheme.colorScheme.surface,
         surfaceTintColor: lSecondaryColor1,

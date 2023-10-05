@@ -289,7 +289,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text(
                           "Continue with",
                           style: TextStyle(
-                            color: appTheme.colorScheme.onBackground,
+                            color: appTheme.colorScheme.surface,
                             fontSize: 20,
                           ),
                         ),
@@ -313,7 +313,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text(
                     "Already have an account? Sign In.",
                     style: TextStyle(
-                      color: appTheme.colorScheme.onBackground,
+                      color: appTheme.colorScheme.surface,
                       fontSize: 16,
                     ),
                   ),
@@ -439,7 +439,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   if (!documentSnapshot.exists) {
                     userNotFoundPopUp(context);
-                  }else{
+                  } else {
                     Navigator.pushReplacement(context, MaterialPageRoute(
                       builder: (context) {
                         return HomeScreen(
@@ -448,7 +448,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ));
                   }
-
                 },
                 child: Center(
                   child: Container(

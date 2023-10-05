@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
 
+import 'package:exchange_xpert/main.dart';
 import 'package:flutter/material.dart';
 
 const Color LightThemeColor = Colors.white;
@@ -46,7 +47,7 @@ ThemeData DarkTheme = ThemeData(
     onSurface: dSubSecondaryColor,
     background: dSubSecondaryColor,
     secondary: dSecondaryColor,
-    surface: dSubPrimaryColor,
+    surface: dPrimaryColor,
     // secondaryVariant: Colors.white,
     error: Colors.red,
     // primaryVariant: Color(0xFF0A0E21),
@@ -55,39 +56,39 @@ ThemeData DarkTheme = ThemeData(
   ),
 );
 
-const InputDecoration kTextFieldDecoration = InputDecoration(
+InputDecoration kTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
   prefixText: ' ',
   filled: true,
   hintStyle: TextStyle(
-    color: lSubSecondaryColor,
+    color: appTheme.colorScheme.surface,
     fontSize: 16,
     fontWeight: FontWeight.w400,
   ),
   labelStyle: TextStyle(
-    color: lSubSecondaryColor,
+    color: appTheme.colorScheme.surface,
   ),
   enabledBorder: OutlineInputBorder(
     borderSide: BorderSide(
-      color: lSecondaryColor,
+      color: appTheme.colorScheme.secondary,
     ),
-    borderRadius: BorderRadius.all(
+    borderRadius: const BorderRadius.all(
       Radius.circular(40),
     ),
   ),
   focusedBorder: OutlineInputBorder(
     borderSide: BorderSide(
-      color: lPrimaryColor1,
+      color: appTheme.colorScheme.onBackground,
     ),
-    borderRadius: BorderRadius.all(
+    borderRadius: const BorderRadius.all(
       Radius.circular(40),
     ),
   ),
   border: OutlineInputBorder(
     borderSide: BorderSide(
-      color: lSecondaryColor,
+      color: appTheme.colorScheme.secondary,
     ),
-    borderRadius: BorderRadius.all(
+    borderRadius: const BorderRadius.all(
       Radius.circular(40),
     ),
   ),
