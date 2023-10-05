@@ -22,9 +22,10 @@ class loginFormFields extends StatefulWidget {
     required this.prefixIcon,
     this.suffixIcon,
     required this.controller,
-  }) : _formKey = formKey;
+  });
+  // : _formKey = formKey;
 
-  final GlobalKey<FormState> _formKey;
+  // final GlobalKey<FormState> _formKey;
 
   @override
   State<loginFormFields> createState() => _loginFormFieldsState();
@@ -54,8 +55,8 @@ class _loginFormFieldsState extends State<loginFormFields> {
           cursorColor: appTheme.colorScheme.onBackground,
           keyboardType: TextInputType.text,
           style: TextStyle(
-            color: appTheme.colorScheme.onSecondary,
-            fontSize: 18,
+            color: appTheme.colorScheme.surface,
+            fontSize: 20,
           ),
           decoration: kTextFieldDecoration.copyWith(
             fillColor: appTheme.colorScheme.onBackground.withOpacity(0.2),

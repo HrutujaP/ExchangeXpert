@@ -13,6 +13,8 @@ class welcomeText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(
         left: 8,
+        top: 18,
+        bottom: 18,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -21,8 +23,8 @@ class welcomeText extends StatelessWidget {
             "Welcome",
             style: TextStyle(
               color: appTheme.colorScheme.surface,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+              fontSize: 28,
+              fontWeight: FontWeight.w600,
             ),
           ),
           Text(
@@ -30,7 +32,7 @@ class welcomeText extends StatelessWidget {
             style: TextStyle(
               color: appTheme.colorScheme.surface,
               fontSize: 18,
-              // fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ],
