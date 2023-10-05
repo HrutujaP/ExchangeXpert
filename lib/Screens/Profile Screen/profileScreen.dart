@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +15,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   Map<String, dynamic> searchHistory = {};
   final Map<String, dynamic> doc = {};
+  bool lightThemeSelected = false;
 
   void getsearchHistory() async {
     try {
@@ -43,15 +42,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     setState(() {
-      searchHistory = {
-        "AED": "IND",
-        "GBP": "INR",
-        "USD": "AED",
-        "INR": "AED",
-        "IND": "USD"
-      };
+      // searchHistory = {
+      //   "AED": "IND",
+      //   "GBP": "INR",
+      //   "USD": "AED",
+      //   "INR": "AED",
+      //   "IND": "USD"
+      // };
+      getsearchHistory();
     });
-    getsearchHistory();
     super.initState();
   }
 
@@ -61,72 +60,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: SafeArea(
           child: Column(
         children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              // topLeft: Radius.circular(20),
-              // topRight: Radius.circular(20),
-              bottomLeft: Radius.circular(70),
-              bottomRight: Radius.circular(70),
-            ),
-            child: Container(
-              height: MediaQuery.of(context).size.height / 4.5,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: lSubSecondaryColor.withOpacity(0.2),
-                // borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Padding(
-                  //   padding: EdgeInsets.all(8.0),
-                  //   child: Icon(
-                  //     Icons.account_circle_rounded,
-                  //     size: 40,
-                  //     color: kPrimaryColor1,
-                  //   ),
-                  // ),
-                  const Text(
-                    "User Name\nMobile Number/Email id",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: lPrimaryColor1,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  // IconButton(
-                  //   onPressed: () {},
-                  //   icon: Icon(
-                  //     Icons.bedtime,
-                  //     color: kSubSecondaryColor,
-                  //   ),
-                  // ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.sunny,
-                        color: lPrimaryColor,
-                        size: 30,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Username",
+                      style: TextStyle(
+                        color: lSubSecondaryColor,
+                        fontSize: 20,
+                        // fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                ],
-              ),
+                    Text(
+                      "Mobile Number/Email id",
+                      style: TextStyle(
+                        color: lSubSecondaryColor,
+                        fontSize: 18,
+                        // fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                lightThemeSelected == false
+                    ? IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.bedtime,
+                          color: lPrimaryColor,
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.sunny,
+                          color: lPrimaryColor,
+                          size: 30,
+                        ),
+                      ),
+              ],
             ),
           ),
           const Text(
-            "Search History",
+            "Conversion History",
             style: TextStyle(
               color: lSubSecondaryColor,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              fontWeight: FontWeight.w400,
             ),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height / 1.45,
+            height: MediaQuery.of(context).size.height / 1.25,
             child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: searchHistory.length,
@@ -140,135 +129,162 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         duration: const Duration(seconds: 1),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Material(
-                            elevation: 10,
-                            shadowColor: DarkThemeColor,
-                            borderRadius: BorderRadius.circular(20),
-                            child: ListTile(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                side: const BorderSide(
-                                  color: lSecondaryColor,
-                                  width: 1,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    side: const BorderSide(
+                                      color: Colors.transparent,
+                                      // width: 1,
+                                    ),
+                                  ),
+                                  tileColor: lPrimaryColor.withOpacity(0.2),
+                                  // tileColor: lightTheme.colorScheme.background,
+                                  title: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "${searchHistory.keys.toList()[index]}",
+                                                  style: const TextStyle(
+                                                    letterSpacing: 3,
+                                                    color: lSecondaryColor,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Spacer(),
+                                                const Text(
+                                                  "Dollar",
+                                                  style: TextStyle(
+                                                    color: lSecondaryColor,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const Row(
+                                              children: [
+                                                Text(
+                                                  "£",
+                                                  style: TextStyle(
+                                                    color: lSecondaryColor,
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "100.79",
+                                                  style: TextStyle(
+                                                    color: lSecondaryColor,
+                                                    fontSize: 30,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              tileColor: lPrimaryColor.withOpacity(0.2),
-                              // tileColor: lightTheme.colorScheme.background,
-                              title: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 3,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            "Dollar",
-                                            style: TextStyle(
-                                              color: lSecondaryColor,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Text(
-                                            "£ ${searchHistory.keys.toList()[index]}",
-                                            style: const TextStyle(
-                                              letterSpacing: 3,
-                                              color: lSecondaryColor,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const Row(
-                                            children: [
-                                              Text(
-                                                "£",
-                                                style: TextStyle(
-                                                  color: lSecondaryColor,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w300,
-                                                ),
-                                              ),
-                                              Text(
-                                                "100.79",
-                                                style: TextStyle(
-                                                  color: lSecondaryColor,
-                                                  fontSize: 30,
-                                                  fontWeight: FontWeight.w300,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    // Spacer(),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: const Icon(
-                                        CupertinoIcons.arrow_2_circlepath,
-                                        color: lSecondaryColor,
-                                        size: 30,
-                                      ),
-                                    ),
-                                    // Spacer(),
-                                    SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 3,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            "EURO",
-                                            style: TextStyle(
-                                              color: lSecondaryColor,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Text(
-                                            "₹ ${searchHistory.values.toList()[index]}",
-                                            style: const TextStyle(
-                                              letterSpacing: 3,
-                                              color: lSecondaryColor,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const Row(
-                                            children: [
-                                              Text(
-                                                "₹",
-                                                style: TextStyle(
-                                                  color: lSecondaryColor,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w300,
-                                                ),
-                                              ),
-                                              Text(
-                                                "1.00",
-                                                style: TextStyle(
-                                                  color: lSecondaryColor,
-                                                  fontSize: 30,
-                                                  fontWeight: FontWeight.w300,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(
+                                    CupertinoIcons.arrow_2_circlepath,
+                                    color: lSecondaryColor,
+                                    size: 30,
+                                  ),
                                 ),
-                              ),
+                                ListTile(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    side: const BorderSide(
+                                        color: Colors.transparent
+                                        // width: 1,
+                                        ),
+                                  ),
+                                  tileColor: lPrimaryColor.withOpacity(0.2),
+                                  // tileColor: lightTheme.colorScheme.background,
+                                  title: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        // Spacer(),
+
+                                        // Spacer(),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "${searchHistory.values.toList()[index]}",
+                                                  style: const TextStyle(
+                                                    letterSpacing: 3,
+                                                    color: lSecondaryColor,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Spacer(),
+                                                const Text(
+                                                  "Rupees",
+                                                  style: TextStyle(
+                                                    color: lSecondaryColor,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const Row(
+                                              children: [
+                                                Text(
+                                                  "₹",
+                                                  style: TextStyle(
+                                                    color: lSecondaryColor,
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "1.00",
+                                                  style: TextStyle(
+                                                    color: lSecondaryColor,
+                                                    fontSize: 30,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
