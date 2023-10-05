@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/homeScreen.dart';
@@ -108,20 +110,38 @@ Future<dynamic> OTPVerification(BuildContext context, String verificationId,
                       );
                       user = await FirebaseAuth.instance
                           .signInWithCredential(credential);
-                      if (requestType != "sign-in") {
+
+                      if (requestType != "signin") {
+                        user.user!.updateDisplayName(name);
                         FirebaseFirestore.instance
                             .collection("Users")
-                            .doc(user.user!.displayName)
+                            .doc(mobileNumber)
                             .set({"Mobile Number": mobileNumber, "Name": name});
-                      }
+                        Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) {
+                            return HomeScreen(
+                              user: user.user!,
+                            );
+                          },
+                        ));
+                      } else {
+                        print("Sign in");
 
-                      Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) {
-                          return HomeScreen(
-                            user: user.user!,
-                          );
-                        },
-                      ));
+                        final doc = await FirebaseFirestore.instance
+                            .collection("Users")
+                            .doc(mobileNumber)
+                            .get()
+                            .then((value) {
+                          user.user!.updateDisplayName(value["Name"]);
+                          Navigator.pushReplacement(context, MaterialPageRoute(
+                            builder: (context) {
+                              return HomeScreen(
+                                user: user.user!,
+                              );
+                            },
+                          ));
+                        });
+                      }
                     },
                     child: Text(
                       "VERIFY",
