@@ -13,7 +13,7 @@ class Functions {
 
   Future<List<FlSpot>> getConversionRate(
       String baseCurrency, String targetCurrency, User user) async {
-    String docID = user.email != null
+    String docID = user.email != ""
         ? user.email.toString()
         : user.phoneNumber.toString().replaceFirst("+91", "");
     // print(docID);
