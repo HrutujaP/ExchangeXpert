@@ -1,7 +1,9 @@
 import 'package:exchange_xpert/Constants/constant.dart';
+import 'package:exchange_xpert/Screens/Home%20Screen/homeScreen.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/loginScreen.dart';
 import 'package:exchange_xpert/Screens/Welcome%20Screen/welcomeScreen.dart';
 import 'package:exchange_xpert/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'Screens/Profile Screen/profileScreen.dart';
@@ -23,6 +25,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    User user;
+    user = FirebaseAuth.instance.currentUser!;
+    print(user.email);
+    print(user.phoneNumber);
+
     return Theme(
       data: appTheme,
       child: MaterialApp(
@@ -36,9 +43,10 @@ class MyApp extends StatelessWidget {
           LoginScreen.id: (context) => const LoginScreen(),
           WelcomeScreen.id: (context) => const WelcomeScreen(),
           ProfileScreen.id: (context) => const ProfileScreen(),
+          HomeScreen.id: (context) => HomeScreen(user: user),
         },
-        initialRoute:LoginScreen.id,
-        // initialRoute: HomeScreen.id,
+        // initialRoute:LoginScreen.id,
+        initialRoute: HomeScreen.id,
         // initialRoute: ProfileScreen.id,
         home: const WelcomeScreen(),
       ),

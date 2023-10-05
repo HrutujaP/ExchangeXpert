@@ -508,9 +508,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return showDialog(
         context: context,
         builder: (context) {
-          Future.delayed(const Duration(seconds: 3), () {
-            Navigator.of(context).pop(true);
-          });
           return AlertDialog(
             title: Text(
               'User not found',

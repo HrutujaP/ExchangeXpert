@@ -3,6 +3,7 @@
 import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Chart extends StatefulWidget {
   List<FlSpot> spots;
@@ -79,9 +80,14 @@ class _chartState extends State<Chart> {
     );
 
     return SideTitleWidget(
+      // foramt like 8-Oct
       axisSide: meta.axisSide,
       child: Text(
-          DateTime.now().subtract(Duration(days: value.toInt())).day.toString(),
+          "${DateTime.now()
+                  .subtract(Duration(days: value.toInt()))
+                  .day}-${DateFormat.MMM()
+                  .format(
+                      DateTime.now().subtract(Duration(days: value.toInt())))}",
           style: style),
     );
   }
@@ -92,7 +98,7 @@ class _chartState extends State<Chart> {
       fontSize: 10,
     );
 
-    return Text(value.toStringAsFixed(2),
+    return Text((value / 100).toStringAsFixed(2),
         style: style, textAlign: TextAlign.left);
   }
 
@@ -101,7 +107,7 @@ class _chartState extends State<Chart> {
       gridData: FlGridData(
         show: true,
         drawVerticalLine: true,
-        horizontalInterval: avgDiffY,
+        horizontalInterval: avgDiffY == 0 ? 1 : avgDiffY,
         verticalInterval: 1,
         getDrawingHorizontalLine: (value) {
           return const FlLine(
@@ -135,7 +141,7 @@ class _chartState extends State<Chart> {
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
-            interval: avgDiffY,
+            interval: avgDiffY == 0 ? 1 : avgDiffY,
             getTitlesWidget: leftTitleWidgets,
             reservedSize: 42,
           ),
@@ -189,7 +195,7 @@ class _chartState extends State<Chart> {
         show: true,
         drawHorizontalLine: true,
         verticalInterval: 1,
-        horizontalInterval: avgDiffY,
+        horizontalInterval: avgDiffY == 0 ? 1 : avgDiffY,
         getDrawingVerticalLine: (value) {
           return const FlLine(
             color: Color(0xff37434d),
@@ -218,7 +224,7 @@ class _chartState extends State<Chart> {
             showTitles: true,
             getTitlesWidget: leftTitleWidgets,
             reservedSize: 42,
-            interval: avgDiffY,
+            interval: avgDiffY == 0 ? 1 : avgDiffY,
           ),
         ),
         topTitles: const AxisTitles(

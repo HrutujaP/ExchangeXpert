@@ -1,6 +1,10 @@
 import 'package:exchange_xpert/Screens/Home%20Screen/components/chart.dart';
+import 'package:exchange_xpert/Screens/Home%20Screen/components/currency_menu.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/functions.dart';
+import 'package:exchange_xpert/Screens/Profile%20Screen/profileScreen.dart';
+import 'package:exchange_xpert/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:lottie/lottie.dart';
 import '../../Constants/constant.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Functions functions = Functions();
 
   String base = "AED";
-  String target = "INR";
+  String target = "AED";
 
   bool isAnimating = false;
+
+  Future<List<FlSpot>>? graphData;
+  Future<String>? exchangeRate;
 
   void changeBase(String value) {
     setState(() {
@@ -39,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LightThemeColor,
+      backgroundColor: appTheme.colorScheme.background,
       body: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -68,7 +75,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontWeight: FontWeight.w900),
                       ),
                       const Spacer(),
-                      const Expanded(child: Icon(Icons.menu)),
+                      Expanded(
+                          child: IconButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, ProfileScreen.id);
+                        },
+                        icon: const Icon(
+                          Icons.menu,
+                          color: lPrimaryColor1,
+                        ),
+                      )),
                     ],
                   ),
                   const SizedBox(
@@ -135,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 300,
                     width: MediaQuery.of(context).size.width,
                     child: Visibility(
-                      visible: isAnimating,
+                      visible: isAnimating && graphData != null,
                       replacement: Lottie.asset(
                         'assets/animations/money-receive.json',
                         height: 200,
@@ -144,22 +160,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         reverse: true,
                       ),
                       child: FutureBuilder(
-                        future: functions.getConversionRate(base, target),
+                        future: graphData,
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
                             return const Center(
                               child: CircularProgressIndicator(),
                             );
                           }
-                          return AnimatedOpacity(
-                            opacity: !isAnimating ? 0 : 1,
-                            duration: const Duration(seconds: 5),
-                            child: Chart(
-                              spots: snapshot.data!,
-                              reload: () {
-                                setState(() {});
-                              },
-                            ),
+                          return Chart(
+                            spots: snapshot.data!,
+                            reload: () {
+                              setState(() {});
+                            },
                           );
                         },
                       ),
@@ -169,176 +181,70 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 20,
                   ),
                   Visibility(
-                    visible: isAnimating,
+                    visible: isAnimating && exchangeRate != null,
                     replacement: const SizedBox(),
                     child: FutureBuilder(
-                      future: functions.getExchangeRate(base, target) ,
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
+                        future: exchangeRate,
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          return Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Column(children: [
+                              Text(
+                                '1 $base = ${snapshot.data} $target',
+                                style: const TextStyle(
+                                  color: lSubSecondaryColor,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ]),
                           );
-                        }
-                        return Container(
-                        padding: const EdgeInsets.all(8),
-                        child: Column(children: [
-                          Text('1 $base = ${snapshot.data} $target'),
-                        ])
-                        ,
-                      );
-                      }
-                    ),
+                        }),
                   ),
                   const Spacer(),
-                  Visibility(
-                    visible: base.isNotEmpty && target.isNotEmpty,
-                    replacement: base.isEmpty
-                        ? const Text(
-                            "Select Base Currency",
-                            style: TextStyle(
-                              color: lSubSecondaryColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          )
-                        : const Text(
-                            "Select Target Currency",
-                            style: TextStyle(
-                              color: lSubSecondaryColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                    child: TextButton(
-                      isSemanticButton: true,
-                      autofocus: true,
-                      onPressed: () {
-                        setState(() {
-                          isAnimating = true;
-                        });
-                      },
-                      style: ButtonStyle(
-                          elevation: MaterialStateProperty.all<double>(10),
-                          shadowColor: MaterialStateColor.resolveWith(
-                              (states) => lSubSecondaryColor),
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              const EdgeInsets.symmetric(
-                                  horizontal: 50, vertical: 10)),
-                          backgroundColor:
-                              MaterialStateProperty.all(lSubPrimaryColor),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                          ))),
-                      child: Text(
-                        "Convert $base to $target",
-                        style: const TextStyle(
-                            color: lSubSecondaryColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
+                  TextButton(
+                    isSemanticButton: true,
+                    autofocus: true,
+                    onPressed: () {
+                      setState(() {
+                        graphData = functions.getConversionRate(
+                            base, target, widget.user);
+                        exchangeRate = functions.getExchangeRate(base, target);
+                        isAnimating = true;
+                      });
+                    },
+                    style: ButtonStyle(
+                        elevation: MaterialStateProperty.all<double>(10),
+                        shadowColor: MaterialStateColor.resolveWith(
+                            (states) => lSubSecondaryColor),
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            const EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 10)),
+                        backgroundColor:
+                            MaterialStateProperty.all(lSecondaryColor1),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ))),
+                    child: Text(
+                      "Convert $base to $target",
+                      style: const TextStyle(
+                          color: lSubPrimaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
                     ),
-                  )
+                  ),
+                  const Spacer()
                 ],
               )),
         ),
       ),
-    );
-  }
-}
-
-class CurrencyMenu extends StatefulWidget {
-  Function changeCurrency;
-  CurrencyMenu({
-    required this.changeCurrency,
-    super.key,
-  });
-
-  @override
-  State<CurrencyMenu> createState() => _CurrencyMenuState();
-}
-
-class _CurrencyMenuState extends State<CurrencyMenu> {
-  List<DropdownMenuItem<String>> items = [];
-
-  String dropdownValue = "";
-
-  @override
-  void initState() {
-    items = countryCodes
-        .map((key, value) => MapEntry(
-            key,
-            DropdownMenuItem<String>(
-              value: "$value-$key",
-              child: Text(value),
-            )))
-        .values
-        .toList();
-    dropdownValue = items[0].value.toString();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(5.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: LightThemeColor.withOpacity(0.9), // Set the background color
-      ),
-      child: DropdownButton(
-          elevation: 10,
-          dropdownColor: LightThemeColor,
-          underline: const SizedBox(),
-          selectedItemBuilder: (context) {
-            return items.map((item) {
-              String currency =
-                  item.value.toString().split("-")[1].toLowerCase();
-              String country = currencyToCountry.containsKey(currency)
-                  ? currencyToCountry[currency]!
-                  : "in";
-              Image image = Image.asset(
-                "assets/Images/CountryFlags/$country.png",
-                fit: BoxFit.cover,
-                height: 25,
-                width: 35,
-                filterQuality: FilterQuality.high,
-              );
-              return Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: image,
-                  ),
-                  Text(
-                    item.value.toString(),
-                    style: const TextStyle(
-                      color: lSubSecondaryColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ],
-              );
-            }).toList();
-          },
-          value: dropdownValue,
-          hint: const Text(
-            "Select Currency",
-            style: TextStyle(
-              color: lSubSecondaryColor,
-              fontSize: 16,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          items: items,
-          onChanged: (value) {
-            setState(() {
-              dropdownValue = value.toString();
-              widget.changeCurrency(value.toString().split('-')[1]);
-            });
-          }),
     );
   }
 }

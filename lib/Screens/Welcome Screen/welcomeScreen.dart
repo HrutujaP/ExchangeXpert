@@ -18,7 +18,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   bool containerAnimation = true;
   @override
   void initState() {
-    // TODO: implement initState
     Timer.periodic(const Duration(seconds: 5), (timer) {
       setState(() {
         containerAnimation = !containerAnimation;
@@ -27,6 +26,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     });
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {

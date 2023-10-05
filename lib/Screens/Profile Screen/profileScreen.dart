@@ -29,8 +29,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           print(documentSnapshot.data());
           doc.addAll(documentSnapshot.data() as Map<String, dynamic>);
           searchHistory = doc['history'];
-
-          // print(doc['history']);
           // print(searchHistory.length);
         }
       });
