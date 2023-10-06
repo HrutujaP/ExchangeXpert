@@ -78,11 +78,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       Expanded(
                           child: IconButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, ProfileScreen.id);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfileScreen(
+                                        user: widget.user,
+                                      )));
                         },
                         icon: const Icon(
-                          Icons.menu,
+                          Icons.person_rounded,
                           color: lPrimaryColor1,
+                          size: 30,
                         ),
                       )),
                     ],

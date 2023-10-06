@@ -43,9 +43,9 @@ class MyApp extends StatelessWidget {
           // ProfileScreen.id: (context) =>  ProfileScreen(user: user),
           // HomeScreen.id: (context) => HomeScreen(user: user),
         },
-        // initialRoute: LoginScreen.id,
+        initialRoute: LoginScreen.id,
         // initialRoute: HomeScreen.id,
-        initialRoute: ProfileScreen.id,
+        // initialRoute: ProfileScreen.id,
         home: const WelcomeScreen(),
       ),
     );
