@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:exchange_xpert/Constants/constant.dart';
+import 'package:exchange_xpert/main.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyCard extends StatelessWidget {
@@ -22,17 +23,17 @@ class CurrencyCard extends StatelessWidget {
     return SizedBox(
       height: 100,
       child: Container(
-          height: 100,
+          // height: 100,
           width: MediaQuery.of(context).size.width * 0.96,
           decoration: BoxDecoration(
             // color: appTheme.colorScheme.secondary,
-            color: lPrimaryColor.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(15),
+            color: appTheme.colorScheme.secondary.withOpacity(0.4),
+            borderRadius: BorderRadius.circular(20),
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(20),
             child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 20, sigmaY: 10),
+                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 10.0, horizontal: 15),
@@ -44,27 +45,29 @@ class CurrencyCard extends StatelessWidget {
                               children: [
                                 Text(
                                   currency,
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w800,
-                                      color: lSecondaryColor),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    // fontWeight: FontWeight.w600,
+                                    color: appTheme.colorScheme.surface,
+                                  ),
                                 ),
                                 const Spacer(),
                                 Text(countryCodes[currency]!,
-                                    style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w800,
-                                        color: lSecondaryColor)),
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      // fontWeight: FontWeight.w600,
+                                      color: appTheme.colorScheme.surface,
+                                    )),
                               ],
                             ),
                             const Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
-                              child: Text("1 $symbol",
-                                  style: const TextStyle(
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.w400,
-                                      color: lSecondaryColor)),
+                            Text(
+                              "₹ 1",
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w400,
+                                color: appTheme.colorScheme.surface,
+                              ),
                             ),
                           ]
                         : [
@@ -72,28 +75,30 @@ class CurrencyCard extends StatelessWidget {
                               children: [
                                 Text(
                                   currency,
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w800,
-                                      color: lSecondaryColor),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    // fontWeight: FontWeight.w600,
+                                    color: appTheme.colorScheme.surface,
+                                  ),
                                 ),
                                 const Spacer(),
-                                Text(countryCodes[currency]!,
-                                    style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w800,
-                                        color: lSecondaryColor)),
+                                Text(
+                                  countryCodes[currency]!,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    // fontWeight: FontWeight.w600,
+                                    color: appTheme.colorScheme.surface,
+                                  ),
+                                ),
                               ],
                             ),
                             const Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
-                              child: Text("$tragetValue $symbol",
-                                  style: const TextStyle(
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.w400,
-                                      color: lSecondaryColor)),
-                            ),
+                            Text("£ $tragetValue",
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w400,
+                                  color: appTheme.colorScheme.surface,
+                                )),
                           ].reversed.toList(),
                   ),
                 )),

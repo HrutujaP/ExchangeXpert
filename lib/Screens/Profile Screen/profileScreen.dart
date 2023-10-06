@@ -1,9 +1,10 @@
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:exchange_xpert/Constants/constant.dart';
+// import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/functions.dart';
 import 'package:exchange_xpert/Screens/Profile%20Screen/components/currencyCard.dart';
+import 'package:exchange_xpert/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -38,6 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: appTheme.colorScheme.background,
       body: SafeArea(
           child: Column(
         children: [
@@ -51,17 +53,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Text(
                       widget.user.displayName.toString(),
-                      style: const TextStyle(
-                        color: lSubSecondaryColor,
-                        fontSize: 20,
-                        // fontWeight: FontWeight.bold,
+                      style: TextStyle(
+                        color: appTheme.colorScheme.surface,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       docID,
-                      style: const TextStyle(
-                        color: lSubSecondaryColor,
-                        fontSize: 18,
+                      style: TextStyle(
+                        color: appTheme.colorScheme.surface,
+                        fontSize: 16,
                         // fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -75,9 +77,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             lightThemeSelected = true;
                           });
                         },
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.bedtime,
-                          color: lPrimaryColor,
+                          color: appTheme.colorScheme.primary,
                         ),
                       )
                     : IconButton(
@@ -86,21 +88,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             lightThemeSelected = false;
                           });
                         },
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.sunny,
-                          color: lPrimaryColor,
+                          color: appTheme.colorScheme.primary,
                           size: 30,
                         ),
                       ),
               ],
             ),
           ),
-          const Text(
+          Text(
             "Conversion History",
             style: TextStyle(
-              color: lSubSecondaryColor,
+              color: appTheme.colorScheme.secondary,
               fontSize: 24,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(
@@ -142,60 +144,77 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     String targetValue =
                                         snapshot.data.toString();
 
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        height: 205,
-                                        child: Stack(children: [
-                                          CurrencyCard(
-                                            tragetValue: targetValue,
-                                            bottom: false,
-                                            currency: base,
-                                            symbol: baseSymbol,
+                                    return Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: SizedBox(
+                                            height: 205,
+                                            child: Stack(children: [
+                                              CurrencyCard(
+                                                tragetValue: targetValue,
+                                                bottom: false,
+                                                currency: base,
+                                                symbol: baseSymbol,
+                                              ),
+                                              Positioned(
+                                                bottom: 0,
+                                                child: CurrencyCard(
+                                                  tragetValue: targetValue,
+                                                  bottom: true,
+                                                  currency: target,
+                                                  symbol: targetSymbol,
+                                                ),
+                                              ),
+                                              Positioned(
+                                                  right: 10,
+                                                  top: 80,
+                                                  child: Container(
+                                                      height: 60,
+                                                      width: 60,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: appTheme
+                                                                .colorScheme
+                                                                .background,
+                                                            width: 4),
+                                                        color: appTheme
+                                                            .colorScheme.primary
+                                                            .withOpacity(0.2),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30),
+                                                      ),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25),
+                                                        child: BackdropFilter(
+                                                          filter:
+                                                              ImageFilter.blur(
+                                                                  sigmaX: 20,
+                                                                  sigmaY: 10),
+                                                          child: Icon(
+                                                              Icons
+                                                                  .swap_vert_rounded,
+                                                              color: appTheme
+                                                                  .colorScheme
+                                                                  .surface,
+                                                              size: 40),
+                                                        ),
+                                                      ))),
+                                            ]),
                                           ),
-                                          Positioned(
-                                            bottom: 0,
-                                            child: CurrencyCard(
-                                              tragetValue: targetValue,
-                                              bottom: true,
-                                              currency: target,
-                                              symbol: targetSymbol,
-                                            ),
-                                          ),
-                                          Positioned(
-                                              right: 10,
-                                              top: 80,
-                                              child: Container(
-                                                  height: 50,
-                                                  width: 50,
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: Colors.white,
-                                                        width: 4),
-                                                    color: lPrimaryColor
-                                                        .withOpacity(0.2),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            25),
-                                                  ),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            25),
-                                                    child: BackdropFilter(
-                                                      filter: ImageFilter.blur(
-                                                          sigmaX: 20,
-                                                          sigmaY: 10),
-                                                      child: const Icon(
-                                                          Icons
-                                                              .swap_vert_rounded,
-                                                          color:
-                                                              lSecondaryColor,
-                                                          size: 40),
-                                                    ),
-                                                  ))),
-                                        ]),
-                                      ),
+                                        ),
+                                        Divider(
+                                          color: appTheme
+                                              .colorScheme.onSecondary
+                                              .withOpacity(0.5),
+                                          endIndent: 75,
+                                          indent: 75,
+                                          thickness: 1,
+                                        ),
+                                      ],
                                     );
                                   } else {
                                     return const Center(

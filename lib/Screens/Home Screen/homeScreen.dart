@@ -58,22 +58,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Row(
                     children: [
-                      Expanded(
-                        child: Text(
-                            "👋 ${widget.user.displayName.toString().split(" ")[0]}",
-                            style: const TextStyle(
-                                color: lPrimaryColor1,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold)),
-                      ),
+                      Text(
+                          "${widget.user.displayName.toString().split(" ")[0]} 👋",
+                          style: const TextStyle(
+                              color: lPrimaryColor1,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold)),
                       const Spacer(),
-                      const Text(
-                        "Convert",
-                        style: TextStyle(
-                            letterSpacing: 3,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900),
-                      ),
                       const Spacer(),
                       Expanded(
                           child: IconButton(
@@ -92,6 +83,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       )),
                     ],
+                  ),
+                  const Text(
+                    "Convert",
+                    style: TextStyle(
+                        letterSpacing: 3,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900),
                   ),
                   const SizedBox(
                     height: 15,
