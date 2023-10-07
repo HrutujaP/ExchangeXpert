@@ -4,6 +4,7 @@ import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/loginScreen.dart';
 import 'package:exchange_xpert/Screens/Welcome%20Screen/welcomeScreen.dart';
 import 'package:exchange_xpert/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
