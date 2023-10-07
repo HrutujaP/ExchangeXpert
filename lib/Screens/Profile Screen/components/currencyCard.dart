@@ -62,7 +62,7 @@ class CurrencyCard extends StatelessWidget {
                             ),
                             const Spacer(),
                             Text(
-                              "₹ 1",
+                              "$symbol 1",
                               style: TextStyle(
                                 fontSize: 28,
                                 fontWeight: FontWeight.w400,
@@ -93,7 +93,7 @@ class CurrencyCard extends StatelessWidget {
                               ],
                             ),
                             const Spacer(),
-                            Text("£ $tragetValue",
+                            Text("$symbol $tragetValue",
                                 style: TextStyle(
                                   fontSize: 28,
                                   fontWeight: FontWeight.w400,
