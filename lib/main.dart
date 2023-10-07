@@ -1,27 +1,38 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:exchange_xpert/Constants/constant.dart';
-import 'package:exchange_xpert/Screens/Home%20Screen/homeScreen.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/loginScreen.dart';
 import 'package:exchange_xpert/Screens/Welcome%20Screen/welcomeScreen.dart';
 import 'package:exchange_xpert/firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'Screens/Profile Screen/profileScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-// ThemeData appTheme = LightTheme;
-ThemeData appTheme = DarkTheme;
+ThemeData appTheme = LightTheme;
+// ThemeData appTheme = DarkTheme;
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+
+  static void setTheme(BuildContext context, ThemeData newTheme) {
+    _MyAppState state = context.findAncestorStateOfType<_MyAppState>()!;
+    state.setState(() {
+      appTheme = newTheme;
+    });
+  }
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -33,10 +44,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: const ColorScheme.light(),
-          useMaterial3: true,
-        ),
+        theme: appTheme,
         routes: {
           LoginScreen.id: (context) => const LoginScreen(),
           WelcomeScreen.id: (context) => const WelcomeScreen(),

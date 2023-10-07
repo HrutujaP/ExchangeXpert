@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, unrelated_type_equality_checks, non_constant_identifier_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:exchange_xpert/Constants/constant.dart';
 // import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/homeScreen.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/Components/OTPVerification.dart';
@@ -31,6 +32,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   late UserCredential userCredential;
+  bool _lightThemeSelected = false;
 
   bool containerAnimation = false;
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -155,7 +157,38 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const welcomeText(),
+              Row(
+                children: [
+                  const welcomeText(),
+                  const Spacer(),
+                  _lightThemeSelected == false
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              MyApp.setTheme(context, DarkTheme);
+                              _lightThemeSelected = true;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.bedtime,
+                            color: appTheme.colorScheme.primary,
+                          ),
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            setState(() {
+                              MyApp.setTheme(context, LightTheme);
+                              _lightThemeSelected = false;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.sunny,
+                            color: appTheme.colorScheme.primary,
+                            size: 30,
+                          ),
+                        ),
+                ],
+              ),
               loginFormFields(
                 formKey: _signUpformKey,
                 hintText: "Enter your Name",
@@ -339,7 +372,38 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const welcomeText(),
+              Row(
+                children: [
+                  const welcomeText(),
+                  Spacer(),
+                  _lightThemeSelected == false
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              MyApp.setTheme(context, DarkTheme);
+                              _lightThemeSelected = true;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.bedtime,
+                            color: appTheme.colorScheme.primary,
+                          ),
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            setState(() {
+                              MyApp.setTheme(context, LightTheme);
+                              _lightThemeSelected = false;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.sunny,
+                            color: appTheme.colorScheme.primary,
+                            size: 30,
+                          ),
+                        ),
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: loginFormFields(

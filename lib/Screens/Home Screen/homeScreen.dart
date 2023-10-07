@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:exchange_xpert/Screens/Home%20Screen/components/chart.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/currency_menu.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/functions.dart';

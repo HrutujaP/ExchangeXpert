@@ -1,6 +1,9 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:exchange_xpert/Constants/constant.dart';
 // import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/functions.dart';
 import 'package:exchange_xpert/Screens/Profile%20Screen/components/currencyCard.dart';
@@ -23,7 +26,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   Map<String, dynamic> searchHistory = {};
   final Map<String, dynamic> doc = {};
-  bool lightThemeSelected = false;
+  bool _lightThemeSelected = false;
   String docID = "";
 
   Functions functions = Functions();
@@ -70,11 +73,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
                 const Spacer(),
-                lightThemeSelected == false
+                _lightThemeSelected == false
                     ? IconButton(
                         onPressed: () {
                           setState(() {
-                            lightThemeSelected = true;
+                            MyApp.setTheme(context, DarkTheme);
+                            _lightThemeSelected = true;
                           });
                         },
                         icon: Icon(
@@ -85,7 +89,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     : IconButton(
                         onPressed: () {
                           setState(() {
-                            lightThemeSelected = false;
+                            MyApp.setTheme(context, LightTheme);
+                            _lightThemeSelected = false;
                           });
                         },
                         icon: Icon(
