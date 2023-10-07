@@ -1,13 +1,16 @@
 import 'dart:async';
+import 'package:exchange_xpert/Screens/Home%20Screen/homeScreen.dart';
 import 'package:exchange_xpert/Screens/Login%20Screen/loginScreen.dart';
 import 'package:exchange_xpert/Screens/Welcome%20Screen/Components/currenyIcons.dart';
 import 'package:exchange_xpert/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 bool _isVisible = true;
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key});
+  User user;
+  WelcomeScreen({required this.user, super.key});
   static const String id = 'welcomeSscreen';
 
   @override
@@ -27,8 +30,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -38,11 +39,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           backgroundColor: appTheme.colorScheme.background,
           body: GestureDetector(
             onTap: () {
-              // Navigator.push(context, _createRoute());
-              setState(() {
-                // _isVisible = !_isVisible;
-                Navigator.pushNamed(context, LoginScreen.id);
-              });
+              
+
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return widget.user.displayName != ""
+                      ? HomeScreen(user: widget.user)
+                      : const LoginScreen();
+                },
+              )
+              );
             },
             child: Stack(
               children: [
@@ -193,7 +199,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               ),
                             ],
                           ),
-                           Text(
+                          Text(
                             "ExchangeXpert",
                             style: TextStyle(
                               fontSize: 28,

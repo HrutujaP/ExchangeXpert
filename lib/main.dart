@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // User user;
-    // user = FirebaseAuth.instance.currentUser!;
+    User user;
+    user = FirebaseAuth.instance.currentUser!;
 
     return Theme(
       data: appTheme,
@@ -39,14 +39,14 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           LoginScreen.id: (context) => const LoginScreen(),
-          WelcomeScreen.id: (context) => const WelcomeScreen(),
+          WelcomeScreen.id: (context) => WelcomeScreen(user: user,),
           // ProfileScreen.id: (context) =>  ProfileScreen(user: user),
           // HomeScreen.id: (context) => HomeScreen(user: user),
         },
-        initialRoute: LoginScreen.id,
+        initialRoute: WelcomeScreen.id,
         // initialRoute: HomeScreen.id,
         // initialRoute: ProfileScreen.id,
-        home: const WelcomeScreen(),
+        home:WelcomeScreen(user: user,),
       ),
     );
   }
