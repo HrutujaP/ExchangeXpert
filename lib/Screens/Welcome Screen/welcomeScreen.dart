@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 bool _isVisible = true;
 
 class WelcomeScreen extends StatefulWidget {
-  User user;
+  User? user;
   WelcomeScreen({required this.user, super.key});
   static const String id = 'welcomeSscreen';
 
@@ -39,12 +39,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           backgroundColor: appTheme.colorScheme.background,
           body: GestureDetector(
             onTap: () {
-              
+
 
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) {
-                  return widget.user.displayName != ""
-                      ? HomeScreen(user: widget.user)
+                  return widget.user != null
+                      ? HomeScreen(user: widget.user!)
                       : const LoginScreen();
                 },
               )

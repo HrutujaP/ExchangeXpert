@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    User user;
-    user = FirebaseAuth.instance.currentUser!;
+    User? user;
+    user = FirebaseAuth.instance.currentUser;
 
     return Theme(
       data: appTheme,

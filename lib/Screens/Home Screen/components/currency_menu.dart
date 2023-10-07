@@ -68,7 +68,7 @@ class _CurrencyMenuState extends State<CurrencyMenu> {
                     item.value.toString(),
                     style: const TextStyle(
                       color: lSubSecondaryColor,
-                      fontSize: 16,
+                      fontSize: 15,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
