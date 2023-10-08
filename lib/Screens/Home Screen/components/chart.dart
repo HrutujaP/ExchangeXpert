@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 
 class Chart extends StatefulWidget {
   List<FlSpot> spots;
-  Chart({ required this.spots, super.key});
+  Chart({required this.spots, super.key});
 
   @override
   State<Chart> createState() => _chartState();
@@ -51,6 +51,7 @@ class _chartState extends State<Chart> {
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       fontWeight: FontWeight.bold,
+      color: lPrimaryColor1,
       fontSize: 12,
     );
 
@@ -66,6 +67,7 @@ class _chartState extends State<Chart> {
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       fontWeight: FontWeight.bold,
+      color: lPrimaryColor1,
       fontSize: 10,
     );
 

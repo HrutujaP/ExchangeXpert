@@ -52,6 +52,7 @@ dependencies:
   flutter_phoenix: ^1.1.1
   provider: ^6.0.5
   floating_bubbles: ^2.5.1
+  particles_fly: ^0.0.8
   
 
 dev_dependencies:

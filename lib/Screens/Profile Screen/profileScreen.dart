@@ -41,10 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
     // startAnimation();
     super.initState();
-  
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +58,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.chevron_left_rounded,
+                          size: 40,
+                          color: appTheme.colorScheme.surface,
+                        )),
+                    const Spacer(),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -82,7 +89,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ],
                     ),
-                    const Spacer(),
+                    const Spacer(
+                      flex: 2,
+                    ),
                     _lightThemeSelected == false
                         ? IconButton(
                             onPressed: () {
@@ -121,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.25,
+                  height: MediaQuery.of(context).size.height * 0.84,
                   child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('Users')
