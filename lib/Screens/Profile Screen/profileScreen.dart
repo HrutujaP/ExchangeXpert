@@ -1,20 +1,18 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:async';
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exchange_xpert/Constants/constant.dart';
 // import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/functions.dart';
+import 'package:exchange_xpert/Screens/Profile%20Screen/components/animatedChart.dart';
 import 'package:exchange_xpert/Screens/Profile%20Screen/components/currencyCard.dart';
 import 'package:exchange_xpert/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
-import 'dart:math' as math;
 
 class ProfileScreen extends StatefulWidget {
   static const String id = 'profileScreen';
@@ -34,61 +32,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Functions functions = Functions();
 
-  final Color sinColor = appTheme.colorScheme.primary;
-  final Color cosColor = appTheme.colorScheme.secondary;
-  final limitCount = 100;
-  final sinPoints = <FlSpot>[];
-  final cosPoints = <FlSpot>[];
-
-  double xValue = 0;
-  double step = 0.05;
-
-  late Timer timer;
-
-  LineChartBarData sinLine(List<FlSpot> points) {
-    return LineChartBarData(
-      spots: points,
-      dotData: const FlDotData(
-        show: false,
-      ),
-      gradient: LinearGradient(
-        colors: [sinColor.withOpacity(0.2), sinColor],
-        stops: const [0.1, 1.0],
-      ),
-      barWidth: 4,
-      isCurved: false,
-    );
-  }
-
-  LineChartBarData cosLine(List<FlSpot> points) {
-    return LineChartBarData(
-      spots: points,
-      dotData: const FlDotData(
-        show: false,
-      ),
-      gradient: LinearGradient(
-        colors: [cosColor.withOpacity(0.2), cosColor],
-        stops: const [0.1, 1.0],
-      ),
-      barWidth: 4,
-      isCurved: false,
-    );
-  }
-
-  void startAnimation() {
-    timer = Timer.periodic(const Duration(milliseconds: 40), (timer) {
-      while (sinPoints.length > limitCount) {
-        sinPoints.removeAt(0);
-        cosPoints.removeAt(0);
-      }
-      setState(() {
-        sinPoints.add(FlSpot(xValue, math.sin(xValue)));
-        cosPoints.add(FlSpot(xValue, math.cos(xValue)));
-      });
-      xValue += step;
-    });
-  }
-
   @override
   void initState() {
     setState(() {
@@ -96,15 +39,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ? widget.user.email.toString()
           : widget.user.phoneNumber.toString().replaceFirst("+91", "");
     });
-    startAnimation();
+    // startAnimation();
     super.initState();
+  
   }
 
-  @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -113,76 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: SafeArea(
           child: Stack(
         children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: Transform.rotate(
-              angle: 0.45,
-              child: AspectRatio(
-                aspectRatio: 1.5,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 24.0),
-                  child: LineChart(
-                    duration: const Duration(seconds: 1),
-                    LineChartData(
-                      minY: -1,
-                      maxY: 1,
-                      minX: sinPoints.first.x,
-                      maxX: sinPoints.last.x,
-                      lineTouchData: const LineTouchData(enabled: false),
-                      clipData: const FlClipData.all(),
-                      gridData: const FlGridData(
-                        show: false,
-                        drawVerticalLine: false,
-                      ),
-                      borderData: FlBorderData(show: false),
-                      lineBarsData: [
-                        sinLine(sinPoints),
-                        cosLine(cosPoints),
-                      ],
-                      titlesData: const FlTitlesData(
-                        show: false,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Transform.rotate(
-              angle: 0.45,
-              child: AspectRatio(
-                aspectRatio: 1.5,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 24.0),
-                  child: LineChart(
-                    duration: const Duration(seconds: 1),
-                    LineChartData(
-                      minY: -1,
-                      maxY: 1,
-                      minX: sinPoints.first.x,
-                      maxX: sinPoints.last.x,
-                      lineTouchData: const LineTouchData(enabled: false),
-                      clipData: const FlClipData.all(),
-                      gridData: const FlGridData(
-                        show: false,
-                        drawVerticalLine: false,
-                      ),
-                      borderData: FlBorderData(show: false),
-                      lineBarsData: [
-                        sinLine(sinPoints),
-                        cosLine(cosPoints),
-                      ],
-                      titlesData: const FlTitlesData(
-                        show: false,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          const AnimatedCharts(),
           Column(
             children: [
               Padding(
@@ -392,6 +263,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       )),
+    );
+  }
+}
+
+class AnimatedCharts extends StatelessWidget {
+  const AnimatedCharts({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        AnimatedChart(alignment: Alignment.topCenter),
+        AnimatedChart(alignment: Alignment.bottomCenter),
+      ],
     );
   }
 }
