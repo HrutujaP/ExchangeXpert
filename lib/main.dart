@@ -39,6 +39,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     User? user;
     user = FirebaseAuth.instance.currentUser;
+    // user = null;
 
     return Theme(
       data: appTheme,
@@ -48,14 +49,18 @@ class _MyAppState extends State<MyApp> {
         theme: appTheme,
         routes: {
           LoginScreen.id: (context) => const LoginScreen(),
-          WelcomeScreen.id: (context) => WelcomeScreen(user: user,),
+          WelcomeScreen.id: (context) => WelcomeScreen(
+                user: user,
+              ),
           // ProfileScreen.id: (context) =>  ProfileScreen(user: user),
           // HomeScreen.id: (context) => HomeScreen(user: user),
         },
         initialRoute: WelcomeScreen.id,
         // initialRoute: HomeScreen.id,
         // initialRoute: ProfileScreen.id,
-        home:WelcomeScreen(user: user,),
+        home: WelcomeScreen(
+          user: user,
+        ),
       ),
     );
   }

@@ -5,11 +5,11 @@ import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
 
 class Functions {
-  final String apiUrl = "http://api.exchangeratesapi.io/v1/";
-  // final String apiUrl = "http://data.fixer.io/api";
+  // final String apiUrl = "http://api.exchangeratesapi.io/v1/";
+  final String apiUrl = "http://data.fixer.io/api";
 
-  final String accessKey = "access_key=ac1a360a2533fd4fb58caa7aa66ae2c0";
-  // final String accessKey = "access_key=94ccfa21a53fc37c5323cabc3e7aafe3";
+  // final String accessKey = "access_key=ac1a360a2533fd4fb58caa7aa66ae2c0";
+  final String accessKey = "access_key=cde084d722ab458692ea533ad019b857";
 
   Future<List<FlSpot>> getConversionRate(
       String baseCurrency, String targetCurrency, User user) async {
