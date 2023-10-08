@@ -91,9 +91,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         )),
                       ],
                     ),
-                    const Text(
+                    Text(
                       "Convert",
                       style: TextStyle(
+                          color: appTheme.colorScheme.primary,
                           letterSpacing: 3,
                           fontSize: 20,
                           fontWeight: FontWeight.w900),
@@ -183,7 +184,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               duration: const Duration(milliseconds: 1500),
                               child: Chart(
                                 spots: snapshot.data!,
-                                
                               ),
                             );
                           },
