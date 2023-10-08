@@ -7,8 +7,7 @@ import 'package:intl/intl.dart';
 
 class Chart extends StatefulWidget {
   List<FlSpot> spots;
-  Function reload;
-  Chart({required this.reload, required this.spots, super.key});
+  Chart({ required this.spots, super.key});
 
   @override
   State<Chart> createState() => _chartState();
@@ -33,43 +32,19 @@ class _chartState extends State<Chart> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        AspectRatio(
-          aspectRatio: 1.3,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              right: 18,
-              left: 12,
-              top: 55,
-              bottom: 0,
-            ),
-            child: LineChart(
-              showAvg ? avgData() : mainData(),
-            ),
-          ),
+    return AspectRatio(
+      aspectRatio: 1.3,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          right: 18,
+          left: 12,
+          top: 55,
+          bottom: 0,
         ),
-        Positioned(
-          right: 0,
-          child: SizedBox(
-            height: 50,
-            child: TextButton(
-              onPressed: () {
-                widget.reload();
-              },
-              child: Material(
-                elevation: 5,
-                borderRadius: BorderRadius.circular(7),
-                color: lSubPrimaryColor,
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                  child: Icon(Icons.refresh, color: lSubSecondaryColor),
-                ),
-              ),
-            ),
-          ),
+        child: LineChart(
+          showAvg ? avgData() : mainData(),
         ),
-      ],
+      ),
     );
   }
 
@@ -83,11 +58,7 @@ class _chartState extends State<Chart> {
       // foramt like 8-Oct
       axisSide: meta.axisSide,
       child: Text(
-          "${DateTime.now()
-                  .subtract(Duration(days: value.toInt()))
-                  .day}-${DateFormat.MMM()
-                  .format(
-                      DateTime.now().subtract(Duration(days: value.toInt())))}",
+          "${DateTime.now().subtract(Duration(days: value.toInt())).day}-${DateFormat.MMM().format(DateTime.now().subtract(Duration(days: value.toInt())))}",
           style: style),
     );
   }

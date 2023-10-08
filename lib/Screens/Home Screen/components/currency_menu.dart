@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:exchange_xpert/Constants/constant.dart';
+import 'package:exchange_xpert/main.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyMenu extends StatefulWidget {
@@ -44,7 +45,7 @@ class _CurrencyMenuState extends State<CurrencyMenu> {
       ),
       child: DropdownButton(
           elevation: 10,
-          dropdownColor: LightThemeColor,
+          dropdownColor: appTheme.colorScheme.surface,
           underline: const SizedBox(),
           selectedItemBuilder: (context) {
             return items.map((item) {

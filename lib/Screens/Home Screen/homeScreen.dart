@@ -3,6 +3,7 @@
 import 'package:exchange_xpert/Screens/Home%20Screen/components/chart.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/currency_menu.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/functions.dart';
+import 'package:exchange_xpert/Screens/Profile%20Screen/components/animatedChart.dart';
 import 'package:exchange_xpert/Screens/Profile%20Screen/profileScreen.dart';
 import 'package:exchange_xpert/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -101,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 15,
                     ),
                     FadeInAnimation(
-                      duration: const Duration(seconds: 2),
+                      duration: const Duration(seconds: 3),
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
@@ -176,15 +177,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           future: graphData,
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
+                              return AnimatedChart(alignment: Alignment.center);
                             }
-                            return Chart(
-                              spots: snapshot.data!,
-                              reload: () {
-                                setState(() {});
-                              },
+                            return FadeInAnimation(
+                              duration: const Duration(milliseconds: 1500),
+                              child: Chart(
+                                spots: snapshot.data!,
+                                
+                              ),
                             );
                           },
                         ),

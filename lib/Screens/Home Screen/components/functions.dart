@@ -3,14 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
-import 'dart:math';
+// import 'dart:math';
 
 class Functions {
   // final String apiUrl = "http://api.exchangeratesapi.io/v1/";
   final String apiUrl = "http://data.fixer.io/api/";
 
   // final String accessKey = "access_key=ac1a360a2533fd4fb58caa7aa66ae2c0";
-  final String accessKey = "access_key=cde084d722ab458692ea533ad019b857";
+  final String accessKey = "access_key=dd0a66accbecdbe4b154d3ba574ba88a";
 
   Future<List<FlSpot>> getConversionRate(
       String baseCurrency, String targetCurrency, User user) async {
@@ -67,15 +67,15 @@ class Functions {
     try {
       // get conversion rate for each date
       for (int i = 0; i < dates.length; i++) {
-        // String url =
-        //     "$apiUrl/${dates[i]}?$accessKey&symbols=$baseCurrency,$targetCurrency";
-        // http.Response response = await http.get(Uri.parse(url));
-        // Map<String, dynamic> data = jsonDecode(response.body);
-        // double base = data["rates"][baseCurrency];
-        // double target = data["rates"][targetCurrency];
+        String url =
+            "$apiUrl/${dates[i]}?$accessKey&symbols=$baseCurrency,$targetCurrency";
+        http.Response response = await http.get(Uri.parse(url));
+        Map<String, dynamic> data = jsonDecode(response.body);
+        double base = data["rates"][baseCurrency];
+        double target = data["rates"][targetCurrency];
 
-        // target = target / base;
-        double target = Random().nextDouble();
+        target = target / base;
+        // double target = Random().nextDouble();
         // reduce to 2 decimal places
         target = double.parse(target.toStringAsFixed(2));
         print(target);
@@ -93,14 +93,14 @@ class Functions {
     try {
       // get conversion rate for today
 
-      // String url = "$apiUrl/latest?$accessKey&symbols=$base,$target";
-      // http.Response response = await http.get(Uri.parse(url));
-      // Map<String, dynamic> data = jsonDecode(response.body);
-      // double baseC = data["rates"][base];
-      // double targetC = data["rates"][target];
+      String url = "$apiUrl/latest?$accessKey&symbols=$base,$target";
+      http.Response response = await http.get(Uri.parse(url));
+      Map<String, dynamic> data = jsonDecode(response.body);
+      double baseC = data["rates"][base];
+      double targetC = data["rates"][target];
 
-      double baseC = Random().nextDouble();
-      double targetC = Random().nextDouble();
+      // double baseC = Random().nextDouble();
+      // double targetC = Random().nextDouble();
 
       targetC = targetC / baseC;
       // reduce to 2 decimal places
