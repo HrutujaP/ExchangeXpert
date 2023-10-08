@@ -16,8 +16,8 @@ void main() async {
   runApp(MyApp());
 }
 
-ThemeData appTheme = LightTheme;
-// ThemeData appTheme = DarkTheme;
+// ThemeData appTheme = LightTheme;
+ThemeData appTheme = DarkTheme;
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
