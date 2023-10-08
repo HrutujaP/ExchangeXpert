@@ -74,11 +74,11 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Theme(
       data: appTheme,
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: appTheme.colorScheme.background,
-          body: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
+      child: Scaffold(
+        backgroundColor: appTheme.colorScheme.background,
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: SafeArea(
             child: Column(
               children: [
                 // appInfo(),

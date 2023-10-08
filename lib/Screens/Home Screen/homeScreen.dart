@@ -114,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(
                               color: appTheme.colorScheme.primary,
                               letterSpacing: 3,
-                              fontSize: 20,
+                              fontSize: 30,
                               fontWeight: FontWeight.w900),
                         ),
                         const SizedBox(
@@ -150,7 +150,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     style: TextStyle(
                                       color:
                                           appTheme.colorScheme.primaryContainer,
-                                      fontSize: 16,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.045,
                                       fontWeight: FontWeight.w900,
                                     ),
                                   ),
@@ -163,11 +165,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     indent: 50,
                                     endIndent: 50,
                                   ),
-                                  const Text(
+                                  Text(
                                     "To",
                                     style: TextStyle(
-                                      color: lSubSecondaryColor,
-                                      fontSize: 16,
+                                      color:
+                                          appTheme.colorScheme.primaryContainer,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.045,
                                       fontWeight: FontWeight.w900,
                                     ),
                                   ),

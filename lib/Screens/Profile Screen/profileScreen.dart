@@ -69,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         )),
                     const Spacer(),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start, //start
                       children: [
                         Text(
                           widget.user.displayName.toString(),
@@ -130,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.84,
+                  height: MediaQuery.of(context).size.height * 0.8,
                   child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('Users')

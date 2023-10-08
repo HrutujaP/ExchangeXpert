@@ -69,9 +69,9 @@ class _CurrencyMenuState extends State<CurrencyMenu> {
                   ),
                   Text(
                     item.value.toString(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: lSubSecondaryColor,
-                      fontSize: 15,
+                      fontSize: MediaQuery.of(context).size.width * 0.035,
                       fontWeight: FontWeight.w900,
                     ),
                   ),

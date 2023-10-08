@@ -34,22 +34,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Theme(
       data: appTheme,
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: appTheme.colorScheme.background,
-          body: GestureDetector(
-            onTap: () {
-
-
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) {
-                  return widget.user != null
-                      ? HomeScreen(user: widget.user!)
-                      : const LoginScreen();
-                },
-              )
-              );
-            },
+      child: Scaffold(
+        backgroundColor: appTheme.colorScheme.background,
+        body: GestureDetector(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return widget.user != null
+                    ? HomeScreen(user: widget.user!)
+                    : const LoginScreen();
+              },
+            ));
+          },
+          child: SafeArea(
             child: Stack(
               children: [
                 Align(
