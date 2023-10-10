@@ -6,7 +6,7 @@ import 'package:exchange_xpert/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-bool _isVisible = true;
+
 
 class WelcomeScreen extends StatefulWidget {
   User? user;
@@ -18,16 +18,35 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  bool containerAnimation = true;
+ bool containerAnimation = true;
+  bool _isVisible = true;
+  bool timerStarted = false; // Add this line
+
   @override
   void initState() {
-    Timer.periodic(const Duration(seconds: 5), (timer) {
-      setState(() {
-        containerAnimation = !containerAnimation;
-        _isVisible = !_isVisible;
-      });
-    });
     super.initState();
+
+    // Start the timer with a 1-second duration
+    Timer(Duration(seconds: 1), _startAnimation);
+  }
+
+   void _startAnimation() {
+    setState(() {
+      containerAnimation = !containerAnimation;
+      _isVisible = !_isVisible;
+
+      // Check if the timer has already been started
+      if (!timerStarted) {
+        timerStarted = true;
+        // Start the timer with a 5-second duration after the first run
+        Timer.periodic(Duration(seconds: 5), (timer) {
+          setState(() {
+            containerAnimation = !containerAnimation;
+            _isVisible = !_isVisible;
+          });
+        });
+      }
+    });
   }
 
   @override

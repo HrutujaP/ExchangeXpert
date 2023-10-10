@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:math';
-
 import 'package:exchange_xpert/Screens/Home%20Screen/components/chart.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/currency_menu.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/functions.dart';
@@ -11,7 +9,6 @@ import 'package:exchange_xpert/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:lottie/lottie.dart';
 import 'package:particles_fly/particles_fly.dart';
 import '../../Constants/constant.dart';
 import 'package:flutter/material.dart';
@@ -73,10 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ParticlesFly(
                         height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
-                        connectDots: true,
+                        // connectDots: true,
                         numberOfParticles: 20,
                         speedOfParticles: 2,
-                        isRandSize: true,
+                        // isRandSize: true,
                         onTapAnimation: true,
                         particleColor: appTheme.colorScheme.surface,
                         lineColor: appTheme.colorScheme.surface,
