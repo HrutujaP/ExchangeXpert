@@ -92,32 +92,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const Spacer(
                       flex: 2,
                     ),
-                    _lightThemeSelected == false
-                        ? IconButton(
-                            onPressed: () {
+                    IconButton(
+                      onPressed: !_lightThemeSelected
+                          ? () {
                               setState(() {
                                 MyApp.setTheme(context, DarkTheme);
                                 _lightThemeSelected = true;
                               });
-                            },
-                            icon: Icon(
-                              Icons.bedtime,
-                              color: appTheme.colorScheme.primary,
-                            ),
-                          )
-                        : IconButton(
-                            onPressed: () {
+                            }
+                          : () {
                               setState(() {
                                 MyApp.setTheme(context, LightTheme);
                                 _lightThemeSelected = false;
                               });
                             },
-                            icon: Icon(
-                              Icons.sunny,
-                              color: appTheme.colorScheme.primary,
-                              size: 30,
-                            ),
-                          ),
+                      icon: Icon(
+                        !_lightThemeSelected ? Icons.bedtime : Icons.sunny,
+                        color: !_lightThemeSelected
+                            ? appTheme.colorScheme.surface
+                            : appTheme.colorScheme.primary,
+                        size: 30,
+                      ),
+                    )
                   ],
                 ),
               ),

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, camel_case_types
 
 import 'package:exchange_xpert/Constants/constant.dart';
+import 'package:exchange_xpert/main.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -13,10 +14,11 @@ class Chart extends StatefulWidget {
   State<Chart> createState() => _chartState();
 }
 
-class _chartState extends State<Chart> {
-  List<Color> gradientColors = [lPrimaryColor, lSecondaryColor];
-
-  bool showAvg = true;
+class _chartState extends State<Chart> with SingleTickerProviderStateMixin {
+  List<Color> gradientColors = [
+    appTheme.colorScheme.background,
+    appTheme.colorScheme.primary,
+  ];
 
   double avgDiffY = 0.0;
   double diffSumY = 0.0;
@@ -42,16 +44,18 @@ class _chartState extends State<Chart> {
           bottom: 0,
         ),
         child: LineChart(
-          showAvg ? avgData() : mainData(),
+          mainData(),
+          // duration: const Duration(milliseconds: 2000),
+          // chartRendererKey: const ObjectKey("chart"),
         ),
       ),
     );
   }
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(
+    TextStyle style = TextStyle(
       fontWeight: FontWeight.bold,
-      color: lPrimaryColor1,
+      color: appTheme.colorScheme.primary,
       fontSize: 12,
     );
 
@@ -65,9 +69,9 @@ class _chartState extends State<Chart> {
   }
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(
+    TextStyle style = TextStyle(
       fontWeight: FontWeight.bold,
-      color: lPrimaryColor1,
+      color: appTheme.colorScheme.primary,
       fontSize: 10,
     );
 
@@ -83,14 +87,14 @@ class _chartState extends State<Chart> {
         horizontalInterval: avgDiffY == 0 ? 1 : avgDiffY,
         verticalInterval: 1,
         getDrawingHorizontalLine: (value) {
-          return const FlLine(
-            color: lPrimaryColor1,
+          return FlLine(
+            color: appTheme.colorScheme.primary.withOpacity(0.5),
             strokeWidth: 1,
           );
         },
         getDrawingVerticalLine: (value) {
-          return const FlLine(
-            color: lSecondaryColor1,
+          return FlLine(
+            color: appTheme.colorScheme.primary.withOpacity(0.5),
             strokeWidth: 1,
           );
         },
@@ -116,13 +120,13 @@ class _chartState extends State<Chart> {
             showTitles: true,
             interval: avgDiffY == 0 ? 1 : avgDiffY,
             getTitlesWidget: leftTitleWidgets,
-            reservedSize: 42,
+            reservedSize: 40,
           ),
         ),
       ),
       borderData: FlBorderData(
         show: true,
-        border: Border.all(color: const Color(0xff37434d)),
+        border: Border.all(color: appTheme.colorScheme.primary, width: 1),
       ),
       minX: widget.spots
           .map((e) => e.x)
@@ -146,7 +150,7 @@ class _chartState extends State<Chart> {
           barWidth: 5,
           isStrokeCapRound: true,
           dotData: const FlDotData(
-            show: false,
+            show: true,
           ),
           belowBarData: BarAreaData(
             show: true,
@@ -154,103 +158,6 @@ class _chartState extends State<Chart> {
               colors: gradientColors
                   .map((color) => color.withOpacity(0.3))
                   .toList(),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  LineChartData avgData() {
-    return LineChartData(
-      lineTouchData: const LineTouchData(enabled: true),
-      gridData: FlGridData(
-        show: true,
-        drawHorizontalLine: true,
-        verticalInterval: 1,
-        horizontalInterval: avgDiffY == 0 ? 1 : avgDiffY,
-        getDrawingVerticalLine: (value) {
-          return const FlLine(
-            color: Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-        getDrawingHorizontalLine: (value) {
-          return const FlLine(
-            color: Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 30,
-            getTitlesWidget: bottomTitleWidgets,
-            interval: 1,
-          ),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            getTitlesWidget: leftTitleWidgets,
-            reservedSize: 42,
-            interval: avgDiffY == 0 ? 1 : avgDiffY,
-          ),
-        ),
-        topTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        rightTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-      ),
-      borderData: FlBorderData(
-        show: true,
-        border: Border.all(color: const Color(0xff37434d)),
-      ),
-      minX: widget.spots
-          .map((e) => e.x)
-          .reduce((value, element) => value < element ? value : element),
-      maxX: widget.spots
-          .map((e) => e.x)
-          .reduce((value, element) => value > element ? value : element),
-      minY: (widget.spots
-          .map((e) => e.y)
-          .reduce((value, element) => value < element ? value : element)),
-      maxY: (widget.spots
-          .map((e) => e.y)
-          .reduce((value, element) => value > element ? value : element)),
-      lineBarsData: [
-        LineChartBarData(
-          spots: widget.spots,
-          isCurved: true,
-          gradient: LinearGradient(
-            colors: [
-              ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                  .lerp(0.2)!,
-              ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                  .lerp(0.2)!,
-            ],
-          ),
-          barWidth: 5,
-          isStrokeCapRound: true,
-          dotData: const FlDotData(
-            show: true,
-          ),
-          belowBarData: BarAreaData(
-            show: true,
-            gradient: LinearGradient(
-              colors: [
-                ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                    .lerp(0.2)!
-                    .withOpacity(0.1),
-                ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                    .lerp(0.2)!
-                    .withOpacity(0.1),
-              ],
             ),
           ),
         ),

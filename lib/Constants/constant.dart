@@ -15,7 +15,7 @@ const Color lSubSecondaryColor = Color.fromARGB(255, 16, 92, 139);
 
 ThemeData LightTheme = ThemeData(
   colorScheme: const ColorScheme(
-    primary: lPrimaryColor,
+    primary: lSubPrimaryColor,
     onBackground: lPrimaryColor1,
     onError: LightThemeColor,
     onSecondary: lSecondaryColor1,

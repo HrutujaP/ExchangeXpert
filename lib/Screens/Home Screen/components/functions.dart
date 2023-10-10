@@ -67,15 +67,15 @@ class Functions {
     try {
       // get conversion rate for each date
       for (int i = 0; i < dates.length; i++) {
-        // String url =
-        //     "$apiUrl/${dates[i]}?$accessKey&symbols=$baseCurrency,$targetCurrency";
-        // http.Response response = await http.get(Uri.parse(url));
-        // Map<String, dynamic> data = jsonDecode(response.body);
-        // double base = data["rates"][baseCurrency];
-        // double target = data["rates"][targetCurrency];
+        String url =
+            "$apiUrl/${dates[i]}?$accessKey&symbols=$baseCurrency,$targetCurrency";
+        http.Response response = await http.get(Uri.parse(url));
+        Map<String, dynamic> data = jsonDecode(response.body);
+        double base = data["rates"][baseCurrency];
+        double target = data["rates"][targetCurrency];
 
-        // target = target / base;
-        double target = Random().nextDouble();
+        target = target / base;
+        // double target = Random().nextDouble();
         // reduce to 2 decimal places
         target = double.parse(target.toStringAsFixed(2));
         print(target);
@@ -93,14 +93,14 @@ class Functions {
     try {
       // get conversion rate for today
 
-      // String url = "$apiUrl/latest?$accessKey&symbols=$base,$target";
-      // http.Response response = await http.get(Uri.parse(url));
-      // Map<String, dynamic> data = jsonDecode(response.body);
-      // double baseC = data["rates"][base];
-      // double targetC = data["rates"][target];
+      String url = "$apiUrl/latest?$accessKey&symbols=$base,$target";
+      http.Response response = await http.get(Uri.parse(url));
+      Map<String, dynamic> data = jsonDecode(response.body);
+      double baseC = data["rates"][base];
+      double targetC = data["rates"][target];
 
-      double baseC = Random().nextDouble();
-      double targetC = Random().nextDouble();
+      // double baseC = Random().nextDouble();
+      // double targetC = Random().nextDouble();
 
       targetC = targetC / baseC;
       // reduce to 2 decimal places

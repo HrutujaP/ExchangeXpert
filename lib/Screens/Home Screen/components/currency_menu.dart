@@ -26,7 +26,7 @@ class _CurrencyMenuState extends State<CurrencyMenu> {
         .map((key, value) => MapEntry(
             key,
             DropdownMenuItem<String>(
-              value: "$value-$key",
+              value: "$key-$value",
               child: Text(value),
             )))
         .values
@@ -41,7 +41,8 @@ class _CurrencyMenuState extends State<CurrencyMenu> {
       padding: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        color: LightThemeColor.withOpacity(0.9), // Set the background color
+        color: appTheme.colorScheme.secondary
+            .withOpacity(0.4), // Set the background color
       ),
       child: DropdownButton(
           elevation: 10,
@@ -50,7 +51,7 @@ class _CurrencyMenuState extends State<CurrencyMenu> {
           selectedItemBuilder: (context) {
             return items.map((item) {
               String currency =
-                  item.value.toString().split("-")[1].toLowerCase();
+                  item.value.toString().split("-")[0].toLowerCase();
               String country = currencyToCountry.containsKey(currency)
                   ? currencyToCountry[currency]!
                   : "in";
@@ -70,7 +71,7 @@ class _CurrencyMenuState extends State<CurrencyMenu> {
                   Text(
                     item.value.toString(),
                     style: TextStyle(
-                      color: lSubSecondaryColor,
+                      color: appTheme.colorScheme.onError,
                       fontSize: MediaQuery.of(context).size.width * 0.035,
                       fontWeight: FontWeight.w900,
                     ),
@@ -92,7 +93,7 @@ class _CurrencyMenuState extends State<CurrencyMenu> {
           onChanged: (value) {
             setState(() {
               dropdownValue = value.toString();
-              widget.changeCurrency(value.toString().split('-')[1]);
+              widget.changeCurrency(value.toString().split('-')[0]);
             });
           }),
     );

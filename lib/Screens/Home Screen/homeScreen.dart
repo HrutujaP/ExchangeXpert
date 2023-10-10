@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:math';
+
 import 'package:exchange_xpert/Screens/Home%20Screen/components/chart.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/currency_menu.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/functions.dart';
@@ -36,15 +38,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void changeBase(String value) {
     setState(() {
+      exchangeRate = null;
+      graphData = null;
       base = value;
-      isAnimating = false;
     });
   }
 
   void changeTarget(String value) {
     setState(() {
+      exchangeRate = null;
+      graphData = null;
       target = value;
-      isAnimating = false;
     });
   }
 
@@ -70,11 +74,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
                         connectDots: true,
-                        numberOfParticles: 10,
-                        speedOfParticles: 1,
+                        numberOfParticles: 20,
+                        speedOfParticles: 2,
                         isRandSize: true,
                         onTapAnimation: true,
-                        particleColor: appTheme.colorScheme.primary,
+                        particleColor: appTheme.colorScheme.surface,
                         lineColor: appTheme.colorScheme.surface,
                         enableHover: true,
                       ),
@@ -87,12 +91,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 "${widget.user.displayName.toString().split(" ")[0]} 👋",
                                 style: const TextStyle(
                                     color: lPrimaryColor1,
-                                    fontSize: 20,
+                                    fontSize: 22,
                                     fontWeight: FontWeight.bold)),
                             const Spacer(),
-                            const Spacer(),
-                            Expanded(
-                                child: IconButton(
+                            IconButton(
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -106,16 +108,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: lPrimaryColor1,
                                 size: 30,
                               ),
-                            )),
+                            ),
                           ],
                         ),
                         Text(
-                          "Convert",
+                          "Let's Convert",
                           style: TextStyle(
-                              color: appTheme.colorScheme.primary,
+                              color: appTheme.colorScheme.surface,
                               letterSpacing: 3,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w900),
+                              fontSize: 28,
+                              fontWeight: FontWeight.w800),
                         ),
                         const SizedBox(
                           height: 15,
@@ -127,7 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
-                                    color: lSubSecondaryColor.withOpacity(0.2),
+                                    color: appTheme.colorScheme.surface
+                                        .withOpacity(0.1),
                                     spreadRadius: 1,
                                     blurRadius: 1,
                                     offset: const Offset(
@@ -145,16 +148,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    "From",
-                                    style: TextStyle(
-                                      color:
-                                          appTheme.colorScheme.primaryContainer,
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "From",
+                                        style: TextStyle(
+                                          color: appTheme
+                                              .colorScheme.primaryContainer,
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
                                               0.045,
-                                      fontWeight: FontWeight.w900,
-                                    ),
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                      ),
+                                      Spacer(),
+                                    ],
                                   ),
                                   CurrencyMenu(
                                     changeCurrency: changeBase,
@@ -165,16 +174,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                     indent: 50,
                                     endIndent: 50,
                                   ),
-                                  Text(
-                                    "To",
-                                    style: TextStyle(
-                                      color:
-                                          appTheme.colorScheme.primaryContainer,
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "To",
+                                        style: TextStyle(
+                                          color: appTheme
+                                              .colorScheme.primaryContainer,
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
                                               0.045,
-                                      fontWeight: FontWeight.w900,
-                                    ),
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                      ),
+                                      Spacer()
+                                    ],
                                   ),
                                   CurrencyMenu(
                                     changeCurrency: changeTarget,
@@ -191,14 +206,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 300,
                           width: MediaQuery.of(context).size.width,
                           child: Visibility(
-                            visible: isAnimating && graphData != null,
-                            replacement: Lottie.asset(
-                              'assets/animations/money-receive.json',
-                              height: 200,
-                              width: 200,
-                              repeat: true,
-                              reverse: true,
-                            ),
+                            visible: isAnimating && exchangeRate != null,
+                            replacement: const SizedBox(),
                             child: FutureBuilder(
                               future: graphData,
                               builder: (context, snapshot) {
@@ -210,8 +219,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }
                                 return FadeInAnimation(
                                   duration: const Duration(milliseconds: 1500),
-                                  child: Chart(
-                                    spots: snapshot.data!,
+                                  child: Material(
+                                    color: appTheme.colorScheme.secondary
+                                        .withOpacity(0.7),
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    elevation: 5,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Chart(
+                                        spots: snapshot.data!,
+                                      ),
+                                    ),
                                   ),
                                 );
                               },
@@ -240,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Text(
                                         '1 $base = ${snapshot.data} $target',
                                         style: TextStyle(
-                                          color: appTheme.colorScheme.primary,
+                                          color: appTheme.colorScheme.surface,
                                           fontSize: 18,
                                           fontWeight: FontWeight.w900,
                                         ),
