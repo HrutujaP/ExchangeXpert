@@ -209,10 +209,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               future: graphData,
                               builder: (context, snapshot) {
                                 if (!snapshot.hasData) {
-                                  return Transform.rotate(
-                                      angle: -0.45,
-                                      child: AnimatedChart(
-                                          alignment: Alignment.center));
+                                  return Center(
+                                    child: Transform.rotate(
+                                        angle: -0.45,
+                                        child: AnimatedChart(
+                                            alignment: Alignment.center)),
+                                  );
                                 }
                                 return FadeInAnimation(
                                   duration: const Duration(milliseconds: 1500),

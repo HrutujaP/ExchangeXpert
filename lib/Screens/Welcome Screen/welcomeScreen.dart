@@ -27,7 +27,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     super.initState();
 
     // Start the timer with a 1-second duration
-    Timer(Duration(seconds: 1), _startAnimation);
+    Timer(const Duration(seconds: 1), _startAnimation);
   }
 
    void _startAnimation() {
@@ -39,7 +39,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       if (!timerStarted) {
         timerStarted = true;
         // Start the timer with a 5-second duration after the first run
-        Timer.periodic(Duration(seconds: 5), (timer) {
+        Timer.periodic(const Duration(seconds: 5), (timer) {
           setState(() {
             containerAnimation = !containerAnimation;
             _isVisible = !_isVisible;
