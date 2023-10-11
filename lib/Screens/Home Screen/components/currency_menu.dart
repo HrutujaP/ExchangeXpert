@@ -26,7 +26,7 @@ class _CurrencyMenuState extends State<CurrencyMenu> {
         .map((key, value) => MapEntry(
             key,
             DropdownMenuItem<String>(
-              value: "$key-$value",
+              value: key,
               child: Text(value),
             )))
         .values

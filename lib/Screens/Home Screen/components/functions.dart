@@ -10,7 +10,7 @@ class Functions {
   final String apiUrl = "http://data.fixer.io/api/";
 
   // final String accessKey = "access_key=ac1a360a2533fd4fb58caa7aa66ae2c0";
-  final String accessKey = "access_key=dd0a66accbecdbe4b154d3ba574ba88a";
+  final String accessKey = "access_key=d0f9c70025aaee83fb5ca5c7184228bd";
 
   Future<List<FlSpot>> getConversionRate(
       String baseCurrency, String targetCurrency, User user) async {

@@ -1,6 +1,9 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:math';
+
 import 'package:exchange_xpert/Screens/Home%20Screen/components/chart.dart';
+import 'package:exchange_xpert/Screens/Home%20Screen/components/countUpAnimation.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/currency_menu.dart';
 import 'package:exchange_xpert/Screens/Home%20Screen/components/functions.dart';
 import 'package:exchange_xpert/Screens/Profile%20Screen/components/animatedChart.dart';
@@ -163,8 +166,59 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Spacer(),
                                     ],
                                   ),
-                                  CurrencyMenu(
-                                    changeCurrency: changeBase,
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 200,
+                                        child: TextField(
+                                          onChanged: (value) {
+                                            setState(() {
+                                              quantity = int.parse(value);
+                                            });
+                                          },
+                                          keyboardType: TextInputType.number,
+                                          style: TextStyle(
+                                              color:
+                                                  appTheme.colorScheme.surface,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w900),
+                                          decoration: InputDecoration(
+                                            hintText: "Enter Quantity",
+                                            hintStyle: TextStyle(
+                                                color: appTheme
+                                                    .colorScheme.surface,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w900),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: const BorderSide(
+                                                  color: Colors.transparent),
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: const BorderSide(
+                                                  color: Colors.transparent),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: const BorderSide(
+                                                  color: Colors.transparent),
+                                            ),
+                                            fillColor: appTheme
+                                                .colorScheme.secondary
+                                                .withOpacity(0.4),
+                                            filled: true,
+                                          ),
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      CurrencyMenu(
+                                        changeCurrency: changeBase,
+                                      ),
+                                    ],
                                   ),
                                   const Divider(
                                     color: Colors.transparent,
@@ -189,8 +243,64 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Spacer()
                                     ],
                                   ),
-                                  CurrencyMenu(
-                                    changeCurrency: changeTarget,
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 200,
+                                        height: 60,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            color: appTheme
+                                                .colorScheme.secondary
+                                                .withOpacity(
+                                                    0.4), // Set the background color
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Center(
+                                              child: Visibility(
+                                                visible: isAnimating && exchangeRate != null,
+                                                replacement: Text(
+                                                  "0.00",
+                                                  style: TextStyle(
+                                                      color: appTheme
+                                                          .colorScheme.surface,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w900),
+                                                ),
+                                                child: FutureBuilder(
+                                                  future: exchangeRate,
+                                                  builder: (context, snapshot) {
+                                                    if (!snapshot.hasData) {
+                                                      return const CircularProgressIndicator();
+                                                    }
+                                                    double value = quantity *
+                                                        double.parse(snapshot.data
+                                                            .toString());
+                                              
+                                                    value = double.parse(
+                                                        value.toStringAsFixed(2));
+                                              
+                                                    return CountUpAnimation(
+                                                      targetNumber: value,
+                                                      duration: const Duration(
+                                                          seconds: 3),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      CurrencyMenu(
+                                        changeCurrency: changeTarget,
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -205,48 +315,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: MediaQuery.of(context).size.width,
                           child: Visibility(
                             visible: isAnimating && exchangeRate != null,
-                            replacement: Center(
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.8,
-                                child: TextField(
-                                  onChanged: (value) {
-                                    setState(() {
-                                      quantity = int.parse(value);
-                                    });
-                                  },
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                      color: appTheme.colorScheme.surface,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w900),
-                                  decoration: InputDecoration(
-                                    hintText: "Enter Quantity",
-                                    hintStyle: TextStyle(
-                                        color: appTheme.colorScheme.surface,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w900),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: const BorderSide(
-                                          color: Colors.transparent),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: const BorderSide(
-                                          color: Colors.transparent),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: const BorderSide(
-                                          color: Colors.transparent),
-                                    ),
-                                    fillColor: appTheme.colorScheme.secondary
-                                        .withOpacity(0.7),
-                                    filled: true,
-                                  ),
-                                ),
-                              ),
-                            ),
+                            replacement: const SizedBox(),
                             child: FutureBuilder(
                               future: graphData,
                               builder: (context, snapshot) {
@@ -293,11 +362,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: CircularProgressIndicator(),
                                     );
                                   }
+
                                   return Container(
                                     padding: const EdgeInsets.all(8),
                                     child: Column(children: [
                                       Text(
-                                        '$quantity $base = ${(double.parse(snapshot.data!) * quantity).toStringAsFixed(2)} $target',
+                                        '1 $base = ${snapshot.data} $target',
                                         style: TextStyle(
                                           color: appTheme.colorScheme.surface,
                                           fontSize: 18,
@@ -321,6 +391,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     base, target, widget.user);
                                 exchangeRate =
                                     functions.getExchangeRate(base, target);
+
                                 isAnimating = true;
                               });
                             },
@@ -339,12 +410,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                     RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
                                 ))),
-                            child: Text(
-                              "Convert $base to $target",
-                              style: const TextStyle(
-                                  color: lSubPrimaryColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Convert $base to $target",
+                                style: const TextStyle(
+                                    color: lSubPrimaryColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              ),
                             ),
                           ),
                         ),
