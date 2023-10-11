@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               fontSize: 18,
                                               fontWeight: FontWeight.w900),
                                           decoration: InputDecoration(
-                                            hintText: "Enter Quantity",
+                                            hintText: "Enter Amount",
                                             hintStyle: TextStyle(
                                                 color: appTheme
                                                     .colorScheme.surface,
@@ -261,7 +261,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: Center(
                                               child: Visibility(
-                                                visible: isAnimating && exchangeRate != null,
+                                                visible: isAnimating &&
+                                                    exchangeRate != null,
                                                 replacement: Text(
                                                   "0.00",
                                                   style: TextStyle(
@@ -278,12 +279,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       return const CircularProgressIndicator();
                                                     }
                                                     double value = quantity *
-                                                        double.parse(snapshot.data
+                                                        double.parse(snapshot
+                                                            .data
                                                             .toString());
-                                              
-                                                    value = double.parse(
-                                                        value.toStringAsFixed(2));
-                                              
+
+                                                    value = double.parse(value
+                                                        .toStringAsFixed(2));
+
                                                     return CountUpAnimation(
                                                       targetNumber: value,
                                                       duration: const Duration(

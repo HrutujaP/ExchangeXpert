@@ -35,9 +35,10 @@ class _CountUpAnimationState extends State<CountUpAnimation>
     return Text(
       '${_animation.value.toStringAsFixed(2)}', // Display with two decimal places
       style: TextStyle(
-          color: appTheme.colorScheme.surface,
-          fontSize: 21,
-          fontWeight: FontWeight.w900),
+        color: appTheme.colorScheme.surface,
+        fontSize: 28,
+        fontWeight: FontWeight.w400,
+      ),
     );
   }
 
