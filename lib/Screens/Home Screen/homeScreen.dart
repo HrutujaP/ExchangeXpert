@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String base = "AED";
   String target = "AED";
+  int quantity = 1;
 
   bool isAnimating = false;
 
@@ -204,7 +205,48 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: MediaQuery.of(context).size.width,
                           child: Visibility(
                             visible: isAnimating && exchangeRate != null,
-                            replacement: const SizedBox(),
+                            replacement: Center(
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                child: TextField(
+                                  onChanged: (value) {
+                                    setState(() {
+                                      quantity = int.parse(value);
+                                    });
+                                  },
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                      color: appTheme.colorScheme.surface,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w900),
+                                  decoration: InputDecoration(
+                                    hintText: "Enter Quantity",
+                                    hintStyle: TextStyle(
+                                        color: appTheme.colorScheme.surface,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w900),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: const BorderSide(
+                                          color: Colors.transparent),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: const BorderSide(
+                                          color: Colors.transparent),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: const BorderSide(
+                                          color: Colors.transparent),
+                                    ),
+                                    fillColor: appTheme.colorScheme.secondary
+                                        .withOpacity(0.7),
+                                    filled: true,
+                                  ),
+                                ),
+                              ),
+                            ),
                             child: FutureBuilder(
                               future: graphData,
                               builder: (context, snapshot) {
@@ -255,7 +297,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     padding: const EdgeInsets.all(8),
                                     child: Column(children: [
                                       Text(
-                                        '1 $base = ${snapshot.data} $target',
+                                        '$quantity $base = ${(double.parse(snapshot.data!) * quantity).toStringAsFixed(2)} $target',
                                         style: TextStyle(
                                           color: appTheme.colorScheme.surface,
                                           fontSize: 18,
