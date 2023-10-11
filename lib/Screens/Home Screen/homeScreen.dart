@@ -169,7 +169,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Row(
                                     children: [
                                       SizedBox(
-                                        width: 200,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.45,
                                         child: TextField(
                                           onChanged: (value) {
                                             setState(() {
@@ -246,7 +248,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Row(
                                     children: [
                                       SizedBox(
-                                        width: 200,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.45,
                                         height: 60,
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -261,7 +265,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: Center(
                                               child: Visibility(
-                                                visible: isAnimating && exchangeRate != null,
+                                                visible: isAnimating &&
+                                                    exchangeRate != null,
                                                 replacement: Text(
                                                   "0.00",
                                                   style: TextStyle(
@@ -278,12 +283,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       return const CircularProgressIndicator();
                                                     }
                                                     double value = quantity *
-                                                        double.parse(snapshot.data
+                                                        double.parse(snapshot
+                                                            .data
                                                             .toString());
-                                              
-                                                    value = double.parse(
-                                                        value.toStringAsFixed(2));
-                                              
+
+                                                    value = double.parse(value
+                                                        .toStringAsFixed(2));
+
                                                     return CountUpAnimation(
                                                       targetNumber: value,
                                                       duration: const Duration(

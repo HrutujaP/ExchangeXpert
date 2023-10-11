@@ -5,7 +5,7 @@ class CountUpAnimation extends StatefulWidget {
   final double targetNumber;
   final Duration duration;
 
-  CountUpAnimation({required this.targetNumber, required this.duration});
+  const CountUpAnimation({required this.targetNumber, required this.duration});
 
   @override
   _CountUpAnimationState createState() => _CountUpAnimationState();
@@ -33,7 +33,7 @@ class _CountUpAnimationState extends State<CountUpAnimation>
   @override
   Widget build(BuildContext context) {
     return Text(
-      '${_animation.value.toStringAsFixed(2)}', // Display with two decimal places
+      _animation.value.toStringAsFixed(2), // Display with two decimal places
       style: TextStyle(
           color: appTheme.colorScheme.surface,
           fontSize: 21,
