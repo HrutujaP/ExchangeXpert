@@ -4,6 +4,8 @@ import 'package:exchange_xpert/Constants/constant.dart';
 import 'package:exchange_xpert/main.dart';
 import 'package:flutter/material.dart';
 
+import 'package:exchange_xpert/Screens/Home%20Screen/components/countUpAnimation.dart';
+
 class CurrencyCard extends StatelessWidget {
   const CurrencyCard({
     super.key,
@@ -93,12 +95,22 @@ class CurrencyCard extends StatelessWidget {
                               ],
                             ),
                             const Spacer(),
-                            Text("$symbol $tragetValue",
-                                style: TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.w400,
-                                  color: appTheme.colorScheme.surface,
-                                )),
+                            Row(
+                              children: [
+                                Text(
+                                  "$symbol ",
+                                  style: TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w400,
+                                    color: appTheme.colorScheme.surface,
+                                  ),
+                                ),
+                                CountUpAnimation(
+                                  targetNumber: double.parse(tragetValue),
+                                  duration: const Duration(seconds: 2),
+                                ),
+                              ],
+                            ),
                           ].reversed.toList(),
                   ),
                 )),

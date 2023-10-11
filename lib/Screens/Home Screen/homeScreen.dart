@@ -185,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               fontSize: 18,
                                               fontWeight: FontWeight.w900),
                                           decoration: InputDecoration(
-                                            hintText: "Enter Quantity",
+                                            hintText: "Enter Amount",
                                             hintStyle: TextStyle(
                                                 color: appTheme
                                                     .colorScheme.surface,
