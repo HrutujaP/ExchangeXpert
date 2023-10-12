@@ -1,4 +1,4 @@
-package com.example.exchange_xpert
+package com.jh.exchnagexpert
 
 import io.flutter.embedding.android.FlutterActivity
 

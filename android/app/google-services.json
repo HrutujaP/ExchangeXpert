@@ -12,7 +12,28 @@
           "package_name": "com.example.exchange_xpert"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "810279860405-hfc66lhs5l3qnd6kiqf2o31b11b6c27j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.exchange_xpert",
+            "certificate_hash": "c48469feafe669c808e9a85b9e64a0c447ae10d8"
+          }
+        },
+        {
+          "client_id": "810279860405-quje7silh8hutgla1hsfp7n0saldd675.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.exchange_xpert",
+            "certificate_hash": "4625958ce15b959fa93cd460a76a94750b23ceb2"
+          }
+        },
+        {
+          "client_id": "810279860405-cmo442p0srsvklctnmt2arrb8imo8gd0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD8EaMzJIn0kCcYpZiP1OYdoMRWtazFJTY"
@@ -20,7 +41,55 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "810279860405-cmo442p0srsvklctnmt2arrb8imo8gd0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "810279860405-fk1g57tol42uee2i51hokmmpp1af0hs2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ios.exchangeXpert"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810279860405:android:0424492f7ab71db86526fc",
+        "android_client_info": {
+          "package_name": "com.jh.exchnagexpert"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "810279860405-cmo442p0srsvklctnmt2arrb8imo8gd0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8EaMzJIn0kCcYpZiP1OYdoMRWtazFJTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "810279860405-cmo442p0srsvklctnmt2arrb8imo8gd0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "810279860405-fk1g57tol42uee2i51hokmmpp1af0hs2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ios.exchangeXpert"
+              }
+            }
+          ]
         }
       }
     }
