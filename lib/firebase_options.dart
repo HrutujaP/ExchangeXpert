@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,9 +43,18 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyC7BtRYYkU6_6Wg57Q2Z7n-vLt71y2R0Tk',
+    appId: '1:810279860405:web:5399d33f55414b046526fc',
+    messagingSenderId: '810279860405',
+    projectId: 'exchangexpert-90518',
+    authDomain: 'exchangexpert-90518.firebaseapp.com',
+    storageBucket: 'exchangexpert-90518.appspot.com',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD8EaMzJIn0kCcYpZiP1OYdoMRWtazFJTY',
-    appId: '1:810279860405:android:3eb412e663365c9f6526fc',
+    appId: '1:810279860405:android:0424492f7ab71db86526fc',
     messagingSenderId: '810279860405',
     projectId: 'exchangexpert-90518',
     storageBucket: 'exchangexpert-90518.appspot.com',
@@ -59,10 +62,23 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCu4G_VF2yTl1eVRKVj7ZV-5wR2oCk7SJw',
-    appId: '1:810279860405:ios:e75403782f07331d6526fc',
+    appId: '1:810279860405:ios:722d0b8e22076cbf6526fc',
     messagingSenderId: '810279860405',
     projectId: 'exchangexpert-90518',
     storageBucket: 'exchangexpert-90518.appspot.com',
-    iosBundleId: 'com.example.exchangeXpert',
+    androidClientId: '810279860405-hfc66lhs5l3qnd6kiqf2o31b11b6c27j.apps.googleusercontent.com',
+    iosClientId: '810279860405-fk1g57tol42uee2i51hokmmpp1af0hs2.apps.googleusercontent.com',
+    iosBundleId: 'com.ios.exchangeXpert',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyCu4G_VF2yTl1eVRKVj7ZV-5wR2oCk7SJw',
+    appId: '1:810279860405:ios:c599df3b0956662a6526fc',
+    messagingSenderId: '810279860405',
+    projectId: 'exchangexpert-90518',
+    storageBucket: 'exchangexpert-90518.appspot.com',
+    androidClientId: '810279860405-hfc66lhs5l3qnd6kiqf2o31b11b6c27j.apps.googleusercontent.com',
+    iosClientId: '810279860405-k4o68d6p1oerhgoic9t45r2iigcdbs23.apps.googleusercontent.com',
+    iosBundleId: 'com.example.exchangeXpert.RunnerTests',
   );
 }

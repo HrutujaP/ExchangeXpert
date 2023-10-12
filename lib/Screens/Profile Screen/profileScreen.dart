@@ -39,6 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ? widget.user.email.toString()
           : widget.user.phoneNumber.toString().replaceFirst("+91", "");
     });
+    print(docID);
     // startAnimation();
     super.initState();
   }
