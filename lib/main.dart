@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     User? user;
     user = FirebaseAuth.instance.currentUser;
-    // user = null;
+    user = null;
 
     return Theme(
       data: appTheme,

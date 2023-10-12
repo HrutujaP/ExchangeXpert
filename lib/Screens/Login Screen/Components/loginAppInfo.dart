@@ -31,7 +31,7 @@ class loginAppInfo extends StatelessWidget {
                         height: 130,
                         width: 130,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
+                          borderRadius: const BorderRadius.all(
                             Radius.circular(130),
                           ),
                           color: appTheme.colorScheme.primary,
@@ -42,8 +42,8 @@ class loginAppInfo extends StatelessWidget {
                 const Center(
                   child: Image(
                     image: AssetImage("assets/Images/logo.png"),
-                    height: 125,
-                    width: 125,
+                    height: 140,
+                    width: 140,
                   ),
                 ),
               ],

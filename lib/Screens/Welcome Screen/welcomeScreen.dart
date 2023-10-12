@@ -6,8 +6,6 @@ import 'package:exchange_xpert/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-
-
 class WelcomeScreen extends StatefulWidget {
   User? user;
   WelcomeScreen({required this.user, super.key});
@@ -18,7 +16,7 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
- bool containerAnimation = true;
+  bool containerAnimation = true;
   bool _isVisible = true;
   bool timerStarted = false; // Add this line
 
@@ -30,7 +28,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     Timer(const Duration(seconds: 1), _startAnimation);
   }
 
-   void _startAnimation() {
+  void _startAnimation() {
     setState(() {
       containerAnimation = !containerAnimation;
       _isVisible = !_isVisible;
@@ -209,8 +207,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               const Center(
                                 child: Image(
                                   image: AssetImage("assets/Images/logo.png"),
-                                  height: 125,
-                                  width: 125,
+                                  height: 170,
+                                  width: 170,
                                 ),
                               ),
                             ],
